@@ -118,6 +118,22 @@
   "VFSubtitleMaximumDepthReached": "警告！最大深度に到達しました！船体に損傷がある可能性があります！",
   "VFSubtitlePassingSafeDepth": "警告！安全深度を超えました！",
   "VFSubtitleLeviathanDetected": "レヴィアサンが検出されました！",
-  "VFSubtitleUhOh": "おっと！"
+  "VFSubtitleUhOh": "おっと！",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "ヘッドライト",
+    "VFHeadlightsButtonTooltip": "ヘッドライトをオンまたはオフにするにはクリックしてください",
+    "VFLeftClickHeadlightsLabel": "ヘッドライトの変更（左クリック）",
+    "VFLeftClickHeadlightsTooltip": "左クリックでヘッドライトを変更します",
+    "VFRightClickHeadlightsLabel": "ヘッドライトの変更（右クリック）",
+    "VFRightClickHeadlightsTooltip": "右クリックでヘッドライトを変更します",
+    "VFPrevCameraLabel": "前のカメラ",
+    "VFPrevCameraTooltip": "前のカメラに切り替え",
+    "VFNextCameraLabel": "次のカメラ",
+    "VFNextCameraTooltip": "次のカメラに切り替え",
+    "VFExitCameraLabel": "カメラを終了",
+    "VFExitCameraTooltip": "カメラを終了するにはクリックしてください",
+    "VFMagBootsButtonLabel": "マグネットブーツの変更",
+    "VFMagBootsButtonTooltip": "マグネットブーツをオンまたはオフにするにはクリックしてください"
 }
 

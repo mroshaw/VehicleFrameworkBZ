@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Упозорење! Достигнута максимална дубина! Могуће оштећење корпуса!",
   "VFSubtitlePassingSafeDepth": "Упозорење! Прешли сте безбедну дубину!",
   "VFSubtitleLeviathanDetected": "Левијатан откривен!",
-  "VFSubtitleUhOh": "Ох!"
+  "VFSubtitleUhOh": "Ох!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Тастер фарова",
+    "VFHeadlightsButtonTooltip": "Кликните да бисте укључили или искључили фарове",
+    "VFLeftClickHeadlightsLabel": "Промените фарове (леви клик)",
+    "VFLeftClickHeadlightsTooltip": "Леви клик за промену фарова",
+    "VFRightClickHeadlightsLabel": "Промените фарове (десни клик)",
+    "VFRightClickHeadlightsTooltip": "Десни клик за промену фарова",
+    "VFPrevCameraLabel": "Претходна камера",
+    "VFPrevCameraTooltip": "Пребаците на претходну камеру",
+    "VFNextCameraLabel": "Наредна камера",
+    "VFNextCameraTooltip": "Пребаците на наредну камеру",
+    "VFExitCameraLabel": "Напустите режим камере",
+    "VFExitCameraTooltip": "Напустите режим камере",
+    "VFMagBootsButtonLabel": "Промените магнетне ципеле",
+    "VFMagBootsButtonTooltip": "Укључите или искључите магнетне ципеле"
 }
 

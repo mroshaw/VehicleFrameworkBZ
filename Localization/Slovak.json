@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Varovanie! Dosiahnutá maximálna hĺbka! Môžu vzniknúť poruchy trupu!",
   "VFSubtitlePassingSafeDepth": "Varovanie! Prekročená bezpečná hĺbka!",
   "VFSubtitleLeviathanDetected": "Leviathan zistený!",
-  "VFSubtitleUhOh": "Oj!"
+  "VFSubtitleUhOh": "Oj!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Tlačidlo svetlometu",
+    "VFHeadlightsButtonTooltip": "Kliknite pre zapnutie alebo vypnutie svetlometov",
+    "VFLeftClickHeadlightsLabel": "Zmeniť svetlomety (ľavé kliknutie)",
+    "VFLeftClickHeadlightsTooltip": "Ľavé kliknutie na zmenu svetlometov",
+    "VFRightClickHeadlightsLabel": "Zmeniť svetlomety (pravé kliknutie)",
+    "VFRightClickHeadlightsTooltip": "Pravé kliknutie na zmenu svetlometov",
+    "VFPrevCameraLabel": "Predchádzajúca kamera",
+    "VFPrevCameraTooltip": "Prepnúť na predchádzajúcu kameru",
+    "VFNextCameraLabel": "Ďalšia kamera",
+    "VFNextCameraTooltip": "Prepnúť na ďalšiu kameru",
+    "VFExitCameraLabel": "Opustite režim kamery",
+    "VFExitCameraTooltip": "Opustite režim kamery",
+    "VFMagBootsButtonLabel": "Zmeniť magnetické topánky",
+    "VFMagBootsButtonTooltip": "Zapnúť alebo vypnúť magnetické topánky"
 }
 

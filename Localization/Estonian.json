@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Hoiatus! Maksimaalne sügavus saavutatud! Kere lekkimine on lähenemas!",
   "VFSubtitlePassingSafeDepth": "Hoiatus! Ohutu sügavus ületatud!",
   "VFSubtitleLeviathanDetected": "Leviathan tuvastatud!",
-  "VFSubtitleUhOh": "Ups!"
+  "VFSubtitleUhOh": "Ups!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Esitulede lüliti",
+    "VFHeadlightsButtonTooltip": "Klõpsa esitulede vaheldamiseks juhtimise ajal.",
+    "VFLeftClickHeadlightsLabel": "Esitulede lüliti (vasak klõps)",
+    "VFLeftClickHeadlightsTooltip": "Võimaldab esitulesid vahetada vasaku hiireklõpsu või vasaku nupuga.",
+    "VFRightClickHeadlightsLabel": "Esitulede lüliti (parem klõps)",
+    "VFRightClickHeadlightsTooltip": "Võimaldab esitulesid vahetada parema hiireklõpsu või parema nupuga.",
+    "VFPrevCameraLabel": "Eelmine kaamera",
+    "VFPrevCameraTooltip": "Vaheta eelnevasse kaamerasse.",
+    "VFNextCameraLabel": "Järgmine kaamera",
+    "VFNextCameraTooltip": "Vaheta järgmisse kaamerasse.",
+    "VFExitCameraLabel": "Välju kaamerast",
+    "VFExitCameraTooltip": "Välju kaamera vaatesse.",
+    "VFMagBootsButtonLabel": "Magneetkingade lüliti",
+    "VFMagBootsButtonTooltip": "Lülita sisse või välja magnetkingad."
 }
 

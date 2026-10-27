@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Advarsel! Maksimal dybde nået! Skrogbeskadigelse uundgåelig!",
   "VFSubtitlePassingSafeDepth": "Advarsel! Overskrider sikker dybde!",
   "VFSubtitleLeviathanDetected": "Leviathan opdaget!",
-  "VFSubtitleUhOh": "Ups!"
+  "VFSubtitleUhOh": "Ups!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Skift forlygter",
+    "VFHeadlightsButtonTooltip": "Tryk på denne knap for at tænde eller slukke forlygterne under styring.",
+    "VFLeftClickHeadlightsLabel": "Skift forlygter (venstre klik)",
+    "VFLeftClickHeadlightsTooltip": "Tillader forlygtestyring med venstre klik eller venstre aftrækker.",
+    "VFRightClickHeadlightsLabel": "Skift forlygter (højre klik)",
+    "VFRightClickHeadlightsTooltip": "Tillader forlygtestyring med højre klik eller højre aftrækker.",
+    "VFPrevCameraLabel": "Forrige kamera",
+    "VFPrevCameraTooltip": "Skift til det forrige kamera på køretøjet.",
+    "VFNextCameraLabel": "Næste kamera",
+    "VFNextCameraTooltip": "Skift til det næste kamera på køretøjet.",
+    "VFExitCameraLabel": "Forlad kamera",
+    "VFExitCameraTooltip": "Forlad kameravisning.",
+    "VFMagBootsButtonLabel": "Skift magnetstøvler",
+    "VFMagBootsButtonTooltip": "Tænd eller sluk magnetstøvlerne."
 }
 

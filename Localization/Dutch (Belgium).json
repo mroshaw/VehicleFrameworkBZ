@@ -110,6 +110,22 @@
   "VFSubtitleGoodbye": "Vaarwel",
   "VFSubtitleHullFailureImminent": "Waarschuwing! Rompdefect op komst!",
   "VFSubtitleHullIntegrityCritical": "Waarschuwing! Kritieke rompstructuur!",
-  "VFSubtitleHullIntegrityLow": "Waarschuwing! Lage rompstructuur!"
+  "VFSubtitleHullIntegrityLow": "Waarschuwing! Lage rompstructuur!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Koplampen",
+    "VFHeadlightsButtonTooltip": "Klik om de koplampen aan of uit te zetten",
+    "VFLeftClickHeadlightsLabel": "Koplampen wisselen (linkerklik)",
+    "VFLeftClickHeadlightsTooltip": "Linkerklik om koplampen te wisselen",
+    "VFRightClickHeadlightsLabel": "Koplampen wisselen (rechterklik)",
+    "VFRightClickHeadlightsTooltip": "Rechterklik om koplampen te wisselen",
+    "VFPrevCameraLabel": "Vorige camera",
+    "VFPrevCameraTooltip": "Wissel naar vorige camera",
+    "VFNextCameraLabel": "Volgende camera",
+    "VFNextCameraTooltip": "Wissel naar volgende camera",
+    "VFExitCameraLabel": "Camera verlaten",
+    "VFExitCameraTooltip": "Klik om de camera te verlaten",
+    "VFMagBootsButtonLabel": "Magnetische laarzen wisselen",
+    "VFMagBootsButtonTooltip": "Klik om magnetische laarzen aan of uit te zetten"
 }
 

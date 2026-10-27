@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
+
+namespace DaftAppleGames.VehicleFrameworkBZ.Engines
+{
+    public class CricketEngine : ModVehicleEngine
+    {
+        protected override float FORWARD_TOP_SPEED => 1300;
+        protected override float REVERSE_TOP_SPEED => 450;
+        protected override float STRAFE_MAX_SPEED => 450;
+        protected override float VERT_MAX_SPEED => 450;
+
+        protected override float FORWARD_ACCEL => FORWARD_TOP_SPEED * 7;
+        protected override float REVERSE_ACCEL => REVERSE_TOP_SPEED * 6;
+        protected override float STRAFE_ACCEL => STRAFE_MAX_SPEED * 6;
+        protected override float VERT_ACCEL => VERT_MAX_SPEED * 6;
+
+        protected override float WaterDragDecay => 6.5f;
+        protected override float DragThresholdSpeed => 1;
+
+
+        public override void ControlRotation(Vector2 lookInput)
+        {
+            // Control rotation
+            float pitchFactor = 4.5f / 60f;
+            float yawFactor = 4.5f / 60f;
+            float xRot = lookInput.x;
+            float yRot = lookInput.y;
+            RB.AddTorque(MV.transform.up * xRot * yawFactor, ForceMode.VelocityChange);
+            RB.AddTorque(MV.transform.right * yRot * -pitchFactor, ForceMode.VelocityChange);
+        }
+        protected override void DrainPower(Vector3 moveDirection)
+        {
+            /* Rationale for these values
+             * Seamoth spends this on Update
+             * base.ConsumeEngineEnergy(Time.deltaTime * this.enginePowerConsumption * vector.magnitude);
+             * where vector.magnitude in [0,3];
+             * instead of enginePowerConsumption, we have upgradeModifier, but they are similar if not identical
+             * so the power consumption is similar to that of a seamoth.
+             */
+            float scalarFactor = 0.08f;
+            float basePowerConsumptionPerSecond = moveDirection.x + moveDirection.y + moveDirection.z;
+            float upgradeModifier = Mathf.Pow(0.85f, MV.NumEfficiencyModules);
+            MV.gameObject.EnsureComponent<PowerManager>().TrySpendEnergy(scalarFactor * basePowerConsumptionPerSecond * upgradeModifier * Time.fixedDeltaTime);
+        }
+    }
+}

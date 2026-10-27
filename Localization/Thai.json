@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "ระวัง! ความลึกสูงสุดถึงแล้ว ตัวถังอาจเสียหาย!",
   "VFSubtitlePassingSafeDepth": "ระวัง! ความลึกที่ปลอดภัยถูกฝ่าฝืน!",
   "VFSubtitleLeviathanDetected": "ตรวจพบ Leviathan!",
-  "VFSubtitleUhOh": "โอ้ไม่!"
+  "VFSubtitleUhOh": "โอ้ไม่!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "ปุ่มไฟหน้า",
+    "VFHeadlightsButtonTooltip": "คลิกเพื่อเปิดหรือปิดไฟหน้า",
+    "VFLeftClickHeadlightsLabel": "เปลี่ยนไฟหน้า (คลิกซ้าย)",
+    "VFLeftClickHeadlightsTooltip": "คลิกซ้ายเพื่อเปลี่ยนไฟหน้า",
+    "VFRightClickHeadlightsLabel": "เปลี่ยนไฟหน้า (คลิกขวา)",
+    "VFRightClickHeadlightsTooltip": "คลิกขวาเพื่อเปลี่ยนไฟหน้า",
+    "VFPrevCameraLabel": "กล้องก่อนหน้า",
+    "VFPrevCameraTooltip": "สลับไปยังกล้องก่อนหน้า",
+    "VFNextCameraLabel": "กล้องถัดไป",
+    "VFNextCameraTooltip": "สลับไปยังกล้องถัดไป",
+    "VFExitCameraLabel": "ออกจากโหมดกล้อง",
+    "VFExitCameraTooltip": "ออกจากโหมดกล้อง",
+    "VFMagBootsButtonLabel": "เปลี่ยนรองเท้าแม่เหล็ก",
+    "VFMagBootsButtonTooltip": "เปิดหรือปิดรองเท้าแม่เหล็ก"
 }
 

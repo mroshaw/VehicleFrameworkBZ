@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "¡Advertencia! ¡Se alcanzó la profundidad máxima! ¡Fuga en el casco inminente!",
   "VFSubtitlePassingSafeDepth": "¡Advertencia! ¡Profundidad segura superada!",
   "VFSubtitleLeviathanDetected": "¡Leviatán detectado!",
-  "VFSubtitleUhOh": "¡Vaya!"
+  "VFSubtitleUhOh": "¡Vaya!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Interruptor de faros",
+    "VFHeadlightsButtonTooltip": "Presiona para alternar los faros mientras pilotas.",
+    "VFLeftClickHeadlightsLabel": "Interruptor de faros (clic izquierdo)",
+    "VFLeftClickHeadlightsTooltip": "Te permite alternar los faros con clic izquierdo o presión del joystick izquierdo.",
+    "VFRightClickHeadlightsLabel": "Interruptor de faros (clic derecho)",
+    "VFRightClickHeadlightsTooltip": "Te permite alternar los faros con clic derecho o presión del joystick derecho.",
+    "VFPrevCameraLabel": "Cámara anterior",
+    "VFPrevCameraTooltip": "Cambia a la cámara anterior del vehículo.",
+    "VFNextCameraLabel": "Siguiente cámara",
+    "VFNextCameraTooltip": "Cambia a la siguiente cámara del vehículo.",
+    "VFExitCameraLabel": "Salir de la cámara",
+    "VFExitCameraTooltip": "Salir de la vista de la cámara.",
+    "VFMagBootsButtonLabel": "Interruptor de botas magnéticas",
+    "VFMagBootsButtonTooltip": "Activa o desactiva las botas magnéticas."
 }
 

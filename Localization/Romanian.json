@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Atenție! Ai atins adâncimea maximă! Posibile daune la corp!",
   "VFSubtitlePassingSafeDepth": "Atenție! Ai depășit adâncimea sigură!",
   "VFSubtitleLeviathanDetected": "Leviathan detectat!",
-  "VFSubtitleUhOh": "Ups!"
+  "VFSubtitleUhOh": "Ups!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Buton faruri",
+    "VFHeadlightsButtonTooltip": "Apasă pentru a porni sau opri farurile",
+    "VFLeftClickHeadlightsLabel": "Schimbă farurile (click stânga)",
+    "VFLeftClickHeadlightsTooltip": "Click stânga pentru a schimba farurile",
+    "VFRightClickHeadlightsLabel": "Schimbă farurile (click dreapta)",
+    "VFRightClickHeadlightsTooltip": "Click dreapta pentru a schimba farurile",
+    "VFPrevCameraLabel": "Cameră precedentă",
+    "VFPrevCameraTooltip": "Schimbă la camera precedentă",
+    "VFNextCameraLabel": "Cameră următoare",
+    "VFNextCameraTooltip": "Schimbă la camera următoare",
+    "VFExitCameraLabel": "Ieși din modul cameră",
+    "VFExitCameraTooltip": "Ieși din modul cameră",
+    "VFMagBootsButtonLabel": "Schimbă bocanci magnetici",
+    "VFMagBootsButtonTooltip": "Activează sau dezactivează bocancii magnetici"
 }
 

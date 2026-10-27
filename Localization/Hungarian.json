@@ -110,6 +110,22 @@
   "VFSubtitleGoodbye": "Viszlát",
   "VFSubtitleHullFailureImminent": "Figyelem! A hajótest hamarosan meghibásodik!",
   "VFSubtitleHullIntegrityCritical": "Figyelem! Kritikus hajótest integritás!",
-  "VFSubtitleHullIntegrityLow": "Figyelem! Alacsony hajótest integritás!"
+  "VFSubtitleHullIntegrityLow": "Figyelem! Alacsony hajótest integritás!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Fényszórók",
+    "VFHeadlightsButtonTooltip": "Kattints a fényszórók be- vagy kikapcsolásához",
+    "VFLeftClickHeadlightsLabel": "Fényszórók váltása (bal klikk)",
+    "VFLeftClickHeadlightsTooltip": "Bal klikk a fényszórók váltásához",
+    "VFRightClickHeadlightsLabel": "Fényszórók váltása (jobb klikk)",
+    "VFRightClickHeadlightsTooltip": "Jobb klikk a fényszórók váltásához",
+    "VFPrevCameraLabel": "Előző kamera",
+    "VFPrevCameraTooltip": "Váltás az előző kamerára",
+    "VFNextCameraLabel": "Következő kamera",
+    "VFNextCameraTooltip": "Váltás a következő kamerára",
+    "VFExitCameraLabel": "Kilépés a kamerából",
+    "VFExitCameraTooltip": "Kattints a kamera elhagyásához",
+    "VFMagBootsButtonLabel": "Mágneses csizmák váltása",
+    "VFMagBootsButtonTooltip": "Kattints a mágneses csizmák be- vagy kikapcsolásához"
 }
 

@@ -118,6 +118,22 @@
   "VFSubtitleMaximumDepthReached": "경고! 최대 깊이에 도달했습니다! 선체 손상이 있을 수 있습니다!",
   "VFSubtitlePassingSafeDepth": "경고! 안전 깊이를 초과했습니다!",
   "VFSubtitleLeviathanDetected": "레비아탄이 탐지되었습니다!",
-  "VFSubtitleUhOh": "어이구!"
+  "VFSubtitleUhOh": "어이구!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "전조등",
+    "VFHeadlightsButtonTooltip": "전조등을 켜거나 끄려면 클릭하십시오",
+    "VFLeftClickHeadlightsLabel": "전조등 변경 (왼쪽 클릭)",
+    "VFLeftClickHeadlightsTooltip": "왼쪽 클릭하여 전조등을 변경하십시오",
+    "VFRightClickHeadlightsLabel": "전조등 변경 (오른쪽 클릭)",
+    "VFRightClickHeadlightsTooltip": "오른쪽 클릭하여 전조등을 변경하십시오",
+    "VFPrevCameraLabel": "이전 카메라",
+    "VFPrevCameraTooltip": "이전 카메라로 전환",
+    "VFNextCameraLabel": "다음 카메라",
+    "VFNextCameraTooltip": "다음 카메라로 전환",
+    "VFExitCameraLabel": "카메라 종료",
+    "VFExitCameraTooltip": "카메라를 종료하려면 클릭하십시오",
+    "VFMagBootsButtonLabel": "자기 부상 부츠 변경",
+    "VFMagBootsButtonTooltip": "자기 부상 부츠를 켜거나 끄려면 클릭하십시오"
 }
 

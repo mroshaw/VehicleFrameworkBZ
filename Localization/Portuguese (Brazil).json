@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Atenção! Profundidade máxima atingida! Possíveis danos ao casco!",
   "VFSubtitlePassingSafeDepth": "Atenção! Profundidade segura ultrapassada!",
   "VFSubtitleLeviathanDetected": "Leviathan detectado!",
-  "VFSubtitleUhOh": "Ops!"
+  "VFSubtitleUhOh": "Ops!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Botão dos faróis",
+    "VFHeadlightsButtonTooltip": "Clique para ativar ou desativar os faróis",
+    "VFLeftClickHeadlightsLabel": "Alterar faróis (clique esquerdo)",
+    "VFLeftClickHeadlightsTooltip": "Clique esquerdo para alternar os faróis",
+    "VFRightClickHeadlightsLabel": "Alterar faróis (clique direito)",
+    "VFRightClickHeadlightsTooltip": "Clique direito para alternar os faróis",
+    "VFPrevCameraLabel": "Câmera anterior",
+    "VFPrevCameraTooltip": "Alternar para a câmera anterior",
+    "VFNextCameraLabel": "Câmera seguinte",
+    "VFNextCameraTooltip": "Alternar para a próxima câmera",
+    "VFExitCameraLabel": "Sair do modo de câmera",
+    "VFExitCameraTooltip": "Sair do modo de câmera",
+    "VFMagBootsButtonLabel": "Alterar botas magnéticas",
+    "VFMagBootsButtonTooltip": "Ativar ou desativar as botas magnéticas"
 }
 

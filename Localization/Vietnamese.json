@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Cảnh báo! Đã đạt đến độ sâu tối đa! Vỏ tàu có thể bị hỏng!",
   "VFSubtitlePassingSafeDepth": "Cảnh báo! Vượt qua độ sâu an toàn!",
   "VFSubtitleLeviathanDetected": "Phát hiện Leviathan!",
-  "VFSubtitleUhOh": "Ôi không!"
+  "VFSubtitleUhOh": "Ôi không!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Nút đèn pha",
+    "VFHeadlightsButtonTooltip": "Nhấn để chuyển đổi đèn pha",
+    "VFLeftClickHeadlightsLabel": "Chuyển đổi đèn pha (nhấp chuột trái)",
+    "VFLeftClickHeadlightsTooltip": "Nhấp chuột trái để chuyển đổi đèn pha",
+    "VFRightClickHeadlightsLabel": "Chuyển đổi đèn pha (nhấp chuột phải)",
+    "VFRightClickHeadlightsTooltip": "Nhấp chuột phải để chuyển đổi đèn pha",
+    "VFPrevCameraLabel": "Máy ảnh trước",
+    "VFPrevCameraTooltip": "Chuyển sang máy ảnh trước",
+    "VFNextCameraLabel": "Máy ảnh tiếp theo",
+    "VFNextCameraTooltip": "Chuyển sang máy ảnh tiếp theo",
+    "VFExitCameraLabel": "Thoát máy ảnh",
+    "VFExitCameraTooltip": "Thoát chế độ máy ảnh",
+    "VFMagBootsButtonLabel": "Chuyển đổi giày từ tính",
+    "VFMagBootsButtonTooltip": "Bật hoặc tắt giày từ tính"
 }
 

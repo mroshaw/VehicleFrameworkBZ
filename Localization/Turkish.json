@@ -145,5 +145,21 @@
     "VFSubtitleMaximumDepthReached": "Uyarı! Maksimum derinliğe ulaşıldı! Gövde hasarı yaklaşıyor!",
     "VFSubtitlePassingSafeDepth": "Uyarı! Maksimum derinlik yakın!",
     "VFSubtitleLeviathanDetected": "Canavar tespit edildi!",
-    "VFSubtitleUhOh": "Uh oh!"
+    "VFSubtitleUhOh": "Uh oh!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Dış Projektörleri Aç/Kapat",
+    "VFHeadlightsButtonTooltip": "Kullanma sırasında araç farlarını açmak/kapatmak için bu düğmeye basın.",
+    "VFLeftClickHeadlightsLabel": "Dış Projektörleri Aç/Kapat(Sol Tık)",
+    "VFLeftClickHeadlightsTooltip": "Dış Projektörleri açmak/kapatmak için sol tıklamaya (veya sol tetiğe) izin verin.",
+    "VFRightClickHeadlightsLabel": "Dış Projektörleri Aç/Kapat(Sağ Tık)",
+    "VFRightClickHeadlightsTooltip": "Dış Projektörleri açmak/kapatmak için sağ tıklamaya (veya sağ tetiğe) izin verin.",
+    "VFPrevCameraLabel": "Önceki Kamera",
+    "VFPrevCameraTooltip": "Önceki araç kamerasına geçmek için bu düğmeye basın.",
+    "VFNextCameraLabel": "Sonraki Kamera",
+    "VFNextCameraTooltip": "Sonraki araç kamerasına geçmek için bu düğmeye basın.",
+    "VFExitCameraLabel": "Kameradan Çık",
+    "VFExitCameraTooltip": "Araç kamerası görünümünden çıkmak için bu düğmeye basın.",
+    "VFMagBootsButtonLabel": "Manyetikleşmeyi Aç/Kapat",
+    "VFMagBootsButtonTooltip": "Manyetikleşmeyi açmak/kapatmak için bu düğmeye basın."
 }

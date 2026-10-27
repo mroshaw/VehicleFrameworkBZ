@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Uwaga! Osiągnięto maksymalną głębokość! Możliwe uszkodzenia kadłuba!",
   "VFSubtitlePassingSafeDepth": "Uwaga! Przekroczono bezpieczną głębokość!",
   "VFSubtitleLeviathanDetected": "Wykryto Leviathana!",
-  "VFSubtitleUhOh": "Ups!"
+  "VFSubtitleUhOh": "Ups!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Przycisk świateł",
+    "VFHeadlightsButtonTooltip": "Kliknij, aby włączyć lub wyłączyć światła",
+    "VFLeftClickHeadlightsLabel": "Zmień światła (lewy klik)",
+    "VFLeftClickHeadlightsTooltip": "Lewy klik, aby przełączyć światła",
+    "VFRightClickHeadlightsLabel": "Zmień światła (prawy klik)",
+    "VFRightClickHeadlightsTooltip": "Prawy klik, aby przełączyć światła",
+    "VFPrevCameraLabel": "Poprzednia kamera",
+    "VFPrevCameraTooltip": "Przełącz na poprzednią kamerę",
+    "VFNextCameraLabel": "Następna kamera",
+    "VFNextCameraTooltip": "Przełącz na następną kamerę",
+    "VFExitCameraLabel": "Opuszcz kamerę",
+    "VFExitCameraTooltip": "Opuszcz kamerę",
+    "VFMagBootsButtonLabel": "Zmień buty magnetyczne",
+    "VFMagBootsButtonTooltip": "Włącz lub wyłącz buty magnetyczne"
 }
 

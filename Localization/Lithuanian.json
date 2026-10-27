@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Įspėjimas! Pasiektas maksimalus gylis! Galimos skrovo pažeidimai!",
   "VFSubtitlePassingSafeDepth": "Įspėjimas! Jūs viršijote saugų gylį!",
   "VFSubtitleLeviathanDetected": "Leviatanas aptiktas!",
-  "VFSubtitleUhOh": "Oops!"
+  "VFSubtitleUhOh": "Oops!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Priekiniai žibintai",
+    "VFHeadlightsButtonTooltip": "Spustelėkite, kad įjungtumėte arba išjungtumėte žibintus",
+    "VFLeftClickHeadlightsLabel": "Pakeisti žibintus (kairysis pelės mygtukas)",
+    "VFLeftClickHeadlightsTooltip": "Kairysis pelės mygtukas, kad pakeistumėte žibintus",
+    "VFRightClickHeadlightsLabel": "Pakeisti žibintus (dešinysis pelės mygtukas)",
+    "VFRightClickHeadlightsTooltip": "Dešinysis pelės mygtukas, kad pakeistumėte žibintus",
+    "VFPrevCameraLabel": "Pirmas kamera",
+    "VFPrevCameraTooltip": "Pereiti į pirmąją kamerą",
+    "VFNextCameraLabel": "Kita kamera",
+    "VFNextCameraTooltip": "Pereiti į kitą kamerą",
+    "VFExitCameraLabel": "Išeiti iš kameros",
+    "VFExitCameraTooltip": "Išeiti iš kameros",
+    "VFMagBootsButtonLabel": "Keisti magnetinius batus",
+    "VFMagBootsButtonTooltip": "Įjunkite arba išjunkite magnetinius batus"
 }
 

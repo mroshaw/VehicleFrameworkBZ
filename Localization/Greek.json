@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Προειδοποίηση! Επιτεύχθηκε το μέγιστο βάθος! Βλάβη θωράκισης αναπόφευκτη!",
   "VFSubtitlePassingSafeDepth": "Προειδοποίηση! Υπερβήκατε το ασφαλές βάθος!",
   "VFSubtitleLeviathanDetected": "Εντοπίστηκε Λεβιάθαν!",
-  "VFSubtitleUhOh": "Ωχ!"
+  "VFSubtitleUhOh": "Ωχ!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Εναλλαγή φώτων",
+    "VFHeadlightsButtonTooltip": "Πατήστε για να ενεργοποιήσετε ή να απενεργοποιήσετε τα φώτα κατά την πτήση.",
+    "VFLeftClickHeadlightsLabel": "Εναλλαγή φώτων (αριστερό κλικ)",
+    "VFLeftClickHeadlightsTooltip": "Επιτρέπει την εναλλαγή των φώτων με αριστερό κλικ ή αριστερό πάτημα του μοχλού.",
+    "VFRightClickHeadlightsLabel": "Εναλλαγή φώτων (δεξί κλικ)",
+    "VFRightClickHeadlightsTooltip": "Επιτρέπει την εναλλαγή των φώτων με δεξί κλικ ή δεξί πάτημα του μοχλού.",
+    "VFPrevCameraLabel": "Προηγούμενη κάμερα",
+    "VFPrevCameraTooltip": "Αλλάξτε στην προηγούμενη κάμερα του οχήματος.",
+    "VFNextCameraLabel": "Επόμενη κάμερα",
+    "VFNextCameraTooltip": "Αλλάξτε στην επόμενη κάμερα του οχήματος.",
+    "VFExitCameraLabel": "Έξοδος από την κάμερα",
+    "VFExitCameraTooltip": "Βγείτε από την προεπισκόπηση κάμερας.",
+    "VFMagBootsButtonLabel": "Εναλλαγή μαγνητικών μπότες",
+    "VFMagBootsButtonTooltip": "Ενεργοποιεί ή απενεργοποιεί τις μαγνητικές μπότες."
 }
 

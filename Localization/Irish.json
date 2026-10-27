@@ -110,6 +110,22 @@
   "VFSubtitleGoodbye": "Slán",
   "VFSubtitleHullFailureImminent": "Rabhadh! Féachfaidh an coibhéiseach seo briste!",
   "VFSubtitleHullIntegrityCritical": "Rabhadh! Integritatea ceanglóir aois deacair!",
-  "VFSubtitleHullIntegrityLow": "Rabhadh! Coilsíoch ag aige!"
+  "VFSubtitleHullIntegrityLow": "Rabhadh! Coilsíoch ag aige!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Solais cinn",
+    "VFHeadlightsButtonTooltip": "Cliceáil chun solais cinn a chasadh nó a mhúchadh",
+    "VFLeftClickHeadlightsLabel": "Athraigh solais (cliceáil clé)",
+    "VFLeftClickHeadlightsTooltip": "Cliceáil clé chun solais a athrú",
+    "VFRightClickHeadlightsLabel": "Athraigh solais (cliceáil deas)",
+    "VFRightClickHeadlightsTooltip": "Cliceáil deas chun solais a athrú",
+    "VFPrevCameraLabel": "Ceamara roimhe seo",
+    "VFPrevCameraTooltip": "Athraigh go dtí an ceamara roimhe seo",
+    "VFNextCameraLabel": "Ceamara seo chugainn",
+    "VFNextCameraTooltip": "Athraigh go dtí an ceamara seo chugainn",
+    "VFExitCameraLabel": "Éalain ón gceamara",
+    "VFExitCameraTooltip": "Cliceáil chun éalú ón gceamara",
+    "VFMagBootsButtonLabel": "Athraigh bróga maighnéadacha",
+    "VFMagBootsButtonTooltip": "Cliceáil chun bróga maighnéadacha a chasadh nó a mhúchadh"
 }
 

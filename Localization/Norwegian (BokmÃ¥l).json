@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Advarsel! Maksimal dybde nådd! Mulige skrogskader!",
   "VFSubtitlePassingSafeDepth": "Advarsel! Du har gått forbi sikker dybde!",
   "VFSubtitleLeviathanDetected": "Leviathan oppdaget!",
-  "VFSubtitleUhOh": "Oops!"
+  "VFSubtitleUhOh": "Oops!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Hovedlys knapp",
+    "VFHeadlightsButtonTooltip": "Klikk for å slå på eller av lysene",
+    "VFLeftClickHeadlightsLabel": "Bytt lys (venstreklikk)",
+    "VFLeftClickHeadlightsTooltip": "Venstreklikk for å bytte lys",
+    "VFRightClickHeadlightsLabel": "Bytt lys (høyreklikk)",
+    "VFRightClickHeadlightsTooltip": "Høyreklikk for å bytte lys",
+    "VFPrevCameraLabel": "Forrige kamera",
+    "VFPrevCameraTooltip": "Bytt til forrige kamera",
+    "VFNextCameraLabel": "Neste kamera",
+    "VFNextCameraTooltip": "Bytt til neste kamera",
+    "VFExitCameraLabel": "Forlat kamera",
+    "VFExitCameraTooltip": "Forlat kamera",
+    "VFMagBootsButtonLabel": "Bytt magnetstøvler",
+    "VFMagBootsButtonTooltip": "Slå på eller av magnetstøvlene"
 }
 

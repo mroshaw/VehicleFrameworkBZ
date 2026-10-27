@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Pozor! Dosažena maximální hloubka! Poškození trupu nevyhnutelné!",
   "VFSubtitlePassingSafeDepth": "Pozor! Blížíte se k maximální hloubce!",
   "VFSubtitleLeviathanDetected": "Zjištěn leviatan!",
-  "VFSubtitleUhOh": "Ajaj!"
+  "VFSubtitleUhOh": "Ajaj!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Přepnout světlomety",
+    "VFHeadlightsButtonTooltip": "Stiskněte toto tlačítko pro zapnutí nebo vypnutí světlometů během řízení.",
+    "VFLeftClickHeadlightsLabel": "Přepnout světlomety (levé tlačítko)",
+    "VFLeftClickHeadlightsTooltip": "Umožňuje ovládání světlometů levým kliknutím nebo levým spouštěčem.",
+    "VFRightClickHeadlightsLabel": "Přepnout světlomety (pravé tlačítko)",
+    "VFRightClickHeadlightsTooltip": "Umožňuje ovládání světlometů pravým kliknutím nebo pravým spouštěčem.",
+    "VFPrevCameraLabel": "Předchozí kamera",
+    "VFPrevCameraTooltip": "Přepnout na předchozí kameru na vozidle.",
+    "VFNextCameraLabel": "Další kamera",
+    "VFNextCameraTooltip": "Přepnout na další kameru na vozidle.",
+    "VFExitCameraLabel": "Opustit kameru",
+    "VFExitCameraTooltip": "Opustit pohled kamery.",
+    "VFMagBootsButtonLabel": "Přepnout magnetické boty",
+    "VFMagBootsButtonTooltip": "Přepnout magnetické boty."
 }
 

@@ -118,6 +118,22 @@
   "VFSubtitleMaximumDepthReached": "Attenzione! Profondità massima raggiunta! Il guscio potrebbe subire danni!",
   "VFSubtitlePassingSafeDepth": "Attenzione! Superata la profondità sicura!",
   "VFSubtitleLeviathanDetected": "Leviatano rilevato!",
-  "VFSubtitleUhOh": "Oh no!"
+  "VFSubtitleUhOh": "Oh no!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Fari",
+    "VFHeadlightsButtonTooltip": "Clicca per accendere o spegnere i fari",
+    "VFLeftClickHeadlightsLabel": "Cambia fari (clic sinistro)",
+    "VFLeftClickHeadlightsTooltip": "Clicca sinistro per cambiare i fari",
+    "VFRightClickHeadlightsLabel": "Cambia fari (clic destro)",
+    "VFRightClickHeadlightsTooltip": "Clicca destro per cambiare i fari",
+    "VFPrevCameraLabel": "Telecamera precedente",
+    "VFPrevCameraTooltip": "Cambia alla telecamera precedente",
+    "VFNextCameraLabel": "Telecamera successiva",
+    "VFNextCameraTooltip": "Cambia alla telecamera successiva",
+    "VFExitCameraLabel": "Esci dalla telecamera",
+    "VFExitCameraTooltip": "Clicca per uscire dalla telecamera",
+    "VFMagBootsButtonLabel": "Cambia stivali magnetici",
+    "VFMagBootsButtonTooltip": "Clicca per accendere o spegnere gli stivali magnetici"
 }
 

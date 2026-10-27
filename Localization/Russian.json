@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Предупреждение! Достигнута максимальная глубина! Возможны повреждения корпуса!",
   "VFSubtitlePassingSafeDepth": "Предупреждение! Вы перешли безопасную глубину!",
   "VFSubtitleLeviathanDetected": "Левиафан обнаружен!",
-  "VFSubtitleUhOh": "Ой!"
+  "VFSubtitleUhOh": "Ой!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Кнопка фар",
+    "VFHeadlightsButtonTooltip": "Нажмите, чтобы включить или выключить фары",
+    "VFLeftClickHeadlightsLabel": "Изменить фары (левая кнопка)",
+    "VFLeftClickHeadlightsTooltip": "Левая кнопка для смены фар",
+    "VFRightClickHeadlightsLabel": "Изменить фары (правая кнопка)",
+    "VFRightClickHeadlightsTooltip": "Правая кнопка для смены фар",
+    "VFPrevCameraLabel": "Предыдущая камера",
+    "VFPrevCameraTooltip": "Переключиться на предыдущую камеру",
+    "VFNextCameraLabel": "Следующая камера",
+    "VFNextCameraTooltip": "Переключиться на следующую камеру",
+    "VFExitCameraLabel": "Выход из режима камеры",
+    "VFExitCameraTooltip": "Выход из режима камеры",
+    "VFMagBootsButtonLabel": "Изменить магнитные ботинки",
+    "VFMagBootsButtonTooltip": "Включить или выключить магнитные ботинки"
 }
 

@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Warnung! Maximale Tiefe erreicht! Schalenbeschädigung unvermeidlich!",
   "VFSubtitlePassingSafeDepth": "Warnung! Sichere Tiefe überschritten!",
   "VFSubtitleLeviathanDetected": "Leviathan entdeckt!",
-  "VFSubtitleUhOh": "Ups!"
+  "VFSubtitleUhOh": "Ups!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Scheinwerfer umschalten",
+    "VFHeadlightsButtonTooltip": "Drücken Sie diese Schaltfläche, um die Scheinwerfer während des Flugs ein- oder auszuschalten.",
+    "VFLeftClickHeadlightsLabel": "Scheinwerfer umschalten (linksklick)",
+    "VFLeftClickHeadlightsTooltip": "Ermöglicht das Steuern der Scheinwerfer mit einem linken Klick oder dem linken Abzug.",
+    "VFRightClickHeadlightsLabel": "Scheinwerfer umschalten (rechter Klick)",
+    "VFRightClickHeadlightsTooltip": "Ermöglicht das Steuern der Scheinwerfer mit einem rechten Klick oder dem rechten Abzug.",
+    "VFPrevCameraLabel": "Vorherige Kamera",
+    "VFPrevCameraTooltip": "Wechselt zur vorherigen Kamera des Fahrzeugs.",
+    "VFNextCameraLabel": "Nächste Kamera",
+    "VFNextCameraTooltip": "Wechselt zur nächsten Kamera des Fahrzeugs.",
+    "VFExitCameraLabel": "Kamera verlassen",
+    "VFExitCameraTooltip": "Verlässt die Kameravorschau.",
+    "VFMagBootsButtonLabel": "Magnetstiefel umschalten",
+    "VFMagBootsButtonTooltip": "Schaltet die Magnetstiefel ein oder aus."
 }
 

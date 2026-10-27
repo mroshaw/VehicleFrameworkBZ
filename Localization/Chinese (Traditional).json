@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "警告！達到最大深度！船體即將損壞！",
   "VFSubtitlePassingSafeDepth": "警告！已超過安全深度！",
   "VFSubtitleLeviathanDetected": "發現 Leviathan！",
-  "VFSubtitleUhOh": "哎呀！"
+  "VFSubtitleUhOh": "哎呀！",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "車燈開關",
+    "VFHeadlightsButtonTooltip": "點擊切換車燈",
+    "VFLeftClickHeadlightsLabel": "車燈開關（左鍵點擊）",
+    "VFLeftClickHeadlightsTooltip": "左鍵點擊切換車燈",
+    "VFRightClickHeadlightsLabel": "車燈開關（右鍵點擊）",
+    "VFRightClickHeadlightsTooltip": "右鍵點擊切換車燈",
+    "VFPrevCameraLabel": "上一攝影機",
+    "VFPrevCameraTooltip": "切換到上一個攝影機",
+    "VFNextCameraLabel": "下一攝影機",
+    "VFNextCameraTooltip": "切換到下一個攝影機",
+    "VFExitCameraLabel": "退出攝影機",
+    "VFExitCameraTooltip": "退出攝影機模式",
+    "VFMagBootsButtonLabel": "磁性靴開關",
+    "VFMagBootsButtonTooltip": "啟用或禁用磁性靴"
 }
 

@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Upozorenje! Maksimalna dubina postignuta! Trup će uskoro popustiti!",
   "VFSubtitlePassingSafeDepth": "Upozorenje! Prešli ste sigurnu dubinu!",
   "VFSubtitleLeviathanDetected": "Leviathan detektiran!",
-  "VFSubtitleUhOh": "Ups!"
+  "VFSubtitleUhOh": "Ups!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Prekidač svjetala",
+    "VFHeadlightsButtonTooltip": "Kliknite za promjenu svjetala dok vozite.",
+    "VFLeftClickHeadlightsLabel": "Prekidač svjetala (lijevi klik)",
+    "VFLeftClickHeadlightsTooltip": "Promijenite svjetla lijevim klikom.",
+    "VFRightClickHeadlightsLabel": "Prekidač svjetala (desni klik)",
+    "VFRightClickHeadlightsTooltip": "Promijenite svjetla desnim klikom.",
+    "VFPrevCameraLabel": "Prethodna kamera",
+    "VFPrevCameraTooltip": "Prebaci na prethodnu kameru.",
+    "VFNextCameraLabel": "Sljedeća kamera",
+    "VFNextCameraTooltip": "Prebaci na sljedeću kameru.",
+    "VFExitCameraLabel": "Izlaz iz kamere",
+    "VFExitCameraTooltip": "Napustite način kamere.",
+    "VFMagBootsButtonLabel": "Prekidač magnetskih čizama",
+    "VFMagBootsButtonTooltip": "Omogućite ili onemogućite magnetske čizme."
 }
 

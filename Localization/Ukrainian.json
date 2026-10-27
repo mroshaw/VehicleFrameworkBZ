@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Увага! Досягнута максимальна глибина! Корпус може пошкодитися!",
   "VFSubtitlePassingSafeDepth": "Увага! Перевищено безпечну глибину!",
   "VFSubtitleLeviathanDetected": "Виявлено Левіафана!",
-  "VFSubtitleUhOh": "Ой-ой!"
+  "VFSubtitleUhOh": "Ой-ой!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Кнопка фар",
+    "VFHeadlightsButtonTooltip": "Натисніть, щоб переключити фари",
+    "VFLeftClickHeadlightsLabel": "Перемикайте фари (ліва кнопка миші)",
+    "VFLeftClickHeadlightsTooltip": "Натискайте ліву кнопку миші, щоб перемикати фари",
+    "VFRightClickHeadlightsLabel": "Перемикайте фари (права кнопка миші)",
+    "VFRightClickHeadlightsTooltip": "Натискайте праву кнопку миші, щоб перемикати фари",
+    "VFPrevCameraLabel": "Попередня камера",
+    "VFPrevCameraTooltip": "Перемкнути на попередню камеру",
+    "VFNextCameraLabel": "Наступна камера",
+    "VFNextCameraTooltip": "Перемкнути на наступну камеру",
+    "VFExitCameraLabel": "Вийти з камери",
+    "VFExitCameraTooltip": "Вийти з режиму камери",
+    "VFMagBootsButtonLabel": "Перемикайте магнітні черевики",
+    "VFMagBootsButtonTooltip": "Увімкніть або вимкніть магнітні черевики"
 }
 

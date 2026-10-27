@@ -145,6 +145,9 @@
     "VFSubtitleMaximumDepthReached": "Warning! Maximum depth reached! Hull damage imminent!",
     "VFSubtitlePassingSafeDepth": "Warning! Maximum depth is close!",
     "VFSubtitleLeviathanDetected": "Leviathan detected!",
-    "VFSubtitleUhOh": "Uh oh!"
+    "VFSubtitleUhOh": "Uh oh!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFMainExterior": "Main Exterior Color"
 }
 

@@ -1,0 +1,204 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
+using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
+
+namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
+{
+    // This component is applied to ModVehicles.
+    // It manages ModVehicleArms and their actions.
+    public class VFArmsManager : MonoBehaviour
+    {
+        public GameObject? leftArm;
+        public GameObject? rightArm;
+        internal int leftArmSlotID = 0;
+        internal int rightArmSlotID = 0;
+        internal Drone? MyDrone => GetComponent<Drone>();
+
+        public void UpdateArms(ModVehicleArm arm, int slotId)
+        {
+            ModVehicle mv = GetComponent<ModVehicle>();
+            string thisSlotName = mv.slotIDs[slotId];
+            TechType techTypeInSlot = mv.modules.GetTechTypeInSlot(mv.slotIDs[slotId]);
+            if (thisSlotName.Contains(ModuleBuilder.LeftArmSlotName))
+            {
+                DestroyArm(true);
+                if(arm.HasTechType(techTypeInSlot))
+                {
+                    SpawnArm(mv, arm, true);
+                    leftArmSlotID = slotId;
+                }
+            }
+            else if (thisSlotName.Contains(ModuleBuilder.RightArmSlotName))
+            {
+                DestroyArm(false);
+                if (arm.HasTechType(techTypeInSlot))
+                {
+                    SpawnArm(mv, arm, false);
+                    rightArmSlotID = slotId;
+                }
+            }
+            else
+            {
+                Logger.Warn("Can't update arms for a non-arm slot. How did we get here?");
+                return;
+            }
+            mv.Arms.originalLeftArm?.SetActive(GetComponent<VFArmsManager>().leftArm == null);
+            mv.Arms.originalRightArm?.SetActive(GetComponent<VFArmsManager>().rightArm == null);
+        }
+        public void ShowArms(bool isShown)
+        {
+            ModVehicle mv = GetComponent<ModVehicle>();
+            if(isShown)
+            {
+                leftArm?.SetActive(true);
+                rightArm?.SetActive(true);
+                mv.Arms.originalLeftArm?.SetActive(leftArm == null);
+                mv.Arms.originalRightArm?.SetActive(rightArm == null);
+            }
+            else
+            {
+                leftArm?.SetActive(false);
+                rightArm?.SetActive(false);
+                mv.Arms.originalLeftArm?.SetActive(false);
+                mv.Arms.originalRightArm?.SetActive(false);
+            }
+        }
+        public void SpawnArm(ModVehicle mv, ModVehicleArm arm, bool isLeft)
+        {
+            GameObject armPrefab = arm.armPrefab ?? throw Admin.SessionManager.Fatal($"No arm prefab found for {arm.GetType()}! Please set the armPrefab field before calling SpawnArm.");
+            if (isLeft && leftArm == null)
+            {
+                leftArm = UnityEngine.Object.Instantiate<GameObject>(armPrefab);
+                leftArm.transform.SetParent(mv.transform);
+                leftArm.transform.localRotation = Quaternion.identity;
+                if (mv.Arms.leftArmPlacement != null)
+                {
+                    leftArm.transform.localPosition = mv.Arms.leftArmPlacement.localPosition;
+                    leftArm.transform.localRotation = mv.Arms.leftArmPlacement.localRotation;
+                }
+                else
+                {
+                    if(MyDrone != null)
+                    {
+                        leftArm.transform.localPosition = MyDrone.CameraLocation.localPosition
+                            - Vector3.right;
+                    }
+                    else
+                    {
+                        Vector3 worldPositionOfC = mv.playerPosition.transform.position;
+                        Vector3 localPositionOfCInA = mv.transform.InverseTransformPoint(worldPositionOfC);
+                        leftArm.transform.localPosition = localPositionOfCInA
+                            - Vector3.right;
+                    }
+                }
+                leftArm.name = "LeftArm";
+            }
+            else if (!isLeft && rightArm == null)
+            {
+                rightArm = UnityEngine.Object.Instantiate<GameObject>(armPrefab);
+                rightArm.transform.SetParent(mv.transform);
+                rightArm.transform.localRotation = Quaternion.identity;
+                rightArm.transform.localScale = new(
+                    -rightArm.transform.localScale.x,
+                    rightArm.transform.localScale.y,
+                    rightArm.transform.localScale.z
+                );
+                if (mv.Arms.rightArmPlacement != null)
+                {
+                    rightArm.transform.localPosition = mv.Arms.rightArmPlacement.localPosition;
+                    rightArm.transform.localRotation = mv.Arms.rightArmPlacement.localRotation;
+                }
+                else
+                {
+                    if (MyDrone != null)
+                    {
+                        rightArm.transform.localPosition = MyDrone.CameraLocation.localPosition
+                            + Vector3.right;
+                    }
+                    else
+                    {
+                        Vector3 worldPositionOfC = mv.playerPosition.transform.position;
+                        Vector3 localPositionOfCInA = mv.transform.InverseTransformPoint(worldPositionOfC);
+                        rightArm.transform.localPosition = localPositionOfCInA
+                            + Vector3.right;
+                    }
+                }
+                rightArm.name = "RightArm";
+            }
+        }
+        public void DestroyArm(bool isLeft)
+        {
+            if (isLeft)
+            {
+                leftArm = null;
+                leftArmSlotID = 0;
+                UnityEngine.Object.DestroyImmediate(transform.Find("LeftArm")?.gameObject);
+            }
+            else
+            {
+                rightArm = null;
+                rightArmSlotID = 0;
+                UnityEngine.Object.DestroyImmediate(transform.Find("RightArm")?.gameObject);
+            }
+        }
+
+        public ArmActionParams GetArmActionParams(bool isLeft)
+        {
+            ModVehicle mv = GetComponent<ModVehicle>();
+            int slotID = isLeft ? mv.GetSlotIndex(ModuleBuilder.LeftArmSlotName) : mv.GetSlotIndex(ModuleBuilder.RightArmSlotName);
+            mv.GetQuickSlotType(slotID, out TechType techType);
+            if (isLeft)
+            {
+                if (leftArm != null)
+                {
+                    return new ArmActionParams
+                    {
+                        vehicle = mv,
+                        slotID = slotID,
+                        techType = techType,
+                        arm = leftArm
+                    };
+                }
+            }
+            else
+            {
+                if (rightArm != null)
+                {
+                    return new ArmActionParams
+                    {
+                        vehicle = mv,
+                        slotID = slotID,
+                        techType = techType,
+                        arm = rightArm
+                    };
+                }
+            }
+            return default;
+        }
+        public void DoArmDown(bool isLeft)
+        {
+            ArmActionParams param = GetArmActionParams(isLeft);
+            if (GameInput.GetButtonHeld(GameInput.Button.AltTool))
+            {
+                UpgradeRegistrar.OnArmAltActions.ForEach(x => x(param));
+            }
+            else
+            {
+                UpgradeRegistrar.OnArmDownActions.ForEach(x => x(param));
+            }
+        }
+        public void DoArmUp(bool isLeft)
+        {
+            ArmActionParams param = GetArmActionParams(isLeft);
+            UpgradeRegistrar.OnArmUpActions.ForEach(x => x(param));
+        }
+        public void DoArmHeld(bool isLeft)
+        {
+            ArmActionParams param = GetArmActionParams(isLeft);
+            UpgradeRegistrar.OnArmHeldActions.ForEach(x => x(param));
+        }
+    }
+}

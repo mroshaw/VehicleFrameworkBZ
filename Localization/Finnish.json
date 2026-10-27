@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Varoitus! Maksimisyvyys saavutettu! Runko vuotaa pian!",
   "VFSubtitlePassingSafeDepth": "Varoitus! Turvasyvyyden ylitys!",
   "VFSubtitleLeviathanDetected": "Leviathan havaittu!",
-  "VFSubtitleUhOh": "Ups!"
+  "VFSubtitleUhOh": "Ups!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Ajovalojen kytkin",
+    "VFHeadlightsButtonTooltip": "Napsauta ajovalojen vaihtamiseksi ajon aikana.",
+    "VFLeftClickHeadlightsLabel": "Ajovalojen kytkin (vasen klikkaus)",
+    "VFLeftClickHeadlightsTooltip": "Vaihda ajovalot vasemmalla hiiren painikkeella.",
+    "VFRightClickHeadlightsLabel": "Ajovalojen kytkin (oikea klikkaus)",
+    "VFRightClickHeadlightsTooltip": "Vaihda ajovalot oikealla hiiren painikkeella.",
+    "VFPrevCameraLabel": "Edellinen kamera",
+    "VFPrevCameraTooltip": "Vaihda edelliseen kameraan.",
+    "VFNextCameraLabel": "Seuraava kamera",
+    "VFNextCameraTooltip": "Vaihda seuraavaan kameraan.",
+    "VFExitCameraLabel": "Poistu kamerasta",
+    "VFExitCameraTooltip": "Poistu kameran näkymästä.",
+    "VFMagBootsButtonLabel": "Magneettikenkien kytkin",
+    "VFMagBootsButtonTooltip": "Kytke magneettikengät päälle tai pois."
 }
 

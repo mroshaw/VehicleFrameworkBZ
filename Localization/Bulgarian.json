@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Предупреждение! Достигната е максималната дълбочина! Ще настъпи повреда на корпуса!",
   "VFSubtitlePassingSafeDepth": "Предупреждение! Максималната дълбочина е близо!",
   "VFSubtitleLeviathanDetected": "Обнаружен Левиатан!",
-  "VFSubtitleUhOh": "Опа!"
+  "VFSubtitleUhOh": "Опа!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Превключване на фаровете",
+    "VFHeadlightsButtonTooltip": "Натиснете този бутон, за да превключите фаровете по време на управление.",
+    "VFLeftClickHeadlightsLabel": "Превключване на фаровете (ляв бутон)",
+    "VFLeftClickHeadlightsTooltip": "Позволява активиране на фаровете с ляв клик или ляв тригер.",
+    "VFRightClickHeadlightsLabel": "Превключване на фаровете (десен бутон)",
+    "VFRightClickHeadlightsTooltip": "Позволява активиране на фаровете с десен клик или десен тригер.",
+    "VFPrevCameraLabel": "Предишна камера",
+    "VFPrevCameraTooltip": "Превключете към предишната камера на превозното средство.",
+    "VFNextCameraLabel": "Следваща камера",
+    "VFNextCameraTooltip": "Превключете към следващата камера на превозното средство.",
+    "VFExitCameraLabel": "Изход от камерата",
+    "VFExitCameraTooltip": "Изход от изгледа на камерата.",
+    "VFMagBootsButtonLabel": "Превключване на магнитни ботуши",
+    "VFMagBootsButtonTooltip": "Превключване на магнитните ботуши."
 }
 

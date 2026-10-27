@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Alerte ! Profondeur maximale atteinte ! La coque va céder bientôt !",
   "VFSubtitlePassingSafeDepth": "Alerte ! Profondeur de sécurité dépassée !",
   "VFSubtitleLeviathanDetected": "Léviathan détecté !",
-  "VFSubtitleUhOh": "Oups !"
+  "VFSubtitleUhOh": "Oups !",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Commutateur des phares",
+    "VFHeadlightsButtonTooltip": "Cliquez pour changer les phares pendant la conduite.",
+    "VFLeftClickHeadlightsLabel": "Commutateur des phares (clic gauche)",
+    "VFLeftClickHeadlightsTooltip": "Changez les phares avec le clic gauche.",
+    "VFRightClickHeadlightsLabel": "Commutateur des phares (clic droit)",
+    "VFRightClickHeadlightsTooltip": "Changez les phares avec le clic droit.",
+    "VFPrevCameraLabel": "Caméra précédente",
+    "VFPrevCameraTooltip": "Changez pour la caméra précédente.",
+    "VFNextCameraLabel": "Caméra suivante",
+    "VFNextCameraTooltip": "Changez pour la caméra suivante.",
+    "VFExitCameraLabel": "Quitter la caméra",
+    "VFExitCameraTooltip": "Quittez la vue caméra.",
+    "VFMagBootsButtonLabel": "Commutateur des bottes magnétiques",
+    "VFMagBootsButtonTooltip": "Activez ou désactivez les bottes magnétiques."
 }
 

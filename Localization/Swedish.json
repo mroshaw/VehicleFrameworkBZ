@@ -119,6 +119,22 @@
   "VFSubtitleMaximumDepthReached": "Varning! Maximal djup nått! Skrotskador kan uppstå!",
   "VFSubtitlePassingSafeDepth": "Varning! Överskridit säkert djup!",
   "VFSubtitleLeviathanDetected": "Leviathan upptäckt!",
-  "VFSubtitleUhOh": "Oj då!"
+  "VFSubtitleUhOh": "Oj då!",
+
+    // Additional entries preserved from the duplicate localization folder
+    "VFHeadlightsButtonLabel": "Strålkastarknapp",
+    "VFHeadlightsButtonTooltip": "Klicka för att slå på eller av strålkastarna",
+    "VFLeftClickHeadlightsLabel": "Byt strålkastare (vänsterklick)",
+    "VFLeftClickHeadlightsTooltip": "Vänsterklicka för att byta strålkastare",
+    "VFRightClickHeadlightsLabel": "Byt strålkastare (högerklick)",
+    "VFRightClickHeadlightsTooltip": "Högerklicka för att byta strålkastare",
+    "VFPrevCameraLabel": "Föregående kamera",
+    "VFPrevCameraTooltip": "Byt till föregående kamera",
+    "VFNextCameraLabel": "Nästa kamera",
+    "VFNextCameraTooltip": "Byt till nästa kamera",
+    "VFExitCameraLabel": "Gå ut ur kameraläget",
+    "VFExitCameraTooltip": "Gå ut ur kameraläget",
+    "VFMagBootsButtonLabel": "Byt magnetiska stövlar",
+    "VFMagBootsButtonTooltip": "Slå på eller av magnetiska stövlar"
 }
 

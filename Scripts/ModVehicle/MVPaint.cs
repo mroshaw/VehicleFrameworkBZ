@@ -1,0 +1,140 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using DaftAppleGames.VehicleFrameworkBZ.Assets;
+using DaftAppleGames.VehicleFrameworkBZ.AutoPilot;
+using DaftAppleGames.VehicleFrameworkBZ.Engines;
+using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using DaftAppleGames.VehicleFrameworkBZ.LightControllers;
+using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
+using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
+using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
+using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+
+namespace DaftAppleGames.VehicleFrameworkBZ
+{
+    /*
+     * ModVehicle is the primary abstract class provided by Vehicle Framework.
+     * All VF vehicles inherit from ModVehicle.
+     * This file contains the recoloring functionality for ModVehicle.
+     */
+    public abstract partial class ModVehicle : Vehicle, ICraftTarget, IProtoTreeEventListener
+    {
+        #region private_fields
+        private Color baseColor = Color.white;
+        private Color interiorColor = Color.white;
+        private Color stripeColor = Color.white;
+        private Color nameColor = Color.black;
+        private bool _isDefaultStyle = false;
+        #endregion
+
+        #region readonly_properties
+        // These properties are read-only, but can be accessed to get the current colors.
+        public Color BaseColor => baseColor;
+        public Color InteriorColor => interiorColor;
+        public Color StripeColor => stripeColor;
+        public Color NameColor => nameColor;
+        public string HullName => subName.GetName();
+        public bool IsDefaultStyle
+        {
+            get
+            {
+                return _isDefaultStyle;
+            }
+            private set
+            {
+                _isDefaultStyle = value;
+            }
+        }
+        #endregion
+
+        #region virtual_methods
+        // These methods can be overridden by the vehicle class to customize painting behavior.
+        protected internal virtual void PaintBaseColor(Vector3 hsb, Color color)
+        {
+        }
+        protected internal virtual void PaintInteriorColor(Vector3 hsb, Color color)
+        {
+        }
+        protected internal virtual void PaintStripeColor(Vector3 hsb, Color color)
+        {
+        }
+        protected internal virtual void PaintVehicleDefaultStyle()
+        {
+        }
+        protected internal virtual void PaintName(string name)
+        {
+        }
+        protected internal virtual void PaintNameColor(string name, Vector3 hsb, Color color)
+        {
+        }
+        #endregion
+
+        #region internal_methods
+        // These are the methods that do important bookkeeping for color changes.
+        internal void LogisticalSetBaseColor(Color col)
+        {
+            IsDefaultStyle = false;
+            baseColor = col;
+        }
+        internal void LogisticalSetInteriorColor(Color col)
+        {
+            IsDefaultStyle = false;
+            interiorColor = col;
+        }
+        internal void LogisticalSetStripeColor(Color col)
+        {
+            IsDefaultStyle = false;
+            stripeColor = col;
+        }
+        internal void LogisticalSetName(string name)
+        {
+            vehicleName = name;
+        }
+        internal void LogisticalSetName(string name, Color col)
+        {
+            IsDefaultStyle = false;
+        }
+        #endregion
+
+        #region public_methods
+        // These are the methods that should be called to effect a color change.
+        public void SetBaseColor(Color col)
+        {
+            subName.SetColor(0, Vector3.zero, col);
+        }
+        public void SetInteriorColor(Color col)
+        {
+            subName.SetColor(2, Vector3.zero, col);
+        }
+        public void SetStripeColor(Color col)
+        {
+            subName.SetColor(3, Vector3.zero, col);
+        }
+        public void SetName(string name)
+        {
+            subName.SetName(name);
+        }
+        public void SetName(string name, Color col)
+        {
+            SetName(name);
+            subName.SetColor(1, Vector3.zero, col); // see SubNamePatcher.cs for more details
+        }
+        public void SetVehicleDefaultStyle()
+        {
+            IsDefaultStyle = true;
+            PaintVehicleDefaultStyle();
+        }
+        public void SetVehicleDefaultStyle(string name)
+        {
+            SetName(name);
+            SetVehicleDefaultStyle();
+        }
+        #endregion
+
+    }
+}
