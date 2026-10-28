@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.LightControllers
+namespace VehicleFramework.LightControllers
 {
     public class FloodLightsController : BaseLightController
     {

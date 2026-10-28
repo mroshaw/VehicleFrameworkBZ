@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Engines;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
+namespace VehicleFramework.VehicleTypes
 {
     /*
      * Submersible is the class of non-walkable vehicles

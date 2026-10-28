@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-//using DaftAppleGames.VehicleFrameworkBZ.BaseVehicle;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
-using DaftAppleGames.VehicleFrameworkBZ.LightControllers;
+//using VehicleFramework.BaseVehicle;
+using VehicleFramework.Extensions;
+using VehicleFramework.LightControllers;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.MiscComponents
+namespace VehicleFramework.MiscComponents
 {
     // TODO: disallow undocking when not enough space
 

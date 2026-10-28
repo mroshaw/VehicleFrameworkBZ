@@ -3,7 +3,7 @@
 // PURPOSE: Avoid an error at game-exit (LargeWorldStreamer.UnloadGlobalRoot) whereby this method is called with a null InventoryItem
 // VALUE: Moderate. Important to make sure things continue to unload correctly (memory leak?)
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(EnergyMixin))]
     public class EnergyMixinPatcher

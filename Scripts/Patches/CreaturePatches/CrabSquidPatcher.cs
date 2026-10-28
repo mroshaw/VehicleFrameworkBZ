@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: ensures the CrabSquid's EMP disables ModVehicles gracefully
 // VALUE: high
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CreaturePatches
+namespace VehicleFramework.Patches.CreaturePatches
 {
     [HarmonyPatch(typeof(EnergyMixin))]
     class CrabSquidEnergyMixinPatcher

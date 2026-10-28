@@ -2,12 +2,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.Extensions;
 
 // PURPOSE: allows Submarines to specify volumes in which things cannot be built or placed
 // VALUE: moderate, as a developer utility
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(Builder))]
     public class BuilderPatcher

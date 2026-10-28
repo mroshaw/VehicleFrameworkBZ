@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.LightControllers;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+using VehicleFramework.Interfaces;
+using VehicleFramework.LightControllers;
+using VehicleFramework.VehicleTypes;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.ControlPanel
+namespace VehicleFramework.ControlPanel
 {
     public class ControlPanel : MonoBehaviour, IVehicleStatusListener, IPowerListener, ILightsStatusListener, IAutoPilotListener
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using DaftAppleGames.VehicleFrameworkBZ.MiscComponents;
+using VehicleFramework.MiscComponents;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
+namespace VehicleFramework.VehicleRootComponents
 {
     public abstract class ModVehicleDockingBay : DockingBay
     {

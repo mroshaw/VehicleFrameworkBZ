@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.MiscComponents;
+using VehicleFramework.MiscComponents;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
+namespace VehicleFramework.VehicleBuilding
 {
     /*
      * This class controls building and configuring the mod vehicle HUD
@@ -76,8 +76,8 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
 
         public static void BuildNormalHUD()
         {
-            // copy the seamoth hud for now
-            GameObject seamothHUDElementsRoot = uGUI.main.transform.Find("ScreenCanvas/HUD/Content/Seamoth").gameObject;
+            // Use the native BZ Prawn HUD layout for framework telemetry.
+            GameObject seamothHUDElementsRoot = uGUI.main.transform.Find("ScreenCanvas/HUD/Content/Exosuit").gameObject;
             GameObject mvHUDElementsRoot = GameObject.Instantiate(seamothHUDElementsRoot, uGUI.main.transform.Find("ScreenCanvas/HUD/Content"));
             mvHUDElementsRoot.name = "ModVehicle";
             Vector3 offset = mvHUDElementsRoot.transform.localPosition;
@@ -100,8 +100,8 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         }
         public static void BuildStorageHUD()
         {
-            // copy the seamoth hud for now
-            GameObject seamothHUDElementsRoot = uGUI.main.transform.Find("ScreenCanvas/HUD/Content/Seamoth").gameObject;
+            // Use the native BZ Prawn HUD layout for framework telemetry.
+            GameObject seamothHUDElementsRoot = uGUI.main.transform.Find("ScreenCanvas/HUD/Content/Exosuit").gameObject;
             GameObject mvHUDElementsRoot = GameObject.Instantiate(seamothHUDElementsRoot, uGUI.main.transform.Find("ScreenCanvas/HUD/Content"));
             mvHUDElementsRoot.name = "ModVehicleStorage";
             Vector3 offset = mvHUDElementsRoot.transform.localPosition;

@@ -2,12 +2,12 @@
 using System.Linq;
 using UnityEngine;
 using HarmonyLib;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Interfaces;
 
 // PURPOSE: ModVehicles have an awareness of nearby leviathans
 // VALUE: Moderate. Allows for some very cool/scary moments.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(Creature))]
     [HarmonyPatch(nameof(Creature.ChooseBestAction))]

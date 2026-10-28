@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
-//using DaftAppleGames.VehicleFrameworkBZ.Localization;
+using VehicleFramework.UpgradeTypes;
+//using VehicleFramework.Localization;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.DepthModules
+namespace VehicleFramework.DepthModules
 {
     public class DepthModule2 : ModVehicleUpgrade
     {

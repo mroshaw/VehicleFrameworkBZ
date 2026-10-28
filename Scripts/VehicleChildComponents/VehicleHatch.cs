@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+using VehicleFramework.Interfaces;
+using VehicleFramework.VehicleBuilding;
+using VehicleFramework.VehicleTypes;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
 	public class VehicleHatch : HandTarget, IHandTarget, IDockListener
 	{
@@ -141,8 +141,8 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
 
 		public static void SetHintStrings(Submarine sub, string enterHint, string exitHint)
 		{
-			sub.Hatches.ForEach(x => x.Hatch.GetComponent<DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents.VehicleHatch>().EnterHint = enterHint);
-			sub.Hatches.ForEach(x => x.Hatch.GetComponent<DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents.VehicleHatch>().ExitHint = exitHint);
+			sub.Hatches.ForEach(x => x.Hatch.GetComponent<VehicleFramework.VehicleChildComponents.VehicleHatch>().EnterHint = enterHint);
+			sub.Hatches.ForEach(x => x.Hatch.GetComponent<VehicleFramework.VehicleChildComponents.VehicleHatch>().ExitHint = exitHint);
 		}
 	}
 }

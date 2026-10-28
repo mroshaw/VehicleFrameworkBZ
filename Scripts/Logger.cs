@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ
+namespace VehicleFramework
 {
     public static class Logger
     {

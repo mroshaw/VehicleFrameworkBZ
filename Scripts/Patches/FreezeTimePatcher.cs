@@ -6,7 +6,7 @@ using System.Collections.Generic;
 // PURPOSE: Allow easy registration of AudioSources and pause them during game pause.
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(FreezeTime))]
     public class FreezeTimePatcher

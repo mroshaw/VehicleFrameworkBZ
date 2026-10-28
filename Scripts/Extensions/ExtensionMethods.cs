@@ -5,14 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Patches;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Patches;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Admin;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Extensions
+namespace VehicleFramework.Extensions
 {
     public static class ExtensionMethods
     {
+        /// <summary>
+        /// Gets a display name for native and framework vehicles in Below Zero.
+        /// </summary>
+        public static string GetName(this Vehicle vehicle)
+        {
+            ModVehicle customVehicle = vehicle as ModVehicle;
+            return customVehicle != null ? customVehicle.GetName() : vehicle.vehicleName;
+        }
+
         public static ModVehicle? GetModVehicle(this Player player)
         {
             return 
@@ -38,43 +47,30 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Extensions
         {
             return FreezeTimePatcher.Register(source);
         }
+        /// <summary>
+        /// Releases a vehicle through Below Zero's dockable state transitions.
+        /// </summary>
         public static void Undock(this Vehicle vehicle)
         {
-            void UndockModVehicle(Vehicle thisVehicle)
+            Dockable dockable = vehicle.GetComponent<Dockable>();
+            if (dockable == null || !dockable.isDocked)
             {
-                if (vehicle is ModVehicle mv)
-                {
-                    mv.OnVehicleUndocked();
-                    vehicle.useRigidbody.detectCollisions = true;
-                }
-            }
-            var theseBays = vehicle.transform.parent?.gameObject?.GetComponentsInChildren<VehicleDockingBay>()?.Where(x => x.dockedVehicle == vehicle);
-            if(theseBays == null || !theseBays.Any())
-            {
-                UndockModVehicle(vehicle);
                 return;
             }
-            VehicleDockingBay thisBay = theseBays.First();
-            SessionManager.StartCoroutine(thisBay.MaybeToggleCyclopsCollision());
-            thisBay.vehicle_docked_param = false;
-            Player? toUndock = vehicle.liveMixin.IsAlive() && !ConsoleCommands.isUndockConsoleCommand ? Player.main : null;
-            SessionManager.StartCoroutine(vehicle.Undock(toUndock, thisBay.transform.position.y));
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            SkyEnvironmentChanged.Broadcast(vehicle.gameObject, (GameObject)null);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            thisBay.dockedVehicle = null;
-            UndockModVehicle(vehicle);
-        }
-        public static IEnumerator MaybeToggleCyclopsCollision(this VehicleDockingBay bay)
-        {
-            if (bay.subRoot.name.ToLower().Contains("cyclops"))
+            foreach (VehicleDockingBay bay in Patches.VehicleDockingBayPatch.dockingBays)
             {
-                bay.transform.parent.parent.parent.Find("CyclopsCollision").gameObject.SetActive(false);
-                yield return new WaitForSeconds(2f);
-                bay.transform.parent.parent.parent.Find("CyclopsCollision").gameObject.SetActive(true);
+                if (bay == null || bay.GetDockedObject() != dockable)
+                {
+                    continue;
+                }
+                bay.OnUndockingStart();
+                bay.SetVehicleUndocked();
+                ((IDockingBay)bay).EjectDocked();
+                dockable.OnUndockingComplete(null);
+                return;
             }
-            yield break;
         }
+
         public static bool IsPilotingCyclops(this Player player)
         {
             return player.IsInCyclops() && player.mode == Player.Mode.Piloting;

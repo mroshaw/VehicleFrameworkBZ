@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.LightControllers
+namespace VehicleFramework.LightControllers
 {
     public abstract class BaseLightController : MonoBehaviour, IPowerChanged, IScuttleListener, IDockListener
     {

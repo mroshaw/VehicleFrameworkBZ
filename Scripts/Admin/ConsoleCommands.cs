@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.Extensions;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
 	internal class ConsoleCommands : MonoBehaviour
 	{
 		internal static bool isUndockConsoleCommand = false; // hacky
 		public void Awake()
         {
-            DevConsole.RegisterConsoleCommand("vfhelp", OnConsoleCommand_vfhelp, false, false);
-			DevConsole.RegisterConsoleCommand("givevfupgrades", OnConsoleCommand_givevfupgrades, false, false);
-			DevConsole.RegisterConsoleCommand("givevfseamothupgrades", OnConsoleCommand_givevfseamothupgrades, false, false);
-			DevConsole.RegisterConsoleCommand("givevfprawnupgrades", OnConsoleCommand_givevfprawnupgrades, false, false);
-			DevConsole.RegisterConsoleCommand("givevfcyclopsupgrades", OnConsoleCommand_givevfcyclopsupgrades, false, false);
-			DevConsole.RegisterConsoleCommand("logvfupgrades", OnConsoleCommand_logvfupgrades, false, false);
-			DevConsole.RegisterConsoleCommand("logvfvehicles", OnConsoleCommand_logvfvehicles, false, false);
-			DevConsole.RegisterConsoleCommand("logvfvoices", OnConsoleCommand_logvfvoices, false, false);
-			DevConsole.RegisterConsoleCommand("vfspawncodes", OnConsoleCommand_vfspawncodes, false, false);
-			DevConsole.RegisterConsoleCommand("undockclosest", OnConsoleCommand_undockclosest, false, false);
-			DevConsole.RegisterConsoleCommand("vfdestroy", OnConsoleCommand_vfdestroy, false, false);
+            DevConsole.RegisterConsoleCommand(this, "vfhelp", false, false);
+			DevConsole.RegisterConsoleCommand(this, "givevfupgrades", false, false);
+			DevConsole.RegisterConsoleCommand(this, "givevfseamothupgrades", false, false);
+			DevConsole.RegisterConsoleCommand(this, "givevfprawnupgrades", false, false);
+			DevConsole.RegisterConsoleCommand(this, "givevfcyclopsupgrades", false, false);
+			DevConsole.RegisterConsoleCommand(this, "logvfupgrades", false, false);
+			DevConsole.RegisterConsoleCommand(this, "logvfvehicles", false, false);
+			DevConsole.RegisterConsoleCommand(this, "logvfvoices", false, false);
+			DevConsole.RegisterConsoleCommand(this, "vfspawncodes", false, false);
+			DevConsole.RegisterConsoleCommand(this, "undockclosest", false, false);
+			DevConsole.RegisterConsoleCommand(this, "vfdestroy", false, false);
 		}
 		public void OnConsoleCommand_vfhelp(NotificationCenter.Notification _)
 		{
@@ -96,11 +96,11 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Admin
 		{
             static void MaybeUndock(VehicleDockingBay dock)
 			{
-				if (dock.dockedVehicle != null)
+				if (dock.GetDockedObject() != null && dock.GetDockedObject().vehicle != null)
 				{
-					Logger.PDANote($"{Language.main.Get("VFUndockHint1")} {dock.dockedVehicle.GetName()}");
+					Logger.PDANote($"{Language.main.Get("VFUndockHint1")} {dock.GetDockedObject().gameObject.name}");
 					isUndockConsoleCommand = true;
-					dock.dockedVehicle.Undock();
+					dock.GetDockedObject().vehicle.Undock();
 					isUndockConsoleCommand = false;
 				}
 				else

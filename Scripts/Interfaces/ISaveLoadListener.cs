@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Interfaces
+namespace VehicleFramework.Interfaces
 {
     public interface ISaveLoadListener
     {

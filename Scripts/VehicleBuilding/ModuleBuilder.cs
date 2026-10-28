@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using static VFXParticlesPool;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
+namespace VehicleFramework.VehicleBuilding
 {
     public static class ModuleBuilder
     {

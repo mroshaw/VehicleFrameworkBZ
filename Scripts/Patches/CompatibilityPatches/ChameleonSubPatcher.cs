@@ -3,7 +3,7 @@
 // PURPOSE: ensures ModVehicles are built normally despite the presence of the Chameleon sub
 // VALUE: High, unfortunately. As you can see, the prefix is empty. Odd!
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CompatibilityPatches
+namespace VehicleFramework.Patches.CompatibilityPatches
 {
     [HarmonyPatch(typeof(ConstructorInput))]
     public static class ChameleonSubPatcher

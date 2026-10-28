@@ -3,7 +3,7 @@
 // PURPOSE: Ensure drones always have a functional compass on the GUI
 // VALUE: Moderate. Could pass this off to individual drones.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
 	[HarmonyPatch(typeof(uGUI_DepthCompass))]
 	class UGUI_DepthCompassPatcher

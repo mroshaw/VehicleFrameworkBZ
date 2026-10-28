@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.UpgradeTypes;
+using VehicleFramework.Extensions;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     public static class Utils
     {

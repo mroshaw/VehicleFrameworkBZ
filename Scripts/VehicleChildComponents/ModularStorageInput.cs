@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DaftAppleGames.VehicleFrameworkBZ.SaveLoad;
+using VehicleFramework.SaveLoad;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
 	public class ModularStorageInput : StorageInput
 	{

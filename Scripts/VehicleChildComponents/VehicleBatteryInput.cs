@@ -1,7 +1,7 @@
-﻿//using DaftAppleGames.VehicleFrameworkBZ.Localization;
+﻿//using VehicleFramework.Localization;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
     public class VehicleBatteryInput : HandTarget, IHandTarget
 	{

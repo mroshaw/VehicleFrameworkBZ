@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
+using VehicleFramework.VehicleRootComponents;
+using VehicleFramework.Admin;
+using VehicleFramework.Assets;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
+namespace VehicleFramework.UpgradeTypes
 {
     public struct ArmEnergyCosts
     {
@@ -38,25 +38,25 @@ namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
         public abstract IEnumerator GetArmPrefab(IOut<GameObject> arm);
         public virtual bool OnArmDown(ArmActionParams param, out float cooldown) // return true OnUseSuccess (false if you refuse to do the action)
         {
-            Logger.DebugLog("Selecting arm: " + ClassId + " on ModVehicle: " + param.vehicle.subName.name + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Selecting arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
             cooldown = 0;
             return true;
         }
         public virtual bool OnArmHeld(ArmActionParams param, out float cooldown) // return true OnHoldSuccess (false if you don't have "hold" logic)
         {
-            Logger.DebugLog("Holding arm: " + ClassId + " on ModVehicle: " + param.vehicle.subName.name + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Holding arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
             cooldown = 0;
             return true;
         }
         public virtual bool OnArmUp(ArmActionParams param, out float cooldown) // return true OnReleaseSuccess (basically always)
         {
-            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + param.vehicle.subName.name + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
             cooldown = 0;
             return true;
         }
         public virtual bool OnArmAltUse(ArmActionParams param)
         {
-            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + param.vehicle.subName.name + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
             return false;
         }
 

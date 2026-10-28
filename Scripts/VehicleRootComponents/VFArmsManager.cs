@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
+using VehicleFramework.UpgradeTypes;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Admin;
+using VehicleFramework.VehicleBuilding;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
+namespace VehicleFramework.VehicleRootComponents
 {
     // This component is applied to ModVehicles.
     // It manages ModVehicleArms and their actions.

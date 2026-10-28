@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.MiscComponents
+namespace VehicleFramework.MiscComponents
 {
     public static class DockingBayBoundsExtensions
     {

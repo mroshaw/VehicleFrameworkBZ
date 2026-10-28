@@ -1,12 +1,12 @@
 ﻿using HarmonyLib;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
-using DaftAppleGames.VehicleFrameworkBZ.MiscComponents;
+using VehicleFramework.UpgradeTypes;
+using VehicleFramework.MiscComponents;
 
 // PURPOSE: allow VF upgrades for the Prawn to be used as expected
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     /* This set of patches is meant to only effect Exosuits.
      * For whatever reason, Exosuit does not implement
@@ -90,7 +90,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
             int slotIDToTest = isJank ? slotID - 2 : slotID;
             bool GetQuickSlotKeyDown(int inputSlotID)
             {
-                return inputSlotID >= 0 && inputSlotID < uGUI_QuickSlots.quickSlotButtons.Length && GameInput.GetButtonDown(uGUI_QuickSlots.quickSlotButtons[slotID]);
+                return Player.main != null && Player.main.GetQuickSlotKeyDown(inputSlotID);
             }
             if (!GetQuickSlotKeyDown(slotIDToTest) && !GameInput.GetButtonDown(GameInput.Button.LeftHand))
             {

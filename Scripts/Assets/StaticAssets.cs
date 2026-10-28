@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
+using VehicleFramework.Engines;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Assets
+namespace VehicleFramework.Assets
 {
     public static class StaticAssets
     {

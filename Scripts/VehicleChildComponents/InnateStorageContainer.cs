@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+using VehicleFramework.Assets;
+using VehicleFramework.VehicleTypes;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
 	public class InnateStorageContainer : MonoBehaviour, ICraftTarget//, IProtoEventListener, IProtoTreeEventListener
 	{
@@ -68,13 +68,13 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
 			cont.height = vs.Height;
 			cont.width = vs.Width;
 
-			if (SeamothHelper.Seamoth == null)
+			if (BelowZeroVehicleAssets.Prawn == null)
 			{
-				throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null when trying to create innate storage! This should never happen!");
+				throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null when trying to create innate storage! This should never happen!");
 			}
 
-			FMODAsset storageCloseSound = SeamothHelper.Seamoth.transform.Find("Storage/Storage1").GetComponent<SeamothStorageInput>().closeSound;
-			FMODAsset storageOpenSound = SeamothHelper.Seamoth.transform.Find("Storage/Storage1").GetComponent<SeamothStorageInput>().openSound;
+			FMODAsset storageCloseSound = BelowZeroVehicleAssets.StorageTemplate.closeSound;
+			FMODAsset storageOpenSound = BelowZeroVehicleAssets.StorageTemplate.openSound;
 			var inp = vs.Container.EnsureComponent<InnateStorageInput>();
 			inp.mv = mv;
 			inp.slotID = storageID;

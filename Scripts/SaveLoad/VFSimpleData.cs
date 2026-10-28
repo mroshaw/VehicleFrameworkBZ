@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Admin;
+using VehicleFramework.Interfaces;
 using Newtonsoft.Json.Linq;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.SaveLoad
+namespace VehicleFramework.SaveLoad
 {
     internal class VFSimpleSaveLoad : MonoBehaviour, ISaveLoadListener
     {

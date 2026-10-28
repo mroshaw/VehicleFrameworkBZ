@@ -5,7 +5,7 @@ using System.Reflection.Emit;
 // PURPOSE: Drones cannot open bulkheads (would teleport the player there)
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(BulkheadDoor))]
     public class BulkheadDoorPatcher

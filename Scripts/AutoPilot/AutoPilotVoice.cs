@@ -8,12 +8,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Reflection;
 using System.IO;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Admin;
+using VehicleFramework.Interfaces;
+using VehicleFramework.Extensions;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.AutoPilot
+namespace VehicleFramework.AutoPilot
 {
     public class AutoPilotVoice : MonoBehaviour, IScuttleListener
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.SaveLoad
+namespace VehicleFramework.SaveLoad
 {
     public static class SaveLoadUtils
     {

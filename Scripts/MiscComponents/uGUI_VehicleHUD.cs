@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using TMPro;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.VehicleChildComponents;
+using VehicleFramework.Extensions;
+using VehicleFramework.Admin;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.MiscComponents
+namespace VehicleFramework.MiscComponents
 {
 	public class UGUI_VehicleHUD : MonoBehaviour
 	{

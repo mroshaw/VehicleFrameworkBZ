@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using UWE;
+using System.Collections;
 using System.Linq;
 using HarmonyLib;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 // PURPOSE: allow the spawn console command to work for ModVehicles
 // VALUE: Moderate. Could register a new console command instead.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(SpawnConsoleCommand))]
     public static class SpawnConsoleCommandPatcher

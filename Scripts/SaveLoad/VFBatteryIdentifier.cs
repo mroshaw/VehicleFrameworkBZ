@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Interfaces;
 using batteryData = System.Tuple<System.String, float>;
 using Newtonsoft.Json.Linq;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.SaveLoad
+namespace VehicleFramework.SaveLoad
 {
     internal class VFBatteryIdentifier : MonoBehaviour, ISaveLoadListener
     {

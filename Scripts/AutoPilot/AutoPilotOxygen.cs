@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.AutoPilot
+namespace VehicleFramework.AutoPilot
 {
     public class AutoPilotOxygen : MonoBehaviour
     {

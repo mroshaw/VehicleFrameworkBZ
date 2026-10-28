@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
     public class PilotingTrigger : HandTarget, IHandTarget, IScuttleListener, IDockListener
     {

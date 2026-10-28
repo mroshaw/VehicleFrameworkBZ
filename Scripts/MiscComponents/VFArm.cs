@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
+using VehicleFramework.Admin;
+using VehicleFramework.UpgradeTypes;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.MiscComponents
+namespace VehicleFramework.MiscComponents
 {
     // This class is for Exosuit (Prawn) only.
     // This component is added to each arm GameObject.
@@ -44,6 +44,11 @@ namespace DaftAppleGames.VehicleFrameworkBZ.MiscComponents
             return armDeclaration?.GetInteractableRoot(gameObject, Vehicle, target);
         }
             
+        // BZ vanilla arms also leave this effect hook empty.
+        void IExosuitArm.SetArmEffects(Exosuit.Arm arm)
+        {
+        }
+
         void IExosuitArm.SetSide(Exosuit.Arm arm)
         {
             if (arm == Exosuit.Arm.Right)

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
+using VehicleFramework.VehicleBuilding;
 using System;
 using System.Linq;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     public static class VehicleManager
     {

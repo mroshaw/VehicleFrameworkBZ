@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Admin;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.MiscComponents
+namespace VehicleFramework.MiscComponents
 {
     internal class VFUnlocker : MonoBehaviour
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: ensure placed objects are permitted on and correctly parented to Submarines.
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(PlaceTool))]
     public class PlaceToolPatcher

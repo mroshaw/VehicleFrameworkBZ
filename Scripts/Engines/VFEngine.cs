@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
+using VehicleFramework.Interfaces;
+using VehicleFramework.VehicleRootComponents;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Engines
+namespace VehicleFramework.Engines
 {
     public abstract class VFEngine : MonoBehaviour, IScuttleListener
     {

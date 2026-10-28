@@ -3,7 +3,7 @@ using Nautilus.Options.Attributes;
 using System.Reflection;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ
+namespace VehicleFramework
 {
     [Menu("Vehicle Framework")]
     internal class VehicleFrameworkNautilusConfig : Nautilus.Json.ConfigFile
@@ -14,6 +14,21 @@ namespace DaftAppleGames.VehicleFrameworkBZ
         {
             ErrorMessage.AddMessage(Language.main.Get("VFConfigManagerPrintInfo"));
         }
+
+        [Keybind(LabelLanguageId = "OptionVFNextCameraButton")]
+        public KeyCode NextCameraKey { get; set; } = KeyCode.F;
+
+        [Keybind(LabelLanguageId = "OptionVFPrevCameraButton")]
+        public KeyCode PreviousCameraKey { get; set; } = KeyCode.T;
+
+        [Keybind(LabelLanguageId = "OptionVFExitCameraButton")]
+        public KeyCode ExitCameraKey { get; set; } = KeyCode.V;
+
+        [Keybind(LabelLanguageId = "OptionVFHeadlightsButton")]
+        public KeyCode HeadlightsKey { get; set; } = KeyCode.Mouse0;
+
+        [Keybind(LabelLanguageId = "OptionVFMagBootsButton")]
+        public KeyCode MagnetBootsKey { get; set; } = KeyCode.G;
 
         #region accessibility
         [Toggle(LabelLanguageId = "VFFlashingLightsLabel", TooltipLanguageId = "VFFlashingLightsTooltip")]

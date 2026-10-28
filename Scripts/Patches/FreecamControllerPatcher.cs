@@ -3,7 +3,7 @@
 // PURPOSE: Fix a bug in the base game, wherein FreeCamController fields are not correctly controlled.
 // VALUE: High, unfortunately.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(FreecamController))]
     public class FreecamControllerPatcher

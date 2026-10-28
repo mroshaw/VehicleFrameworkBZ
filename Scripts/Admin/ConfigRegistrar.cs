@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using BepInEx.Configuration;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     public class ExternalVehicleConfig<T>
     {

@@ -1,7 +1,7 @@
-﻿using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+﻿using VehicleFramework.Admin;
+using VehicleFramework.VehicleTypes;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
 	public class InnateStorageInput : StorageInput
 	{

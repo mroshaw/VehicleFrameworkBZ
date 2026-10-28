@@ -4,12 +4,12 @@ using System.Linq;
 using HarmonyLib;
 using System.Reflection.Emit;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
+using VehicleFramework.VehicleChildComponents;
 
 // PURPOSE: generally ensures ModVehicles behave like normal Vehicles
 // VALUE: Very high.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(Vehicle))]
     public class VehiclePatcher
@@ -18,6 +18,21 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
          * This collection of patches generally ensures our ModVehicles behave like normal Vehicles.
          * Each will be commented if necessary
          */
+
+        [HarmonyPrefix]
+        [HarmonyPatch(nameof(Vehicle.Undock))]
+        private static bool UndockPrefix(Vehicle __instance, Player player, float yUndockedPosition, ref IEnumerator __result)
+        {
+            ModVehicle vehicle = __instance as ModVehicle;
+            if (vehicle == null)
+            {
+                return true;
+            }
+            __result = vehicle.Undock(player, yUndockedPosition);
+            return false;
+        }
+
+
 
         [HarmonyPrefix]
         [HarmonyPatch(nameof(Vehicle.OnHandClick))]
@@ -164,44 +179,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
             return false;
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(Vehicle.ReAttach))]
-        public static bool VehicleReAttachPrefix(Vehicle __instance)
-        {
-            if(__instance?.transform?.parent == null)
-            {
-                return true;
-            }
-            IEnumerator NotifyDockingBay(Transform baseCell)
-            {
-                Transform parentObj = null!;
-                while (parentObj == null)
-                {
-                    if(baseCell == null)
-                    {
-                        yield break;
-                    }
-                    parentObj = baseCell.Find("BaseMoonpool(Clone)");
-                    yield return null;
-                }
-                yield return null;
-                VehicleDockingBay[]? thisBasesBays = baseCell?.GetAllComponentsInChildren<VehicleDockingBay>();
-                const float expectedMaxDistance = 5f;
-                if(thisBasesBays == null)
-                {
-                    yield break;
-                }
-                foreach (VehicleDockingBay bay in thisBasesBays.Where(x => x != null))
-                {
-                    if(Vector3.Distance(__instance.transform.position, bay.transform.position) < expectedMaxDistance)
-                    {
-                        bay?.DockVehicle(__instance, false);
-                    }
-                }
-            }
-            Admin.SessionManager.StartCoroutine(NotifyDockingBay(__instance.transform.parent.Find("BaseCell(Clone)")));
-            return true;
-        }
+
 
         [HarmonyPostfix]
         [HarmonyPatch(nameof(Vehicle.Awake))]
@@ -210,42 +188,6 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
             Admin.GameObjectManager<Vehicle>.Register(__instance);
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(Vehicle.UpdateEnergyRecharge))]
-        public static bool VehicleUpdateEnergyRechargePrefix(Vehicle __instance)
-        {
-            ModVehicle? mv = __instance as ModVehicle;
-            if (mv == null)
-            {
-                return true;
 
-            }
-            bool flag = false;
-            mv.energyInterface.GetValues(out float num, out float num2);
-            if (mv.docked && mv.timeDocked + 4f < Time.time && num < num2)
-            {
-                float amount = Mathf.Min(num2 - num, num2 * 0.0025f);
-                // Can't check mv for GetComponentInParent<PowerRelay> because mv itself has a PowerRelay component
-                // We need to make sure we draw power from the PowerRelay above us
-                PowerRelay componentInParent = mv.transform.parent.GetComponentInParent<PowerRelay>();
-                if (componentInParent == null)
-                {
-                    Debug.LogError("vehicle is docked but can't access PowerRelay component");
-                }
-                componentInParent.ConsumeEnergy(amount, out float num3);
-                if (!GameModeUtils.RequiresPower() || num3 > 0f)
-                {
-                    mv.energyInterface.AddEnergy(num3);
-                    flag = true;
-                }
-            }
-            if (flag)
-            {
-                mv.chargingSound.Play();
-                return false;
-            }
-            mv.chargingSound.Stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            return false;
-        }
     }
 }

@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine.U2D;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Assets
+namespace VehicleFramework.Assets
 {
     public struct VehicleAssets
     {

@@ -3,7 +3,7 @@
 // PURPOSE: ensures QuickSlots display as expected when inside a ModVehicle. Prevents Drones from accessing the Player's inventory.
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(PDA))]
     public class PDAPatcher

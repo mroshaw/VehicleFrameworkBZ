@@ -1,7 +1,7 @@
 ﻿using System;
 using static VehicleUpgradeConsoleInput;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     public static class EnumHelper
     {

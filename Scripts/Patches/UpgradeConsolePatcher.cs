@@ -6,7 +6,7 @@ using System.Collections.Generic;
 // PURPOSE: allow VF upgrades to function as expected in a Cyclops
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
 	public class VFUpgradesListener : MonoBehaviour
 	{
@@ -46,7 +46,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
 					techType = item.techType,
 					isAdded = true
 				};
-				DaftAppleGames.VehicleFrameworkBZ.Admin.UpgradeRegistrar.OnAddActions.ForEach(x => x(addedParams));
+				VehicleFramework.Admin.UpgradeRegistrar.OnAddActions.ForEach(x => x(addedParams));
 				Admin.SessionManager.StartCoroutine(BroadcastMessageSoon());
 			}
 		}
@@ -66,7 +66,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
 					techType = item.techType,
 					isAdded = false
 				};
-				DaftAppleGames.VehicleFrameworkBZ.Admin.UpgradeRegistrar.OnAddActions.ForEach(x => x(addedParams));
+				VehicleFramework.Admin.UpgradeRegistrar.OnAddActions.ForEach(x => x(addedParams));
 				Admin.SessionManager.StartCoroutine(BroadcastMessageSoon());
 			}
 		}

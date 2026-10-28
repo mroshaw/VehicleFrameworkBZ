@@ -3,7 +3,7 @@
 // PURPOSE: player is "normally grounded" while inside a Submarine
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(PlayerController))]
     public class PlayerControllerPatcher
@@ -27,7 +27,8 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
                 __instance.activeController = __instance.groundController;
                 __instance.desiredControllerHeight = __instance.standheight - __instance.cameraOffset;
                 __instance.activeController.SetControllerHeight(__instance.currentControllerHeight, __instance.cameraOffset);
-                __instance.activeController.SetEnabled(true);
+                // Respect locked piloting and knockback when resizing the player controller.
+                __instance.activeController.SetEnabled(__instance.enabled && !__instance.knockback);
                 return false;
             }
             return true;

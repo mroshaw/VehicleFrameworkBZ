@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: Create ModVehicle API for changing colors via normal routines (eg MoonPool terminal)
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(SubName))]
     public class SubNamePatcher

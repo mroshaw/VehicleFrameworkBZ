@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: Ensure sleeping in a bed in a submarine doesn't cause the vehicle to drift (issues caused by the animation)
 // VALUE: high, for the sake of world consistency
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(Bed))]
     public class BedPatcher

@@ -5,7 +5,7 @@ using UnityEngine;
 // PURPOSE: ensure ModVehicles are displayed correctly in the Map mod
 // VALUE: High. The Map is a great mod!
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CompatibilityPatches
+namespace VehicleFramework.Patches.CompatibilityPatches
 {
     public static class MapModPatcher
     {

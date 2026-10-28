@@ -1,10 +1,10 @@
 ﻿using HarmonyLib;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.Extensions;
 
 // PURPOSE: Allow custom handling of the player's body during ModVehicle piloting
 // VALUE: Moderate-low. Convenient for developers. Maybe better to do it in a per-vehicle way
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(ArmsController))]
     public class ArmsControllerPatcher

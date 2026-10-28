@@ -4,7 +4,7 @@ using HarmonyLib;
 // PURPOSE: Allow battery charges (and Power Relay in general) to work in expected ways on ModVehicles
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     /* This set of patches allows battery chargers to work inside Submarines.
      * Submarines have a PowerRelay, but they have SubRoot.powerRelay = null.
@@ -88,7 +88,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
                 __result = false;
                 return false;
             }
-            if (!GameModeUtils.RequiresPower())
+            if (!GameModeManager.GetOption<bool>(GameOption.TechnologyRequiresPower))
             {
                 modified = 0f;
                 __result = true;

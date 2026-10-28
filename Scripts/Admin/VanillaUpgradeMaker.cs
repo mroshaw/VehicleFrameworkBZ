@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
+using VehicleFramework.UpgradeTypes;
 using Nautilus.Assets.Gadgets;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     internal static class VanillaUpgradeMaker
     {
@@ -10,7 +10,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Admin
         internal static Nautilus.Assets.CustomPrefab CreateModuleVanilla(ModVehicleUpgrade upgrade, bool isPdaSetup, Nautilus.Assets.PrefabInfo info)
         {
             Nautilus.Assets.CustomPrefab prefab = new(info);
-            var clone = new Nautilus.Assets.PrefabTemplates.CloneTemplate(info, TechType.SeamothElectricalDefense);
+            var clone = new Nautilus.Assets.PrefabTemplates.CloneTemplate(info, TechType.SeaTruckUpgradePerimeterDefense);
             prefab.SetGameObject(clone);
             if (!isPdaSetup)
             {
@@ -241,28 +241,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Admin
         }
         internal static void CreatePassiveModuleCyclops(ModVehicleUpgrade upgrade, ref UpgradeTechTypes utt, bool isPdaSetup)
         {
-            var prefabInfo = Nautilus.Assets.PrefabInfo.WithTechType(upgrade.ClassId + "Cyclops", "Cyclops " + upgrade.DisplayName, "An upgrade for the Cyclops. " + upgrade.Description, unlockAtStart: upgrade.UnlockAtStart)
-                .WithIcon(upgrade.Icon);
-            utt.forCyclops = prefabInfo.TechType;
-            Nautilus.Assets.CustomPrefab prefab = new(prefabInfo);
-            var clone = new Nautilus.Assets.PrefabTemplates.CloneTemplate(prefabInfo, TechType.SeamothElectricalDefense);
-            prefab.SetGameObject(clone);
-            if (!isPdaSetup)
-            {
-                prefab.SetPdaGroupCategory(TechGroup.Cyclops, TechCategory.CyclopsUpgrades);
-            }
-            if (!upgrade.UnlockAtStart)
-            {
-                ScanningGadget scanGadge = prefab.SetUnlock(upgrade.UnlockWith);
-                if (upgrade.UnlockedSprite != null)
-                {
-                    scanGadge.WithAnalysisTech(upgrade.UnlockedSprite, unlockMessage: upgrade.UnlockedMessage);
-                }
-            }
-            prefab.AddRecipe(upgrade, VehicleType.Cyclops);
-            prefab.SetEquipment(EquipmentType.CyclopsModule);
-            prefab.Register();
-            CyclopsUpgradeTechTypes.Add(prefabInfo.TechType);
+            Logger.Warn("Cyclops upgrade variants are not available in Below Zero.");
         }
         #endregion
 

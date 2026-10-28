@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
+namespace VehicleFramework.VehicleRootComponents
 {
     public class MVCameraController : MonoBehaviour, IPlayerListener
     {
@@ -105,15 +105,15 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
                 return;
             }
             int currentIndex = cameras.Keys.ToList().IndexOf(state);
-            if (GameInput.GetButtonDown(MainPatcher.Instance.NextCameraKey))
+            if (MainPatcher.GetKeyDown(MainPatcher.Instance.NextCameraKey))
             {
                 currentIndex++;
             }
-            else if (GameInput.GetButtonDown(MainPatcher.Instance.PreviousCameraKey))
+            else if (MainPatcher.GetKeyDown(MainPatcher.Instance.PreviousCameraKey))
             {
                 currentIndex--;
             }
-            else if (GameInput.GetButtonDown(MainPatcher.Instance.ExitCameraKey))
+            else if (MainPatcher.GetKeyDown(MainPatcher.Instance.ExitCameraKey))
             {
                 SetState(playerCameraState);
                 return;

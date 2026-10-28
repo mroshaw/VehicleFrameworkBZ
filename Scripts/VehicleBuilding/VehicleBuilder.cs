@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+using VehicleFramework.Admin;
+using VehicleFramework.Assets;
+using VehicleFramework.Engines;
+using VehicleFramework.VehicleChildComponents;
+using VehicleFramework.VehicleTypes;
 using static ConsoleInput;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
+namespace VehicleFramework.VehicleBuilding
 {
     public struct VehicleEntry
     {
@@ -39,7 +39,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         internal static IEnumerator Prefabricate(ModVehicle mv, PingType pingType, bool verbose)
         {
             VehicleRegistrar.VerboseLog(VehicleRegistrar.LogType.Log, verbose, "Prefabricating the " + mv.gameObject.name);
-            yield return Admin.SessionManager.StartCoroutine(SeamothHelper.EnsureSeamoth());
+            yield return BelowZeroVehicleAssets.EnsureLoaded();
             if(!Instrument(mv, pingType))
             {
                 Logger.Error("Failed to instrument the vehicle: " + mv.gameObject.name);
@@ -102,13 +102,13 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
                     {
                         vs.Container.SetActive(false);
 
-                        if (SeamothHelper.Seamoth == null)
+                        if (BelowZeroVehicleAssets.Prawn == null)
                         {
-                            throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                            throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
                         }
 
-                        FMODAsset storageCloseSound = SeamothHelper.Seamoth.transform.Find("Storage/Storage1").GetComponent<SeamothStorageInput>().closeSound;
-                        FMODAsset storageOpenSound = SeamothHelper.Seamoth.transform.Find("Storage/Storage1").GetComponent<SeamothStorageInput>().openSound;
+                        FMODAsset storageCloseSound = BelowZeroVehicleAssets.StorageTemplate.closeSound;
+                        FMODAsset storageOpenSound = BelowZeroVehicleAssets.StorageTemplate.openSound;
                         var inp = vs.Container.EnsureComponent<ModularStorageInput>();
                         inp.mv = mv;
                         inp.slotID = iter;
@@ -219,13 +219,11 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         }
         internal static void SetupEnergyInterface(ModVehicle mv)
         {
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            var seamothEnergyMixin = SeamothHelper.Seamoth.GetComponent<EnergyMixin>();
-            mv.chargingSound = mv.gameObject.AddComponent<FMOD_CustomLoopingEmitter>();
-            mv.chargingSound.asset = SeamothHelper.Seamoth.GetComponent<SeaMoth>().chargingSound.asset;
+            EnergyMixin batteryTemplate = BelowZeroVehicleAssets.BatteryTemplate;
             var eInterf = mv.gameObject.EnsureComponent<EnergyInterface>();
             List<EnergyMixin> energyMixins = new();
             if (mv.Batteries == null || mv.Batteries.Count == 0)
@@ -233,13 +231,17 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
                 // Configure energy mixin for this battery slot
                 var energyMixin = mv.gameObject.AddComponent<ForeverBattery>();
                 energyMixin.storageRoot = mv.StorageRootObject.GetComponent<ChildObjectIdentifier>();
-                energyMixin.defaultBattery = seamothEnergyMixin.defaultBattery;
-                energyMixin.compatibleBatteries = seamothEnergyMixin.compatibleBatteries;
-                energyMixin.soundPowerUp = seamothEnergyMixin.soundPowerUp;
-                energyMixin.soundPowerDown = seamothEnergyMixin.soundPowerDown;
-                energyMixin.soundBatteryAdd = seamothEnergyMixin.soundBatteryAdd;
-                energyMixin.soundBatteryRemove = seamothEnergyMixin.soundBatteryRemove;
-                energyMixin.batteryModels = seamothEnergyMixin.batteryModels;
+                energyMixin.defaultBattery = batteryTemplate.defaultBattery;
+                energyMixin.compatibleBatteries = new List<TechType>(batteryTemplate.compatibleBatteries);
+                energyMixin.soundPowerUp = batteryTemplate.soundPowerUp;
+                energyMixin.soundPowerDown = batteryTemplate.soundPowerDown;
+                energyMixin.soundBatteryAdd = batteryTemplate.soundBatteryAdd;
+                energyMixin.soundBatteryRemove = batteryTemplate.soundBatteryRemove;
+                if (energyMixin.controlledObjects is null)
+                {
+                    energyMixin.controlledObjects = Array.Empty<GameObject>();
+                }
+                energyMixin.batteryModels = Array.Empty<EnergyMixin.BatteryModels>();
                 energyMixin.controlledObjects = Array.Empty<GameObject>();
                 energyMixins.Add(energyMixin);
                 eInterf.sources = energyMixins.ToArray();
@@ -251,13 +253,17 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
                 // Configure energy mixin for this battery slot
                 var energyMixin = vb.BatterySlot.EnsureComponent<EnergyMixin>();
                 energyMixin.storageRoot = mv.StorageRootObject.GetComponent<ChildObjectIdentifier>();
-                energyMixin.defaultBattery = seamothEnergyMixin.defaultBattery;
-                energyMixin.compatibleBatteries = seamothEnergyMixin.compatibleBatteries;
-                energyMixin.soundPowerUp = seamothEnergyMixin.soundPowerUp;
-                energyMixin.soundPowerDown = seamothEnergyMixin.soundPowerDown;
-                energyMixin.soundBatteryAdd = seamothEnergyMixin.soundBatteryAdd;
-                energyMixin.soundBatteryRemove = seamothEnergyMixin.soundBatteryRemove;
-                energyMixin.batteryModels = seamothEnergyMixin.batteryModels;
+                energyMixin.defaultBattery = batteryTemplate.defaultBattery;
+                energyMixin.compatibleBatteries = new List<TechType>(batteryTemplate.compatibleBatteries);
+                energyMixin.soundPowerUp = batteryTemplate.soundPowerUp;
+                energyMixin.soundPowerDown = batteryTemplate.soundPowerDown;
+                energyMixin.soundBatteryAdd = batteryTemplate.soundBatteryAdd;
+                energyMixin.soundBatteryRemove = batteryTemplate.soundBatteryRemove;
+                if (energyMixin.controlledObjects is null)
+                {
+                    energyMixin.controlledObjects = Array.Empty<GameObject>();
+                }
+                energyMixin.batteryModels = Array.Empty<EnergyMixin.BatteryModels>();
                 energyMixins.Add(energyMixin);
                 var tmp = vb.BatterySlot.EnsureComponent<VehicleBatteryInput>();
                 tmp.mixin = energyMixin;
@@ -271,25 +277,15 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         }
         internal static void SetupLightSounds(ModVehicle mv)
         {
-            if (SeamothHelper.Seamoth == null)
+            if (mv.LightsOnSound == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                mv.LightsOnSound = mv.gameObject.AddComponent<FMOD_CustomEmitter>();
+                mv.LightsOnSound.asset = BelowZeroVehicleAssets.LightSounds.onSound;
             }
-            FMOD_StudioEventEmitter[] fmods = SeamothHelper.Seamoth.GetComponents<FMOD_StudioEventEmitter>();
-            foreach (FMOD_StudioEventEmitter fmod in fmods.Where(x => x?.asset != null))
+            if (mv.LightsOffSound == null)
             {
-                if (fmod.asset.name == "seamoth_light_on")
-                {
-                    var ce = mv.gameObject.AddComponent<FMOD_CustomEmitter>();
-                    ce.asset = fmod.asset;
-                    mv.LightsOnSound ??= ce;
-                }
-                else if (fmod.asset.name == "seamoth_light_off")
-                {
-                    var ce = mv.gameObject.AddComponent<FMOD_CustomEmitter>();
-                    ce.asset = fmod.asset;
-                    mv.LightsOffSound ??= ce;
-                }
+                mv.LightsOffSound = mv.gameObject.AddComponent<FMOD_CustomEmitter>();
+                mv.LightsOffSound.asset = BelowZeroVehicleAssets.LightSounds.offSound;
             }
         }
         internal static void SetupLights(ModVehicle mv, List<VehicleFloodLight>? lights)
@@ -298,15 +294,18 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             {
                 return;
             }
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            GameObject seamothHeadLight = SeamothHelper.Seamoth.transform.Find("lights_parent/light_left").gameObject;
+            GameObject prawnHeadLight = BelowZeroVehicleAssets.Prawn.transform.Find("lights_parent/light_left").gameObject;
             foreach (VehicleFloodLight pc in lights)
             {
-                CopyComponent(seamothHeadLight.GetComponent<LightShadowQuality>(), pc.Light);
+
                 var thisLight = pc.Light.EnsureComponent<Light>();
+                LightShadowQuality quality = pc.Light.EnsureComponent<LightShadowQuality>();
+                quality.qualityPairs = BelowZeroVehicleAssets.LightQuality.qualityPairs;
+                quality.light = thisLight;
                 thisLight.type = LightType.Spot;
                 thisLight.spotAngle = pc.Angle;
                 thisLight.innerSpotAngle = pc.Angle * .75f;
@@ -322,47 +321,15 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         }
         internal static void SetupVolumetricLights(ModVehicle mv)
         {
-            if (SeamothHelper.Seamoth == null)
+            // BZ's stock Prawn/Seatruck headlights do not have the SN cone effect.
+            // Preserve explicitly authored effects without instantiating a legacy Seamoth.
+            mv.volumetricLights.Clear();
+            foreach (VFXVolumetricLight light in mv.GetComponentsInChildren<VFXVolumetricLight>(true))
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
-            }
-            GameObject seamothHeadLight = SeamothHelper.Seamoth.transform.Find("lights_parent/light_left").gameObject;
-            Transform seamothVL = SeamothHelper.Seamoth.transform.Find("lights_parent/light_left/x_FakeVolumletricLight"); // sic
-            MeshFilter seamothVLMF = seamothVL.GetComponent<MeshFilter>();
-            MeshRenderer seamothVLMR = seamothVL.GetComponent<MeshRenderer>();
-            List<VehicleFloodLight> theseLights = mv.HeadLights ?? new();
-            if(mv is VehicleTypes.Submarine subma && subma.FloodLights != null)
-            {
-                theseLights.AddRange(subma.FloodLights);
-            }
-            foreach (VehicleFloodLight pc in theseLights)
-            {
-                GameObject volumetricLight = new("VolumetricLight");
-                volumetricLight.transform.SetParent(pc.Light.transform);
-                volumetricLight.transform.localPosition = Vector3.zero;
-                volumetricLight.transform.localEulerAngles = Vector3.zero;
-                volumetricLight.transform.localScale = seamothVL.localScale;
-
-                var lvlMeshFilter = volumetricLight.AddComponent<MeshFilter>();
-                lvlMeshFilter.mesh = seamothVLMF.mesh;
-                lvlMeshFilter.sharedMesh = seamothVLMF.sharedMesh;
-
-                var lvlMeshRenderer = volumetricLight.AddComponent<MeshRenderer>();
-                lvlMeshRenderer.material = seamothVLMR.material;
-                lvlMeshRenderer.sharedMaterial = seamothVLMR.sharedMaterial;
-                lvlMeshRenderer.shadowCastingMode = seamothVLMR.shadowCastingMode;
-                lvlMeshRenderer.renderingLayerMask = seamothVLMR.renderingLayerMask;
-
-                var leftVFX = CopyComponent(seamothHeadLight.GetComponent<VFXVolumetricLight>(), pc.Light) ??
-                    throw Admin.SessionManager.Fatal($"Failed to copy VFXVolumetricLight from {seamothHeadLight.name} to {pc.Light.name}!");
-                leftVFX.lightSource = pc.Light.GetComponent<Light>();
-                leftVFX.color = pc.Color;
-                leftVFX.volumGO = volumetricLight;
-                leftVFX.volumRenderer = lvlMeshRenderer;
-                leftVFX.volumMeshFilter = lvlMeshFilter;
-                leftVFX.angle = (int)pc.Angle;
-                leftVFX.range = pc.Range;
-                mv.volumetricLights.Add(volumetricLight);
+                if (light.volumGO != null)
+                {
+                    mv.volumetricLights.Add(light.volumGO);
+                }
             }
         }
         internal static void SetupLiveMixin(ModVehicle mv)
@@ -375,7 +342,6 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             // NEWNEW
             // What's going to happen when a vdehicle dies now?
             //lmData.explodeOnDestroy = true;
-            lmData.invincibleInCreative = true;
             lmData.weldable = true;
             lmData.minDamageForSound = 20f;
             /*
@@ -427,25 +393,27 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
                     mv.VFEngine ??= mv.gameObject.AddComponent<CricketEngine>();
                     break;
             }
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            mv.splashSound = SeamothHelper.Seamoth.GetComponent<SeaMoth>().splashSound;
+            mv.splashSound = BelowZeroVehicleAssets.Prawn.GetComponent<Exosuit>().splashSound;
             //atrama.vehicle.bubbles = CopyComponent<ParticleSystem>(seamoth.GetComponent<SeaMoth>().bubbles, atrama.vehicle.gameObject);
         }
         internal static void SetupWorldForces(ModVehicle mv)
         {
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            mv.worldForces = CopyComponent<WorldForces>(SeamothHelper.Seamoth.GetComponent<SeaMoth>().worldForces, mv.gameObject)
-                ?? throw Admin.SessionManager.Fatal($"Failed to copy WorldForces from {SeamothHelper.Seamoth.name} to {mv.gameObject.name}!");
+            mv.worldForces = CopyComponent<WorldForces>(BelowZeroVehicleAssets.Prawn.GetComponent<WorldForces>(), mv.gameObject)
+                ?? throw Admin.SessionManager.Fatal($"Failed to copy WorldForces from {BelowZeroVehicleAssets.Prawn.name} to {mv.gameObject.name}!");
             mv.worldForces.useRigidbody = mv.useRigidbody;
             mv.worldForces.underwaterGravity = 0f;
             mv.worldForces.aboveWaterGravity = 9.8f;
             mv.worldForces.waterDepth = 0f;
+            mv.worldForces.handleDrag = true;
+            mv.worldForces.underwaterDrag = 1f;
         }
         internal static void SetupHudPing(ModVehicle mv, PingType pingType)
         {
@@ -459,11 +427,11 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         {
             var ce = mv.gameObject.AddComponent<FMOD_CustomEmitter>();
             ce.restartOnPlay = true;
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            foreach (var thisCE in SeamothHelper.Seamoth.GetComponentsInChildren<FMOD_CustomEmitter>())
+            foreach (var thisCE in BelowZeroVehicleAssets.Prawn.GetComponentsInChildren<FMOD_CustomEmitter>())
             {
                 if (thisCE.name == "crushDamageSound")
                 {
@@ -493,19 +461,19 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
                 return;
             }
             // Enable water clipping for proper interaction with the surface of the ocean
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            WaterClipProxy seamothWCP = SeamothHelper.Seamoth.GetComponentInChildren<WaterClipProxy>();
+            WaterClipProxy waterClipTemplate = BelowZeroVehicleAssets.WaterClipTemplate;
             foreach (GameObject proxy in mv.WaterClipProxies)
             {
                 WaterClipProxy waterClip = proxy.AddComponent<WaterClipProxy>();
                 waterClip.shape = WaterClipProxy.Shape.Box;
-                //"""Apply the seamoth's clip material. No idea what shader it uses or what settings it actually has, so this is an easier option. Reuse the game's assets.""" -Lee23
-                waterClip.clipMaterial = seamothWCP.clipMaterial;
+                // Retain the authored box shape while reusing BZ's clip material and layer.
+                waterClip.clipMaterial = waterClipTemplate.clipMaterial;
                 //"""You need to do this. By default the layer is 0. This makes it displace everything in the default rendering layer. We only want to displace water.""" -Lee23
-                waterClip.gameObject.layer = seamothWCP.gameObject.layer;
+                waterClip.gameObject.layer = waterClipTemplate.gameObject.layer;
             }
         }
         internal static void SetupSubName(ModVehicle mv)
@@ -514,21 +482,17 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             subname.pingInstance = mv.GetComponent<PingInstance>();
             subname.colorsInitialized = 0;
             subname.hullName = mv.StorageRootObject.AddComponent<TMPro.TextMeshProUGUI>(); // DO NOT push a TMPro.TextMeshProUGUI on the root vehicle object!!!
+
             mv.subName = subname;
             mv.SetName(mv.vehicleDefaultName);
         }
         internal static void SetupCollisionSound(ModVehicle mv)
         {
-            var colsound = mv.gameObject.EnsureComponent<CollisionSound>();
-            if (SeamothHelper.Seamoth == null)
-            {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
-            }
-            var seamothColSound = SeamothHelper.Seamoth.GetComponent<CollisionSound>();
-            colsound.hitSoundSmall = seamothColSound.hitSoundSmall;
-            colsound.hitSoundSlow = seamothColSound.hitSoundSlow;
-            colsound.hitSoundMedium = seamothColSound.hitSoundMedium;
-            colsound.hitSoundFast = seamothColSound.hitSoundFast;
+            CollisionSound sound = mv.gameObject.EnsureComponent<CollisionSound>();
+            sound.hitSoundSmall = BelowZeroVehicleAssets.SmallImpactSound;
+            sound.hitSoundSlow = BelowZeroVehicleAssets.Prawn.GetComponent<SoundOnDamage>().sound;
+            sound.hitSoundMedium = BelowZeroVehicleAssets.MediumImpactSound;
+            sound.hitSoundFast = BelowZeroVehicleAssets.FastImpactSound;
         }
         internal static void SetupOutOfBoundsWarp(ModVehicle mv)
         {
@@ -545,11 +509,11 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             // TODO: this might not work, might need to put it in a VehicleStatusListener
             var sod = mv.gameObject.EnsureComponent<SoundOnDamage>();
             sod.damageType = DamageType.Normal;
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            sod.sound = SeamothHelper.Seamoth.GetComponent<SoundOnDamage>().sound;
+            sod.sound = BelowZeroVehicleAssets.Prawn.GetComponent<SoundOnDamage>().sound;
         }
         internal static void SetupDealDamageOnImpact(ModVehicle mv)
         {
@@ -576,11 +540,10 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
 
             // add temperaturedamage
             var tempdamg = mv.gameObject.EnsureComponent<TemperatureDamage>();
-            if (SeamothHelper.Seamoth == null)
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            tempdamg.lavaDatabase = SeamothHelper.Seamoth.GetComponent<TemperatureDamage>().lavaDatabase;
             tempdamg.liveMixin = mv.liveMixin;
             tempdamg.baseDamagePerSecond = 2.0f; // 10 times what the seamoth takes, since the Atrama 
             // the following configurations are the same values the seamoth takes
@@ -685,6 +648,18 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             SetupLightSounds(mv);
             SetupLiveMixin(mv);
             SetupRigidbody(mv);
+            if (mv.disableOnDock is null)
+            {
+                mv.disableOnDock = System.Array.Empty<GameObject>();
+            }
+            if (mv.disableDockedColliders is null)
+            {
+                mv.disableDockedColliders = System.Array.Empty<Collider>();
+            }
+            Dockable dockable = mv.gameObject.EnsureComponent<Dockable>();
+            dockable.vehicle = mv;
+            dockable.rb = mv.useRigidbody;
+            dockable.energyInterface = mv.energyInterface;
             SetupWorldForces(mv);
             SetupHudPing(mv, pingType);
             SetupCrushDamage(mv); // must be after liveMixin
@@ -697,7 +672,10 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             SetupDamageComponents(mv);
             SetupLavaLarvaAttachPoints(mv);
             SetupDenyBuildingTags(mv);
-            mv.collisionModel = mv.CollisionModel;
+            GameObject collisionGroup = new GameObject("VehicleCollisionGroup");
+            collisionGroup.transform.SetParent(mv.transform, false);
+            collisionGroup.AddComponent<VehicleCollisionGroup>().Configure(mv.CollisionModel);
+            mv.collisionModel = collisionGroup;
 
             switch (mv)
             {
@@ -725,19 +703,16 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         }
         internal static void ApplyGlassMaterial(ModVehicle mv)
         {
-            if(mv.CanopyWindows == null || mv.CanopyWindows.Count == 0)
+            if (mv.CanopyWindows == null || mv.CanopyWindows.Count == 0)
             {
                 return;
             }
-            if (SeamothHelper.Seamoth == null)
+            foreach (Renderer renderer in mv.GetComponentsInChildren<Renderer>(true))
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null! Did you forget to call SeamothHelper.EnsureSeamoth()?");
-            }
-            // Add the [marmoset] shader to all renderers
-            foreach (var renderer in mv.gameObject.GetComponentsInChildren<Renderer>(true).Where(x => mv.CanopyWindows.Contains(x.gameObject)))
-            {
-                var seamothGlassMaterial = SeamothHelper.Seamoth.transform.Find("Model/Submersible_SeaMoth/Submersible_seaMoth_geo/Submersible_SeaMoth_glass_interior_geo").GetComponent<SkinnedMeshRenderer>().material;
-                renderer.material = seamothGlassMaterial; // this is the right line
+                if (mv.CanopyWindows.Contains(renderer.gameObject))
+                {
+                    renderer.sharedMaterial = BelowZeroVehicleAssets.GlassMaterial;
+                }
             }
         }
         internal static void ApplyShaders(ModVehicle mv, Shader shader)

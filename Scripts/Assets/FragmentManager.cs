@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Nautilus.Assets.Gadgets;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Assets
+namespace VehicleFramework.Assets
 {
     public struct FragmentData
     {

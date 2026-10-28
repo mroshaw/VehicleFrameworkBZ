@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: protect player's in Submarines against Warper teleport balls.
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CreaturePatches
+namespace VehicleFramework.Patches.CreaturePatches
 {
     [HarmonyPatch(typeof(Creature))]
     class WarperPatcher

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using HarmonyLib;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Admin;
 
 // PURPOSE: Allow ModVehicles to use (and have displayed) custom ping sprites.
 // VALUE: Very high.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(uGUI_PingEntry))]
     class UGUI_PingEntryPatcher

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
+namespace VehicleFramework.UpgradeTypes
 {
     public struct AddActionParams
     {

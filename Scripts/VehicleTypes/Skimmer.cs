@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
+using VehicleFramework.Engines;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
+namespace VehicleFramework.VehicleTypes
 {
     /*
     public abstract class Skimmer : ModVehicle

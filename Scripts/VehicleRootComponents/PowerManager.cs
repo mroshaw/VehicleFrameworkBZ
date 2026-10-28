@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Interfaces;
+using VehicleFramework.Admin;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
+namespace VehicleFramework.VehicleRootComponents
 {
     /*
      * The PowerManager handles all power drains for the ModVehicle.

@@ -2,12 +2,12 @@
 using HarmonyLib;
 using UnityEngine;
 using System.Reflection;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
+using VehicleFramework.VehicleChildComponents;
 
 // PURPOSE: Allow drones to target, hover, and pick things up in an intuitive way.
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(Targeting))]
     public static class DroneTargetingPatcher

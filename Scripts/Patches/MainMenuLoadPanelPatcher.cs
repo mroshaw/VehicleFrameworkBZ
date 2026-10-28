@@ -5,7 +5,7 @@ using System.Collections.Generic;
 // PURPOSE: allow custom save file sprites to be displayed
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     // See also: SaveLoadManagerPatcher
     [HarmonyPatch(typeof(MainMenuLoadPanel))]

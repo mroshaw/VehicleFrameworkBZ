@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
+using VehicleFramework.UpgradeTypes;
+using VehicleFramework.Assets;
 using Nautilus.Assets.Gadgets;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.MiscComponents;
+using VehicleFramework.MiscComponents;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     public struct UpgradeCompat
     {
@@ -47,6 +47,9 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Admin
         internal static List<Tuple<Vehicle, int, Coroutine>> toggledActions = new();
         public static UpgradeTechTypes RegisterUpgrade(ModVehicleUpgrade upgrade, UpgradeCompat compat = default)
         {
+            // Below Zero has no supported vanilla Seamoth or Cyclops upgrade targets.
+            compat.skipSeamoth = true;
+            compat.skipCyclops = true;
             Logger.Log("Registering ModVehicleUpgrade " + upgrade.ClassId + " : " + upgrade.DisplayName);
             bool result = ValidateModVehicleUpgrade(upgrade, compat);
             if(result)
@@ -113,7 +116,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Admin
                 .WithTechType(upgrade.ClassId, upgrade.DisplayName, upgrade.Description, unlockAtStart: upgrade.UnlockAtStart)
                 .WithIcon(upgrade.Icon);
             Nautilus.Assets.CustomPrefab module_CustomPrefab = new(module_info);
-            Nautilus.Assets.PrefabTemplates.PrefabTemplate moduleTemplate = new Nautilus.Assets.PrefabTemplates.CloneTemplate(module_info, TechType.SeamothElectricalDefense)
+            Nautilus.Assets.PrefabTemplates.PrefabTemplate moduleTemplate = new Nautilus.Assets.PrefabTemplates.CloneTemplate(module_info, TechType.SeaTruckUpgradePerimeterDefense)
             {
                 ModifyPrefab = prefab => prefab.GetComponentsInChildren<Renderer>().ForEach(r => r.materials.ForEach(m => m.color = upgrade.Color))
             };

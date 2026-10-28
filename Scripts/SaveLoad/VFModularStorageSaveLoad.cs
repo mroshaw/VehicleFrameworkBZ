@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 using techTypeString = System.String;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.SaveLoad
+namespace VehicleFramework.SaveLoad
 {
     internal static class VFModularStorageSaveLoad
     {

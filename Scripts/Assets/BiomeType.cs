@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BiomeData = LootDistributionData.BiomeData;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Assets
+namespace VehicleFramework.Assets
 {
     public enum AbstractBiomeType
     {

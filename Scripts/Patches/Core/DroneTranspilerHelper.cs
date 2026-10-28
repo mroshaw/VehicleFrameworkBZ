@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using HarmonyLib;
 using System.Reflection.Emit;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.Core
+namespace VehicleFramework.Patches.Core
 {
     public static class DroneTranspilerHelper
     {

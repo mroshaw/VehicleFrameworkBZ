@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: permit waterclipproxies with negative scaling to act in an intuitive way
 // VALUE: Moderate. Not really sure this is my problem to fix.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(WaterClipProxy))]
     class WaterClipProxyPatcher

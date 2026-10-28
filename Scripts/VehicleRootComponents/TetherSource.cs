@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
+namespace VehicleFramework.VehicleRootComponents
 {
     /*
      * Tether Sources are meant to be placed throughout the Submarine.

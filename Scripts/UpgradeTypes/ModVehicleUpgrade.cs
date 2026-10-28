@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.Admin;
+using VehicleFramework.Assets;
+using VehicleFramework.Extensions;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
+namespace VehicleFramework.UpgradeTypes
 {
     public abstract class ModVehicleUpgrade
     {
@@ -33,11 +33,11 @@ namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
         public virtual List<Ingredient> Recipe => new() { new Ingredient(TechType.Titanium, 1) };
         public virtual void OnAdded(AddActionParams param)
         {
-            Logger.DebugLog("Adding " + ClassId + " to ModVehicle: " + param.vehicle.subName.name + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Adding " + ClassId + " to ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
         }
         public virtual void OnRemoved(AddActionParams param)
         {
-            Logger.DebugLog("Removing " + ClassId + " to ModVehicle: " + param.vehicle.subName.name + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Removing " + ClassId + " to ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
         }
         public virtual void OnCyclops(AddActionParams param)
         {

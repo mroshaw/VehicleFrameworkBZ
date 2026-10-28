@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes;
-//using DaftAppleGames.VehicleFrameworkBZ.Localization;
+using VehicleFramework.Assets;
+using VehicleFramework.UpgradeTypes;
+//using VehicleFramework.Localization;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     internal static class CraftTreeHandler
     {
@@ -30,7 +30,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Admin
         {
             var vfIcon = SpriteHelper.GetSpriteInternal("VFUpgradesIcon.png") ?? StaticAssets.ModVehicleIcon;
             var mvIcon = StaticAssets.UpgradeIcon;
-            var seamothIcon = SpriteManager.Get(TechType.Seamoth) ?? StaticAssets.ModVehicleIcon;
+            var seamothIcon = StaticAssets.ModVehicleIcon;
             var prawnIcon = SpriteManager.Get(TechType.Exosuit) ?? StaticAssets.ModVehicleIcon;
             var cyclopsIcon = SpriteManager.Get(TechType.Cyclops) ?? StaticAssets.ModVehicleIcon;
 

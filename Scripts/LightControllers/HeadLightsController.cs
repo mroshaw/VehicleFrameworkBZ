@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.LightControllers
+namespace VehicleFramework.LightControllers
 {
     public class HeadLightsController : BaseLightController
     {
@@ -46,7 +46,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.LightControllers
 
         protected virtual void Update()
         {
-            bool isHeadlightsButtonPressed = GameInput.GetButtonDown(MainPatcher.Instance.HeadlightsKey);
+            bool isHeadlightsButtonPressed = MainPatcher.GetKeyDown(MainPatcher.Instance.HeadlightsKey);
             if (MV.IsPlayerControlling() && isHeadlightsButtonPressed && !Player.main.GetPDA().isInUse)
             {
                 Toggle();

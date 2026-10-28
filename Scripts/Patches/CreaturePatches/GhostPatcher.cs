@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: configure how much damage ghost leviathans can do
 // VALUE: Moderate. Convenient for developers.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CreaturePatches
+namespace VehicleFramework.Patches.CreaturePatches
 {
     [HarmonyPatch(typeof(GhostLeviathanMeleeAttack))]
     class GhostPatcher

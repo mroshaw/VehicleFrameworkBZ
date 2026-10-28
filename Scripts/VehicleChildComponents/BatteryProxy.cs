@@ -1,72 +1,65 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
+using VehicleFramework.Assets;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
     public class BatteryProxy : MonoBehaviour
     {
-        public Transform? proxy = null;
-        public EnergyMixin? mixin = null;
+        public Transform? proxy;
+        public EnergyMixin? mixin;
 
-        internal static void Create(VehicleBattery vb, EnergyMixin energyMixin)
+        internal static void Create(VehicleBuilding.VehicleBattery battery, EnergyMixin energyMixin)
         {
-            var model = vb.BatterySlot.gameObject.EnsureComponent<VehicleChildComponents.BatteryProxy>();
-            model.proxy = vb.BatteryProxy;
-            model.mixin = energyMixin;
+            BatteryProxy component = battery.BatterySlot.EnsureComponent<BatteryProxy>();
+            component.proxy = battery.BatteryProxy;
+            component.mixin = energyMixin;
         }
 
-        public void Awake()
-        {
-            Admin.SessionManager.StartCoroutine(GetSeamothBitsASAP());
-        }
+        /// <summary>
+        /// Begins initializing the proxy visuals after the creator assigns its references.
+        /// </summary>
+        public void Awake() => Admin.SessionManager.StartCoroutine(GetSeamothBitsASAP());
+
+        /// <summary>
+        /// Loads the proxy visuals from the Below Zero donor assets.
+        /// </summary>
         public IEnumerator GetSeamothBitsASAP()
         {
+            yield return null; // AddComponent invokes Awake before Create finishes assigning references.
             if (proxy == null || mixin == null)
             {
-                Component.DestroyImmediate(this);
                 yield break;
             }
-            yield return Admin.SessionManager.StartCoroutine(SeamothHelper.EnsureSeamoth());
-            if(SeamothHelper.Seamoth == null)
+            yield return BelowZeroVehicleAssets.EnsureLoaded();
+            if (this == null || proxy == null || mixin == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth == null in BatteryProxy.GetSeamothBitsASAP!");
+                yield break;
             }
-            var seamothEnergyMixin = SeamothHelper.Seamoth.GetComponent<EnergyMixin>();
-
-            mixin.batteryModels = new EnergyMixin.BatteryModels[seamothEnergyMixin.batteryModels.Length];
-            for (int i = 0; i < seamothEnergyMixin.batteryModels.Length; i++)
+            foreach (Transform child in proxy)
             {
-                var but = seamothEnergyMixin.batteryModels[i];
-                EnergyMixin.BatteryModels mod = new()
-                {
-                    model = GameObject.Instantiate(but.model),
-                    techType = but.techType
-                };
-                mixin.batteryModels[i] = mod;
+                Destroy(child.gameObject);
             }
-
-            foreach (Transform tran in proxy)
+            EnergyMixin.BatteryModels[] templates = BelowZeroVehicleAssets.BatteryTemplate.batteryModels;
+            EnergyMixin.BatteryModels[] models = new EnergyMixin.BatteryModels[templates.Length];
+            for (int index = 0; index < templates.Length; index++)
             {
-                GameObject.Destroy(tran.gameObject);
-            }
-            for (int i = 0; i < mixin.batteryModels.Length; i++)
-            {
-                mixin.batteryModels[i].model.SetActive(true);
-                var model = GameObject.Instantiate(mixin.batteryModels[i].model, proxy);
+                GameObject model = Instantiate(templates[index].model, proxy);
                 model.transform.localPosition = Vector3.zero;
                 model.transform.localRotation = Quaternion.identity;
-                model.transform.localScale = Vector3.one;
-                if (model.name.ToLower().Contains("ion"))
+                // Existing vehicle proxies supply the 100x scale expected by the SN cell mesh.
+                model.transform.localScale = Vector3.one * 0.01f;
+                model.SetActive(false);
+                models[index] = new EnergyMixin.BatteryModels
                 {
-                    model.transform.localScale *= 0.01f;
-                }
-                mixin.batteryModels[i].model = model;
+                    model = model,
+                    techType = templates[index].techType
+                };
+            }
+            mixin.batteryModels = models;
+            if (mixin.batterySlot != null)
+            {
+                mixin.NotifyHasBattery(mixin.batterySlot.storedItem);
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿
-namespace DaftAppleGames.VehicleFrameworkBZ.Interfaces
+namespace VehicleFramework.Interfaces
 {
     public interface IDockListener
     {

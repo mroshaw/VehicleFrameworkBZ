@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using HarmonyLib;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Admin;
 
 // PURPOSE: allow ModVehicle upgrade slots to mesh with the game systems
 // VALUE: High
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(Equipment))]
     public class EquipmentPatcher

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
+namespace VehicleFramework.UpgradeTypes
 {
     public abstract class SelectableChargeableUpgrade : ModVehicleUpgrade
     {
@@ -15,7 +15,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
         public virtual float EnergyCost => 0;
         public virtual void OnSelected(SelectableChargeableActionParams param)
         {
-            Logger.DebugLog("Selecting-Charging " + ClassId + " on ModVehicle: " + param.vehicle.subName.name + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Selecting-Charging " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: neuter many SubRoot functions
 // VALUE: High. It's valuable to have a SubRoot, but I don't want to sort these out or make them work, to be perfectly honest.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
 	[HarmonyPatch(typeof(SubRoot))]
 	class SubRootPatcher
@@ -153,16 +153,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
 			}
 			return true;
 		}
-		[HarmonyPrefix]
-		[HarmonyPatch(nameof(SubRoot.GetTemperature))]
-		public static bool GetTemperaturePrefix(SubRoot __instance)
-		{
-			if (__instance.GetComponent<ModVehicle>())
-			{
-				return false;
-			}
-			return true;
-		}
+
 		[HarmonyPrefix]
 		[HarmonyPatch(nameof(SubRoot.UpdateThermalReactorCharge))]
 		public static bool UpdateThermalReactorChargePrefix(SubRoot __instance)

@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.Extensions;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
+namespace VehicleFramework.VehicleRootComponents
 {
     public class MagnetBoots : MonoBehaviour, IProtoTreeEventListener
     {
@@ -198,7 +198,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents
         public bool CheckControls()
         {
             return IsPlayerControlling()
-                && GameInput.GetButtonDown(MainPatcher.Instance.MagnetBootsKey);
+                && MainPatcher.GetKeyDown(MainPatcher.Instance.MagnetBootsKey);
         }
         public MagnetStruct CheckPlacement()
         {

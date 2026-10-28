@@ -3,7 +3,7 @@
 // PURPOSE: prevent teleportation cheats while using a Drone
 // VALUE: High. Could disable the console instead, but it has some utility still.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     public static class TeleportUtils
     {
@@ -95,16 +95,6 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
         [HarmonyPrefix]
         [HarmonyPatch(nameof(Player.OnConsoleCommand_kill))]
         public static bool PlayerOnConsoleCommand_killPrefix()
-        {
-            return TeleportUtils.GetDroneInUse();
-        }
-    }
-    [HarmonyPatch(typeof(EscapePod))]
-    public class EscapePodConsoleCommandPatcher
-    {
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(EscapePod.OnConsoleCommand_randomstart))]
-        public static bool EscapePodOnConsoleCommand_randomstartPrefix()
         {
             return TeleportUtils.GetDroneInUse();
         }

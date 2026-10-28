@@ -5,7 +5,7 @@ using UnityEngine;
 // PURPOSE: configure timeToConstruct. Broadcasts the SubConstructionBeginning signal. Manages the building fx colors.
 // VALUE: Very high. Important ModVehicle and developer utilities.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(VFXConstructing))]
     public static class VFXConstructingPatch

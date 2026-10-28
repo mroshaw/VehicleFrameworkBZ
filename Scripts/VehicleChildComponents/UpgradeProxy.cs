@@ -1,49 +1,51 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
+using VehicleFramework.Assets;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents
+namespace VehicleFramework.VehicleChildComponents
 {
     public class UpgradeProxy : MonoBehaviour
     {
-        public List<Transform> proxies = new();
-        public List<VehicleUpgradeConsoleInput.Slot> slots = new();
+        public List<Transform> proxies = new List<Transform>();
+        public List<VehicleUpgradeConsoleInput.Slot> slots = new List<VehicleUpgradeConsoleInput.Slot>();
 
-        public void Awake()
-        {
-            Admin.SessionManager.StartCoroutine(GetSeamothBitsASAP());
-        }
+        /// <summary>
+        /// Begins initializing the proxy visuals after the creator assigns its references.
+        /// </summary>
+        public void Awake() => Admin.SessionManager.StartCoroutine(GetSeamothBitsASAP());
 
+        /// <summary>
+        /// Loads the proxy visuals from the Below Zero donor assets.
+        /// </summary>
         public IEnumerator GetSeamothBitsASAP()
         {
-            yield return Admin.SessionManager.StartCoroutine(SeamothHelper.EnsureSeamoth());
-            if(SeamothHelper.Seamoth == null)
+            yield return null; // AddComponent invokes Awake before Create finishes assigning references.
+            yield return BelowZeroVehicleAssets.EnsureLoaded();
+            if (this == null)
             {
-                throw Admin.SessionManager.Fatal("UpgradeProxy: SeamothHelper.Seamoth is null! Cannot proceed with upgrade proxy setup.");
+                yield break;
             }
-            GameObject module = SeamothHelper.Seamoth.transform.Find("Model/Submersible_SeaMoth/Submersible_seaMoth_geo/engine_console_key_02_geo").gameObject;
-            for (int i = 0; i < proxies.Count; i++)
+            SkinnedMeshRenderer template = BelowZeroVehicleAssets.UpgradeModel;
+            slots.Clear();
+            for (int index = 0; index < proxies.Count; index++)
             {
-                foreach (Transform tran in proxies[i])
+                foreach (Transform child in proxies[index])
                 {
-                    Destroy(tran.gameObject);
+                    Destroy(child.gameObject);
                 }
-                GameObject model = Instantiate(module, proxies[i]);
-                model.transform.localPosition = Vector3.zero;
-                model.transform.localRotation = Quaternion.identity;
-                model.transform.localScale = Vector3.one;
-                VehicleUpgradeConsoleInput.Slot slot;
-                slot.id = VehicleBuilding.ModuleBuilder.ModVehicleModulePrefix + i;
-                slot.model = model;
-                slots.Add(slot);
+                // Use the key's rest mesh, not its donor-owned skin/bone transforms.
+                GameObject model = new GameObject("UpgradeModule");
+                model.transform.SetParent(proxies[index], false);
+                model.AddComponent<MeshFilter>().sharedMesh = template.sharedMesh;
+                model.AddComponent<MeshRenderer>().sharedMaterials = template.sharedMaterials;
+                slots.Add(new VehicleUpgradeConsoleInput.Slot
+                {
+                    id = VehicleBuilding.ModuleBuilder.ModVehicleModulePrefix + index,
+                    model = model
+                });
             }
             GetComponentInChildren<VehicleUpgradeConsoleInput>().slots = slots.ToArray();
         }
-
     }
 }

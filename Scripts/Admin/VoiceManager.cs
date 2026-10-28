@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Reflection;
 using System.IO;
-using DaftAppleGames.VehicleFrameworkBZ.AutoPilot;
+using VehicleFramework.AutoPilot;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     public class VehicleVoice
     {

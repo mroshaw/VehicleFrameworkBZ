@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
 using System.Linq;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
+using VehicleFramework.VehicleRootComponents;
 
 // PURPOSE: Ensure onboard fabricators are correctly powered. Ensure the constructor cannot build two MVs at once.
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
 	[HarmonyPatch(typeof(GhostCrafter))]
 	public static class FabricatorPatcher
@@ -15,7 +15,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
 		public static bool HasEnoughPowerPrefix(GhostCrafter __instance, ref bool __result)
 		{
 			ModVehicle mv = __instance.GetComponentInParent<ModVehicle>();
-			if (mv == null || !GameModeUtils.RequiresPower())
+			if (mv == null || !GameModeManager.GetOption<bool>(GameOption.TechnologyRequiresPower))
 			{
 				return true;
 			}
@@ -36,7 +36,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
 		[HarmonyPatch(nameof(CrafterLogic.ConsumeEnergy))]
 		public static bool ConsumeEnergyPrefix(ref bool __result, PowerRelay powerRelay)
 		{
-			if (!GameModeUtils.RequiresPower())
+			if (!GameModeManager.GetOption<bool>(GameOption.TechnologyRequiresPower))
 			{
 				// If this is Creative or something, don't even bother
 				return true;

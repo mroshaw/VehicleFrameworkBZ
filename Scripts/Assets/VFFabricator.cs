@@ -2,7 +2,7 @@
 using static CraftData;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Assets
+namespace VehicleFramework.Assets
 {
     internal static class VFFabricator
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
+namespace VehicleFramework.VehicleTypes
 {
     /*
     public abstract class Walker : ModVehicle

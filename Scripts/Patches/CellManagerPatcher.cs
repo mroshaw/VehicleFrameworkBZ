@@ -5,7 +5,7 @@ using UnityEngine;
 // PURPOSE: Resolve an out-of-time error
 // VALUE: Dubious. Maybe it doesn't matter, but it seems like it would have an effect on the ProtoSerialization methods. So it could be important.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(CellManager))]
     public static class CellManagerPatcher

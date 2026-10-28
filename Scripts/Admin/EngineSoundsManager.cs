@@ -6,12 +6,12 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Engines;
+using VehicleFramework.Admin;
 using static uGUI_ResourceTracker;
 using UnityEngine.UIElements;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Admin
+namespace VehicleFramework.Admin
 {
     public class EngineSounds
     {

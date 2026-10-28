@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.UpgradeTypes
+namespace VehicleFramework.UpgradeTypes
 {
     public struct CraftingNode
     {

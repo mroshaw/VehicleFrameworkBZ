@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using HarmonyLib;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Extensions;
 
 // PURPOSE: ensure the Player behaves as expected when ModVehicles are involved
 // VALUE: Very high.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 { 
     [HarmonyPatch(typeof(Player))]
     public static class PlayerPatcher
@@ -37,7 +37,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
         [HarmonyPatch(nameof(Player.Start))]
         public static void StartPostfix()
         {
-            DaftAppleGames.VehicleFrameworkBZ.Admin.GameStateWatcher.IsPlayerStarted = true;
+            VehicleFramework.Admin.GameStateWatcher.IsPlayerStarted = true;
             return;
         }
         [HarmonyPrefix]

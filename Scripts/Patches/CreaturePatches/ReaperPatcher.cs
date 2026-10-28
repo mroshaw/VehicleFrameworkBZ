@@ -1,12 +1,12 @@
 ﻿using HarmonyLib;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
+using VehicleFramework.Extensions;
+using VehicleFramework.VehicleRootComponents;
 
 // PURPOSE: allows Reaper Leviathans to grab a ModVehicle. Configure how much damage their bite does.
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CreaturePatches
+namespace VehicleFramework.Patches.CreaturePatches
 {
 	[HarmonyPatch(typeof(ReaperMeleeAttack))]
 	class ReaperMeleeAttackPatcher

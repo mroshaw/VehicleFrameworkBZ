@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+using VehicleFramework.VehicleTypes;
 
 // PURPOSE: Create visual noise when Drones are far away from their station
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(MapRoomCameraScreenFXController))]
     class MapRoomCameraScreenFXControllerPatcher

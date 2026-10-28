@@ -1,27 +1,15 @@
-﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
+﻿using System.Collections.Generic;
+using HarmonyLib;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.MiscComponents;
+using VehicleFramework.MiscComponents;
 
-// PURPOSE: allow ModVehicles to use in-game docking bays
-// VALUE: High.
-
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
-    // This set of patches modulates the moonpool docking bay behavior
-    // It governs:
-    // - accepting a ModVehicle for docking
-    // - animating the docking bay arms
-    // - alerting the vehicle it has been docked
-    // See DockedVehicleHandTargetPatcher for undocking actions
-
-
     [HarmonyPatch(typeof(VehicleDockingBay))]
-    class VehicleDockingBayPatch
+    public static class VehicleDockingBayPatch
     {
+        public static List<VehicleDockingBay> dockingBays = new List<VehicleDockingBay>();
+
         public static bool IsThisDockable(VehicleDockingBay bay, GameObject nearby)
         {
             return
@@ -50,249 +38,128 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
             if (bounds == null) return false;
             return bounds.IsVehicleSmallEnough(bay, mv);
         }
-        private static void HandleMVDocked(Vehicle vehicle, VehicleDockingBay dock)
-        {
-            ModVehicle? mv = vehicle as ModVehicle;
-            if (mv != null)
-            {
-                Moonpool moonpool = dock.GetComponentInParent<Moonpool>();
-                CyclopsMotorMode cmm = dock.GetComponentInParent<CyclopsMotorMode>();
-                if (mv.IsUnderCommand)
-                {
-                    Player.main.SetCurrentSub(dock.GetSubRoot(), true);
-                    Player.main.ToNormalMode(false);
-                }
-                if (moonpool != null || cmm != null)
-                {
-                    Transform playerSpawn = dock.transform.Find("playerSpawn");
-                    mv.OnVehicleDocked(playerSpawn.position);
-                }
-                else
-                {
-                    Logger.Warn("Vehicle Framework is not aware of this dock. The player is probably in a weird position now.");
-                    mv.OnVehicleDocked(Vector3.zero);
-                }
-            }
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(VehicleDockingBay.LateUpdate))]
-        // This patch animates the docking bay arms as if a seamoth is docked
-        public static void LateUpdatePostfix(VehicleDockingBay __instance)
-        {
-            ModVehicle? mv = __instance.dockedVehicle as ModVehicle;
-            mv?.AnimateMoonPoolArms(__instance);
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(VehicleDockingBay.DockVehicle))]
-        // This patch ensures a modvehicle docks correctly
-        public static void DockVehiclePostfix(VehicleDockingBay __instance, Vehicle vehicle)
-        {
-            HandleMVDocked(vehicle, __instance);
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(VehicleDockingBay.SetVehicleDocked))]
-        // This patch ensures a modvehicle docks correctly
-        public static void SetVehicleDockedPostfix(VehicleDockingBay __instance, Vehicle vehicle)
-        {
-            HandleMVDocked(vehicle, __instance);
-        }
 
         [HarmonyPrefix]
-        [HarmonyPatch(nameof(VehicleDockingBay.OnTriggerEnter))]
-        // This patch controls whether to dock a ModVehicle. Only small ModVehicles are accepted.
-        public static bool OnTriggerEnterPrefix(VehicleDockingBay __instance, Collider other)
+        [HarmonyPatch("IDockingBay.AllowedToDock")]
+        private static bool AllowedToDockPrefix(VehicleDockingBay __instance, Dockable dockable,
+            Dockable ___interpolatingDockable, bool ___fullyConstructed, ref bool __result)
         {
-            return IsThisDockable(__instance, other.gameObject);
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(VehicleDockingBay.UpdateDockedPosition))]
-        public static bool UpdateDockedPositionPrefix(VehicleDockingBay __instance, Vehicle vehicle, float interpfraction)
-        {
-            ModVehicle? mv = vehicle as ModVehicle;
-            if (mv == null)
+            ModVehicle vehicle = dockable != null ? dockable.vehicle as ModVehicle : null;
+            if (vehicle == null)
             {
                 return true;
             }
-            Transform endingTransform;
-            string subRootName = __instance.subRoot.name.ToLower();
-            if (subRootName.Contains("base"))
-            {
-                endingTransform = __instance.dockingEndPos.parent.parent;
-            }
-            else if (subRootName.Contains("cyclops"))
-            {
-                endingTransform = __instance.dockingEndPos;
-            }
-            else
-            {
-                Logger.Warn("Trying to dock in something that is neither a moonpool nor a cyclops. What is this?");
-                return true;
-            }
-            if (!mv.IsUndockingAnimating)
-            {
-                vehicle.transform.position = Vector3.Lerp(__instance.startPosition, endingTransform.position, interpfraction) - mv.GetDifferenceFromCenter();
-                //vehicle.transform.rotation = Quaternion.Lerp(__instance.startRotation, mv.CyclopsDockRotation * endingTransform.rotation, interpfraction);
-                vehicle.transform.rotation = Quaternion.Lerp(__instance.startRotation, endingTransform.rotation, interpfraction);
-            }
+            // The Seatruck Dock expansion has a different pose/cinematic contract.
+            __result = !__instance.MoonpoolExpansionEnabled() && ___fullyConstructed
+                && !dockable.isDocked && !dockable.GetRecentlyUndocked()
+                && ___interpolatingDockable == null && __instance.GetDockedObject() == null
+                && IsThisDockable(__instance, vehicle.gameObject);
             return false;
         }
 
         [HarmonyPrefix]
-        [HarmonyPatch(nameof(VehicleDockingBay.LaunchbayAreaEnter))]
-        public static bool LaunchbayAreaEnterPrefix(VehicleDockingBay __instance, GameObject nearby)
+        [HarmonyPatch("UpdateDocking")]
+        private static bool UpdateDockingPrefix(VehicleDockingBay __instance)
         {
-            return IsThisDockable(__instance, nearby);
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(nameof(VehicleDockingBay.LaunchbayAreaExit))]
-        public static bool LaunchbayAreaExitPrefix(VehicleDockingBay __instance, GameObject nearby)
-        {
-            return IsThisDockable(__instance, nearby);
+            Dockable dockable = __instance.interpolatingDockable != null
+                ? __instance.interpolatingDockable : __instance.GetDockedObject();
+            ModVehicle vehicle = dockable != null ? dockable.vehicle as ModVehicle : null;
+            if (vehicle == null)
+            {
+                return true;
+            }
+            float fraction = __instance.interpolationTime > 0f
+                ? Mathf.Clamp01((Time.time - __instance.timeDockingStarted) / __instance.interpolationTime) : 1f;
+            UpdateDockedPositionPrefix(__instance, dockable, fraction);
+            if (fraction == 1f)
+            {
+                Player.allowSaving = true;
+                if (__instance.interpolatingDockable != null)
+                {
+                    __instance.Dock(dockable);
+                    __instance.interpolatingDockable = null;
+                    // Custom vehicles supply their own player exit; no Seamoth cinematic.
+                    if (__instance.dockPlayer)
+                    {
+                        Player.main.SetCurrentSub(__instance.GetSubRoot());
+                    }
+                    dockable.OnDockingComplete();
+                }
+            }
+            bool nearby = (__instance.nearbyDockable != null || __instance.interpolatingDockable != null)
+                && __instance.powerConsumer.IsPowered();
+            SafeAnimator.SetBool(__instance.animator, "vehicle_nearby", nearby);
+            SafeAnimator.SetBool(__instance.animator, "exosuit_docked", false);
+            vehicle.AnimateMoonPoolArms(__instance);
+            return false;
         }
 
         [HarmonyPostfix]
         [HarmonyPatch(nameof(VehicleDockingBay.Start))]
         public static void VehicleDockingBayStartPostfix(VehicleDockingBay __instance)
         {
-            dockingBays.Add(__instance);
-
-            string subRootName = __instance.subRoot.name.ToLower();
-            if (string.Equals(subRootName, "base(clone)", StringComparison.OrdinalIgnoreCase))
+            if (!dockingBays.Contains(__instance))
             {
-                __instance.gameObject.EnsureComponent<DockingBayBounds>()
-                   .WithX(8.6f)
-                   .WithY(8.6f)
-                   .WithZ(12.0f);
+                dockingBays.Add(__instance);
             }
-            else if (string.Equals(subRootName, "cyclops-mainprefab(clone)", StringComparison.OrdinalIgnoreCase))
-            {
-                __instance.gameObject.EnsureComponent<DockingBayBounds>()
-                   .WithX(4.5f)
-                   .WithY(6.0f)
-                   .WithZ(4.5f);
-            }
+            __instance.gameObject.EnsureComponent<DockingBayBounds>()
+                .WithX(8.6f).WithY(8.6f).WithZ(12f);
         }
+
         [HarmonyPostfix]
         [HarmonyPatch(nameof(VehicleDockingBay.OnDestroy))]
-        public static void VehicleDockingBayOnDestroyPostfix(VehicleDockingBay __instance)
+        public static void VehicleDockingBayOnDestroyPostfix(VehicleDockingBay __instance) => dockingBays.Remove(__instance);
+
+        [HarmonyPostfix]
+        [HarmonyPatch(nameof(VehicleDockingBay.Dock))]
+        private static void DockPostfix(VehicleDockingBay __instance, Dockable dockable) => NotifyDocked(__instance, dockable);
+
+        [HarmonyPostfix]
+        [HarmonyPatch(nameof(VehicleDockingBay.SetVehicleDocked))]
+        private static void SetVehicleDockedPostfix(VehicleDockingBay __instance, Dockable dockable) => NotifyDocked(__instance, dockable);
+
+        private static void NotifyDocked(VehicleDockingBay bay, Dockable dockable)
         {
-            dockingBays.Remove(__instance);
-        }
-        public static List<VehicleDockingBay> dockingBays = new();
-    }
-
-
-    [HarmonyPatch(typeof(VehicleDockingBay))]
-    public static class VehicleDockingBayTranspiler
-    {
-        // This transpiler ensures that StartCinematicMode is not called for newly docked ModVehicles.
-        // This way, we can skip the animation that almost always makes the player jump through the vehicle wall.
-        // To accomplish this, we make the following edit to the original code:
-        /*
-         * 
-			if (dockedVehicle is Exosuit)
-			{
-				this.exosuitDockPlayerCinematic.StartCinematicMode(player);
-			}
-			else
-			{
-				this.dockPlayerCinematic.StartCinematicMode(player);
-			}
-         */
-        // Becomes this:
-        /*
-			if (dockedVehicle is ModVehicle)
-			{
-			}
-			else if (dockedVehicle is Exosuit)
-			{
-				this.exosuitDockPlayerCinematic.StartCinematicMode(player);
-			}
-			else
-			{
-				this.dockPlayerCinematic.StartCinematicMode(player);
-			}
-         */
-        // But more accurately, this IL code:
-        /*
-         *  //If is Exosuit...
-       One  IL_00B7: ldloc.0
-       two  IL_00B8: isinst    Exosuit
-            IL_00BD: brfalse.s IL_00CD // If not an exosuit, jump to "otherwise, do these actions"
-            
-            // do Exosuit actions
-            IL_00BF: ldarg.0
-            IL_00C0: ldfld     class PlayerCinematicController VehicleDockingBay::exosuitDockPlayerCinematic
-            IL_00C5: ldloc.3
-            IL_00C6: callvirt  instance void PlayerCinematicController::StartCinematicMode(class Player)
-      eight IL_00CB: br.s      IL_00D9 // Exit the conditional block
-
-            // otherwise, do these actions
-            IL_00CD: ldarg.0
-            IL_00CE: ldfld     class PlayerCinematicController VehicleDockingBay::dockPlayerCinematic
-            IL_00D3: ldloc.3
-            IL_00D4: callvirt  instance void PlayerCinematicController::StartCinematicMode(class Player)
-
-            // this is the first line after the conditional block
-            IL_00D9: ldarg.0
-         */
-        // becomes this IL code. The rest is preserved, but the Exosuit check is scooted down to make room for this check.
-        // This check skips the whole conditional branch when the vehicle is a ModVehicle, so it does not call StartCinematicMode.
-        /*
-            IL_00B7: ldloc.0
-            IL_00B8: isinst    ModVehicle
-            IL_00BD: brfalse.s IL_00D9  // If is a ModVehicle, Exit the conditional block
-         */
-
-
-        private static (bool, object?) FindMatchingPattern(CodeInstruction one, CodeInstruction two, CodeInstruction eight)
-        {
-            bool oneRight = one.opcode == OpCodes.Ldloc_0;
-            if(!oneRight) return (false, null);
-
-            bool twoRight = two.opcode == OpCodes.Isinst && two.operand.ToString().Contains("exosuit");
-            if (!twoRight) return (false, null);
-
-            bool eightRight = eight.opcode == OpCodes.Br_S;
-            if(!eightRight) return (false, null);
-
-            return (true, eight.operand);
-        }
-
-        [HarmonyTranspiler]
-        [HarmonyPatch(nameof(VehicleDockingBay.LateUpdate))]
-        public static IEnumerable<CodeInstruction> VehicleDockingBayLateUpdateTranspiler(IEnumerable<CodeInstruction> instructions)
-        {
-            List<CodeInstruction> codes = new(instructions);
-            List<CodeInstruction> newCodes = new();// = new(codes.Count + 2);
-            /*
-            CodeInstruction myNOP = new(OpCodes.Nop);
-            for (int i = 0; i < codes.Count; i++)
+            ModVehicle vehicle = dockable != null ? dockable.vehicle as ModVehicle : null;
+            if (vehicle != null && !vehicle.IsDocked)
             {
-                newCodes.Add(myNOP);
-            }
-            */
-            int endOfMatching = codes.Count - 8;
-
-            for (int i = 0; i < codes.Count; i++)
-            {
-                if(i < endOfMatching)
+                if (vehicle.IsUnderCommand)
                 {
-                    if (FindMatchingPattern(codes[i], codes[i + 1], codes[i + 7]) is (true, object operand))
-                    {
-                        newCodes.Add(new CodeInstruction(OpCodes.Ldloc_0));
-                        newCodes.Add(new CodeInstruction(OpCodes.Isinst, typeof(ModVehicle)));
-                        newCodes.Add(new CodeInstruction(OpCodes.Brfalse_S, operand));
-                    }
+                    Player.main.SetCurrentSub(bay.GetSubRoot());
+                    Player.main.ToNormalMode(false);
                 }
-                newCodes.Add(codes[i]);
+                // Verified BZ BaseMoonpool/Launchbay_cinematic/DockBottom/playerSpawn.
+                Transform playerSpawn = bay.transform.Find("playerSpawn");
+                vehicle.OnVehicleDocked(playerSpawn != null ? playerSpawn.position : Vector3.zero);
             }
-            return newCodes.AsEnumerable();
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch("UpdateDockedPosition")]
+        private static bool UpdateDockedPositionPrefix(VehicleDockingBay __instance, Dockable dockable, float interpfraction)
+        {
+            ModVehicle vehicle = dockable != null ? dockable.vehicle as ModVehicle : null;
+            if (vehicle == null)
+            {
+                return true;
+            }
+            Vector3 position = __instance.dockingEndPos.position - vehicle.GetDifferenceFromCenter();
+            dockable.transform.position = Vector3.Lerp(__instance.startPosition, position, interpfraction);
+            dockable.transform.rotation = Quaternion.Lerp(__instance.startRotation,
+                __instance.dockingEndPos.rotation, interpfraction);
+            return false;
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(nameof(VehicleDockingBay.LateUpdate))]
+        public static void LateUpdatePostfix(VehicleDockingBay __instance)
+        {
+            Dockable dockable = __instance.GetDockedObject();
+            ModVehicle vehicle = dockable != null ? dockable.vehicle as ModVehicle : null;
+            if (vehicle != null)
+            {
+                vehicle.AnimateMoonPoolArms(__instance);
+            }
         }
     }
 }

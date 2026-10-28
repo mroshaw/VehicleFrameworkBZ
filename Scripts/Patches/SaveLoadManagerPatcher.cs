@@ -2,13 +2,13 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Admin;
 using System.Linq;
 
 // PURPOSE: allow custom save file sprites to be displayed
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     // See also: MainMenuLoadPanelPatcher
     [HarmonyPatch(typeof(SaveLoadManager))]
@@ -20,7 +20,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
         internal static void SerializeHasVehicleTechTypes()
         {
             var techTypeData = VehicleManager.vehicleTypes.Select(x => x.techType).Where(x => GameInfoIcon.Has(x)).Select(x => x.AsString()).ToList();
-            DaftAppleGames.VehicleFrameworkBZ.SaveLoad.JsonInterface.Write(SaveFileSpritesFileName, techTypeData);
+            VehicleFramework.SaveLoad.JsonInterface.Write(SaveFileSpritesFileName, techTypeData);
         }
 
         private static string GetSpritesSavePath(string slotName)

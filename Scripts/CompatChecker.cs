@@ -1,7 +1,7 @@
 ﻿using BepInEx.Bootstrap;
 using System;
 
-namespace DaftAppleGames.VehicleFrameworkBZ
+namespace VehicleFramework
 {
     internal static class CompatChecker
     {

@@ -4,15 +4,15 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
+using VehicleFramework.Engines;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
-using DaftAppleGames.VehicleFrameworkBZ.AutoPilot;
+using VehicleFramework.VehicleRootComponents;
+using VehicleFramework.Interfaces;
+using VehicleFramework.Assets;
+using VehicleFramework.Extensions;
+using VehicleFramework.AutoPilot;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
+namespace VehicleFramework.VehicleTypes
 {
     public abstract class Drone : ModVehicle
     {
@@ -136,7 +136,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
             Player.main.currentMountedVehicle = null;
             SetupTemporaryParent();
             Player.main.EnterLockedMode(temporaryParent.transform, false); // must precede SetCurrentSub, so that the player is never "Underwater" (Player.UpdateIsUnderwater)
-            Player.main.SetCurrentSub(null, true);
+            Player.main.SetCurrentSub(null);
             PlayerEntry();
             uGUI.main.quickSlots.SetTarget(this);
             SwapToDroneCamera();
@@ -156,7 +156,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
             Player.main.SetScubaMaskActive(false);
             Player.main.mode = previousMode;
             Player.main.currentMountedVehicle = lastVehicle;
-            Player.main.SetCurrentSub(lastSubRoot, true);
+            Player.main.SetCurrentSub(lastSubRoot);
             lastVehicle = null;
             lastSubRoot = null;
             Guihand = false;

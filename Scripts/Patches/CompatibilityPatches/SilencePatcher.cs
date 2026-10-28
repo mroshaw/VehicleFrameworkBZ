@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.Extensions;
 
 // PURPOSE: ensure the Silence doesn't kill us in a way that softlocks the game
 // VALUE: High, unfortunately
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CompatibilityPatches
+namespace VehicleFramework.Patches.CompatibilityPatches
 {
     [HarmonyPatch(typeof(Player))]
     public class SilencePlayerPatcher

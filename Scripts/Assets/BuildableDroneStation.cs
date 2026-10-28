@@ -3,10 +3,10 @@ using System.Collections;
 using System.Linq;
 using Nautilus.Assets.Gadgets;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.Extensions;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Assets
+namespace VehicleFramework.Assets
 {
     public static class BuildableDroneStation
     {

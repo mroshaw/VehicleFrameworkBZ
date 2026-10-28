@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
+using VehicleFramework.VehicleRootComponents;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Engines
+namespace VehicleFramework.Engines
 {
     public class AtramaEngine : ModVehicleEngine
     {

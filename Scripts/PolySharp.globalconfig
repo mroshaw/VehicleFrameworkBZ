@@ -1,0 +1,4 @@
+is_global = true
+
+# Roslyn 4.4 reserves this marker type; the other compatibility types remain enabled.
+build_property.PolySharpUseEmbeddedAttributeForGeneratedTypes = false

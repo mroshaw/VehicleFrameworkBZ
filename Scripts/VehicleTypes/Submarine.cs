@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
+using VehicleFramework.Engines;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using DaftAppleGames.VehicleFrameworkBZ.LightControllers;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
+using VehicleFramework.LightControllers;
+using VehicleFramework.VehicleBuilding;
+using VehicleFramework.Interfaces;
+using VehicleFramework.VehicleChildComponents;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
+namespace VehicleFramework.VehicleTypes
 {
     /*
      * Submarine is the class of self-leveling, walkable submarines
@@ -107,6 +107,8 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
         {
             base.BeginPiloting();
             isPilotSeated = true;
+            // BZ drives the camera from the animated player pose.
+            Admin.SessionManager.StartCoroutine(SitDownInChair());
             Player.main.armsController.ikToggleTime = 0;
             if(this is ISteeringWheel wheel)
             {
@@ -127,6 +129,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
             }
             base.StopPiloting();
             isPilotSeated = false;
+            Admin.SessionManager.StartCoroutine(StandUpFromChair());
             Player.main.SetScubaMaskActive(false);
             Player.main.armsController.ikToggleTime = 0.5f;
             Player.main.armsController.SetWorldIKTarget(null, null);
@@ -178,7 +181,6 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
                     Player.main.isUnderwaterForSwimming.Update(false);
                     Player.main.playerController.SetMotorMode(Player.MotorMode.Walk);
                     Player.main.motorMode = Player.MotorMode.Walk;
-                    Player.main.playerMotorModeChanged.Trigger(Player.MotorMode.Walk);
                 }
             }
         }
@@ -237,7 +239,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleTypes
             TaskResult<GameObject> result = new();
             yield return Admin.SessionManager.StartCoroutine(CraftData.InstantiateFromPrefabAsync(TechType.Fabricator, result, false));
             fabricator = result.Get();
-            fabricator.GetComponent<SkyApplier>().enabled = true;
+            fabricator.GetComponentInChildren<SkyApplier>(true).enabled = true;
             fabricator.transform.SetParent(transform);
             fabricator.transform.localPosition = location.localPosition;
             fabricator.transform.localRotation = location.localRotation;

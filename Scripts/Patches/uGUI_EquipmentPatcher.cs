@@ -3,12 +3,12 @@ using System.Collections;
 using System.Linq;
 using HarmonyLib;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
+using VehicleFramework.VehicleBuilding;
 
 // PURPOSE: PDA displays ModVehicle upgrades correctly
 // VALUE: Very high.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(uGUI_Equipment))]
     public class UGUI_EquipmentPatcher

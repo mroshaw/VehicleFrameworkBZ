@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
-using DaftAppleGames.VehicleFrameworkBZ.LightControllers;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+using VehicleFramework.Engines;
+using VehicleFramework.VehicleRootComponents;
+using VehicleFramework.Assets;
+using VehicleFramework.Admin;
+using VehicleFramework.VehicleBuilding;
+using VehicleFramework.LightControllers;
+using VehicleFramework.VehicleChildComponents;
+using VehicleFramework.Interfaces;
+using VehicleFramework.Extensions;
+using VehicleFramework.VehicleTypes;
 using techTypeString = System.String;
-using DaftAppleGames.VehicleFrameworkBZ.SaveLoad;
+using VehicleFramework.SaveLoad;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json.Linq;
 
-namespace DaftAppleGames.VehicleFrameworkBZ
+namespace VehicleFramework
 {
     /*
      * ModVehicle is the primary abstract class provided by Vehicle Framework.

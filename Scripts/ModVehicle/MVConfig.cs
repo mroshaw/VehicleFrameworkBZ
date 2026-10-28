@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
+using VehicleFramework.Engines;
 
-namespace DaftAppleGames.VehicleFrameworkBZ
+namespace VehicleFramework
 {
     /*
      * ModVehicle is the primary abstract class provided by Vehicle Framework.

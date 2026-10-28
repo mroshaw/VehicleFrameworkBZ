@@ -8,7 +8,7 @@ using System.Reflection.Emit;
 // PURPOSE: ensure bleeders deal damage in an intuitive way
 // VALUE: high
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CreaturePatches
+namespace VehicleFramework.Patches.CreaturePatches
 {
     [HarmonyPatch(typeof(AttachAndSuck))]
     class BleederPatcher

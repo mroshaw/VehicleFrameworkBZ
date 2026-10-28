@@ -1,8 +1,8 @@
-﻿using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
+﻿using VehicleFramework.VehicleTypes;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Interfaces;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.LightControllers
+namespace VehicleFramework.LightControllers
 {
     public class InteriorLightsController : BaseLightController, IPlayerListener
     {

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
+using VehicleFramework.Assets;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
+namespace VehicleFramework.VehicleBuilding
 {
     //SetupBuildBotPaths is invoked by Player.Start
     public static class BuildBotManager
     {
-        private static Color OriginalConstructingGhostColor = ((Material)Resources.Load("Materials/constructingGhost")).color;
+        private static Material constructingGhostMaterial;
+        private static Color originalConstructingGhostColor;
 
         public static void SetupBuildBotBeamPoints(GameObject mv)
         {
@@ -34,12 +35,12 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         }
         public static IEnumerator SetupVFXConstructing(GameObject go)
         {
-            yield return Admin.SessionManager.StartCoroutine(SeamothHelper.EnsureSeamoth());
-            if (SeamothHelper.Seamoth == null)
+            yield return BelowZeroVehicleAssets.EnsureLoaded();
+            if (BelowZeroVehicleAssets.Prawn == null)
             {
-                throw Admin.SessionManager.Fatal("SeamothHelper.Seamoth is null in BuildBotManager.SetupVFXConstructing!");
+                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null in BuildBotManager.SetupVFXConstructing!");
             }   
-            GameObject seamoth = SeamothHelper.Seamoth;
+            GameObject seamoth = BelowZeroVehicleAssets.Prawn;
             VFXConstructing seamothVFXC = seamoth.GetComponent<VFXConstructing>();
             VFXConstructing rocketPlatformVfx = seamoth.GetComponentInChildren<VFXConstructing>();
             VFXConstructing vfxc = go.EnsureComponent<VFXConstructing>();
@@ -47,6 +48,12 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             ModVehicle mv = go.GetComponent<ModVehicle>();
             vfxc.timeToConstruct = mv == null ? 10f : mv.TimeToConstruct;
 
+            if (constructingGhostMaterial == null)
+            {
+                constructingGhostMaterial = seamothVFXC.ghostMaterial;
+                originalConstructingGhostColor = constructingGhostMaterial.color;
+            }
+            vfxc.ghostMaterial = constructingGhostMaterial;
             vfxc.alphaTexture = seamothVFXC.alphaTexture;
             vfxc.alphaDetailTexture = seamothVFXC.alphaDetailTexture;
             vfxc.wireColor = seamothVFXC.wireColor;
@@ -59,6 +66,8 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
             vfxc.surfaceSplashVelocity = rocketPlatformVfx.surfaceSplashVelocity;
 
             vfxc.heightOffset = seamothVFXC.heightOffset;
+            vfxc.localOffset = Vector3.zero;
+            vfxc.localRotation = Vector3.zero;
             vfxc.constructSound = seamothVFXC.constructSound;
             vfxc.delay = 5f; // the time it takes for the buildbots to fly out and begin
             vfxc.isDone = false;
@@ -253,8 +262,10 @@ namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
         }
         public static void ResetGhostMaterial()
         {
-            Material ghostMat = (Material)Resources.Load("Materials/constructingGhost");
-            ghostMat.color = OriginalConstructingGhostColor;
+            if (constructingGhostMaterial != null)
+            {
+                constructingGhostMaterial.color = originalConstructingGhostColor;
+            }
         }
     }
 

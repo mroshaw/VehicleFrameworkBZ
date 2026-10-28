@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Engines;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
-using DaftAppleGames.VehicleFrameworkBZ.LightControllers;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleTypes;
-using DaftAppleGames.VehicleFrameworkBZ.AutoPilot;
-using DaftAppleGames.VehicleFrameworkBZ.SaveLoad;
+using VehicleFramework.Engines;
+using VehicleFramework.VehicleRootComponents;
+using VehicleFramework.Assets;
+using VehicleFramework.Admin;
+using VehicleFramework.VehicleBuilding;
+using VehicleFramework.LightControllers;
+using VehicleFramework.VehicleChildComponents;
+using VehicleFramework.Interfaces;
+using VehicleFramework.Extensions;
+using VehicleFramework.VehicleTypes;
+using VehicleFramework.AutoPilot;
+using VehicleFramework.SaveLoad;
 
-namespace DaftAppleGames.VehicleFrameworkBZ
+namespace VehicleFramework
 {
     /*
      * ModVehicle is the primary abstract class provided by Vehicle Framework.
@@ -35,6 +35,44 @@ namespace DaftAppleGames.VehicleFrameworkBZ
         #endregion
 
         #region vehicle_overrides
+        // BZ removed these inherited SN fields. Keep their original serialization and access contracts.
+        public SubName subName;
+        public VFXConstructing vfxConstructing;
+        protected bool constructionFallOverride;
+
+        /// <summary>
+        /// Gets the configured hull name, falling back to the vehicle's display name.
+        /// </summary>
+        public string GetName() => subName != null ? subName.GetName() : vehicleName;
+
+        /// <summary>
+        /// Releases the vehicle from its dock while preserving the framework's player-entry lifecycle.
+        /// </summary>
+        public new virtual IEnumerator Undock(Player player, float yUndockedPosition)
+        {
+            docked = false;
+            UWE.Utils.SetIsKinematicAndUpdateInterpolation(useRigidbody, true, false);
+            Vector3 start = transform.position;
+            Vector3 end = new Vector3(start.x, yUndockedPosition, start.z);
+            float duration = (start.y - yUndockedPosition) / 5f;
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                if (this == null)
+                {
+                    yield break;
+                }
+                transform.position = Vector3.Lerp(start, end, elapsed / duration);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            if (this != null)
+            {
+                UWE.Utils.SetIsKinematicAndUpdateInterpolation(useRigidbody, false, false);
+                useRigidbody.AddForce(Vector3.down * 5f, ForceMode.VelocityChange);
+            }
+        }
+
         public override void Awake()
         {
             energyInterface = GetComponent<EnergyInterface>();
@@ -179,8 +217,9 @@ namespace DaftAppleGames.VehicleFrameworkBZ
             depth = Mathf.FloorToInt(GetComponent<CrushDamage>().GetDepth());
             crushDepth = Mathf.FloorToInt(GetComponent<CrushDamage>().crushDepth);
         }
-        public override void SubConstructionComplete()
+        public virtual void SubConstructionComplete()
         {
+            constructionFallOverride = true;
             Logger.DebugLog("ModVehicle SubConstructionComplete");
             if(GetComponent<PingInstance>() != null)
             {
@@ -278,9 +317,9 @@ namespace DaftAppleGames.VehicleFrameworkBZ
             NotifyStatus(PlayerStatus.OnPilotBegin);
             if (gameObject.GetComponentInChildren<MVCameraController>() != null)
             {
-                string NextButton = HandReticle.main.GetText("", false, MainPatcher.Instance.NextCameraKey);
-                string PrevButton = HandReticle.main.GetText("", false, MainPatcher.Instance.PreviousCameraKey);
-                string ExitButton = HandReticle.main.GetText("", false, MainPatcher.Instance.ExitCameraKey);
+                string NextButton = MainPatcher.Instance.NextCameraKey.ToString();
+                string PrevButton = MainPatcher.Instance.PreviousCameraKey.ToString();
+                string ExitButton = MainPatcher.Instance.ExitCameraKey.ToString();
                 Logger.PDANote($"{Language.main.Get("VFCameraHint")} {NextButton}, {PrevButton}, and {ExitButton}");
             }
         }
@@ -307,7 +346,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
                 if ((this as Drone) == null)
                 {
                     Player.main.lastValidSub = GetComponent<SubRoot>();
-                    Player.main.SetCurrentSub(GetComponent<SubRoot>(), true);
+                    Player.main.SetCurrentSub(GetComponent<SubRoot>());
                     NotifyStatus(PlayerStatus.OnPlayerEntry);
                 }
                 if (GetComponent<PingInstance>() != null)
@@ -370,7 +409,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
         public virtual bool GetIsUnderwater()
         {
             bool isBeneathSurface = !worldForces.IsAboveWater();
-            return isBeneathSurface && !precursorOutOfWater;
+            return isBeneathSurface && !forceWalkMotorMode;
         }
         public virtual void OnCraftEnd(TechType techType)
         {
@@ -476,7 +515,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
             // AnimateMoonPoolArms is called in VehicleDockingBay.LateUpdate when a ModVehicle is docked in a moonpool.
             // This line sets the arms of the moonpool to do exactly as they do for the seamoth
             // There is also "exosuit_docked"
-            SafeAnimator.SetBool(moonpool.animator, "seamoth_docked", moonpool.vehicle_docked_param && moonpool.dockedVehicle != null);
+            SafeAnimator.SetBool(moonpool.animator, "seamoth_docked", moonpool.docked_param);
         }
         public virtual void DestroyMV()
         {
@@ -856,7 +895,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
                 StabilizeRoll();
             }
             prevVelocity = useRigidbody.velocity;
-            bool shouldSetKinematic = teleporting || !constructionFallOverride && !GetPilotingMode() && (!GameStateWatcher.IsWorldSettled || docked || !vfxConstructing.IsConstructed());
+            bool shouldSetKinematic = teleporting || !constructionFallOverride && !GetPilotingMode() && (!GameStateWatcher.IsWorldSettled || docked || !IsConstructed);
             UWE.Utils.SetIsKinematicAndUpdateInterpolation(useRigidbody, shouldSetKinematic, true);
         }
         internal void HandlePilotingAnimations()
@@ -1212,7 +1251,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
         {
             ModVehicle? mv = Player.main.GetModVehicle();
             UWE.Utils.EnterPhysicsSyncSection();
-            Player.main.SetCurrentSub(null, true);
+            Player.main.SetCurrentSub(null);
             Player.main.playerController.SetEnabled(false);
             IEnumerator waitForTeleport()
             {
@@ -1229,7 +1268,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
                     yield break;
                 }
                 Player.main.SetPosition(destination);
-                Player.main.SetCurrentSub(mv?.GetComponent<SubRoot>(), true);
+                Player.main.SetCurrentSub(mv?.GetComponent<SubRoot>());
                 Player.main.playerController.SetEnabled(true);
                 yield return null;
                 if (Player.main == null || mv?.GetComponent<SubRoot>() == null)

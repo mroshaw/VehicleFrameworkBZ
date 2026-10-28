@@ -3,7 +3,7 @@
 // PURPOSE: Unlock all ModVehicle encyclopedia entries on Creative mode start or console command "unlock"
 // VALUE: High. Can't really figure out a better way to do this in general.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(KnownTech))]
     public static class KnownTechPatcher
@@ -12,7 +12,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ.Patches
         [HarmonyPatch(nameof(KnownTech.UnlockAll))]
         public static void KnownTechUnlockAllHarmonyPostfix()
         {
-            Admin.VehicleManager.vehicleTypes.ForEach(x => PDAEncyclopedia.Add(x.name, false));
+            Admin.VehicleManager.vehicleTypes.ForEach(x => PDAEncyclopedia.Add(x.name, false, false));
         }
     }
 }

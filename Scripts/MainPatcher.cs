@@ -5,12 +5,12 @@ using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.Patches;
-using DaftAppleGames.VehicleFrameworkBZ.Patches.CompatibilityPatches;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding;
+using VehicleFramework.Admin;
+using VehicleFramework.Patches;
+using VehicleFramework.Patches.CompatibilityPatches;
+using VehicleFramework.VehicleBuilding;
 
-namespace DaftAppleGames.VehicleFrameworkBZ
+namespace VehicleFramework
 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     [BepInDependency(Nautilus.PluginInfo.PLUGIN_GUID, Nautilus.PluginInfo.PLUGIN_VERSION)]
@@ -27,8 +27,8 @@ namespace DaftAppleGames.VehicleFrameworkBZ
         {
             Nautilus.Handlers.LanguageHandler.RegisterLocalizationFolder();
             SetupInstance();
-            DaftAppleGames.VehicleFrameworkBZ.Logger.MyLog = base.Logger;
-            if (DaftAppleGames.VehicleFrameworkBZ.Logger.MyLog == null)
+            VehicleFramework.Logger.MyLog = base.Logger;
+            if (VehicleFramework.Logger.MyLog == null)
             {
                 throw Admin.SessionManager.Fatal("VehicleFramework.Logger.MyLog == null in Awake!");
             }
@@ -53,7 +53,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
             Patch();
             PostPatch();
             CompatChecker.CheckAll();
-            Admin.SessionManager.StartCoroutine(DaftAppleGames.VehicleFrameworkBZ.Logger.MakeAlerts());
+            Admin.SessionManager.StartCoroutine(VehicleFramework.Logger.MakeAlerts());
         }
         public void PrePatch()
         {
@@ -101,7 +101,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
                     .GetTypesFromAssembly(assembly)
                     .Select(x => (Type: x, Processor: harmony.CreateClassProcessor(x)))
                     .ToList();
-            //DaftAppleGames.VehicleFrameworkBZ.Logger.Log($"Identified {patches.Count} types to potentially patch. Patching...");
+            //VehicleFramework.Logger.Log($"Identified {patches.Count} types to potentially patch. Patching...");
             foreach (var patch in patches)
                 //log.Write($"Executing patch {patch.Type}...");
                 try
@@ -110,7 +110,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
                 }
                 catch (Exception e)
                 {
-                    DaftAppleGames.VehicleFrameworkBZ.Logger.LogException($"Failed to patch {patch.Type}.", e);
+                    VehicleFramework.Logger.LogException($"Failed to patch {patch.Type}.", e);
                 }
 
             // Patch SubnauticaMap with appropriate ping sprites, lest it crash.
@@ -126,7 +126,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
             }
             catch(Exception e)
             {
-                DaftAppleGames.VehicleFrameworkBZ.Logger.LogException($"Failed to patch SubnauticaMap.Refresh", e);
+                VehicleFramework.Logger.LogException($"Failed to patch SubnauticaMap.Refresh", e);
             }
 
             // Patch BetterVehicleStorage to add ModVehicle compat
@@ -142,7 +142,7 @@ namespace DaftAppleGames.VehicleFrameworkBZ
             }
             catch (Exception e)
             {
-                DaftAppleGames.VehicleFrameworkBZ.Logger.LogException($"Failed to patch BetterVehicleStorage.AllowedToAdd", e);
+                VehicleFramework.Logger.LogException($"Failed to patch BetterVehicleStorage.AllowedToAdd", e);
             }
             /*
             var type2 = Type.GetType("SlotExtender.Patches.uGUI_Equipment_Awake_Patch, SlotExtender", false, false);

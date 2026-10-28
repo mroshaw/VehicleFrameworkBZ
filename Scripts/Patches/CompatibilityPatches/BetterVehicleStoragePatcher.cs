@@ -4,7 +4,7 @@ using HarmonyLib;
 // PURPOSE: add compatibility for better vehicle storage upgrades
 // VALUE: High. It's a very cool mod.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches.CompatibilityPatches
+namespace VehicleFramework.Patches.CompatibilityPatches
 {
     public static class BetterVehicleStoragePatcher
     {

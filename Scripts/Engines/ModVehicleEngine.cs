@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
-using DaftAppleGames.VehicleFrameworkBZ.Extensions;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleRootComponents;
+using VehicleFramework.Admin;
+using VehicleFramework.Extensions;
+using VehicleFramework.VehicleRootComponents;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Engines
+namespace VehicleFramework.Engines
 {
     public abstract class ModVehicleEngine : VFEngine
     {

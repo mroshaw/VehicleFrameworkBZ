@@ -2,10 +2,10 @@ using System.Linq;
 using Nautilus.Assets.Gadgets;
 using System.Reflection;
 using System.IO;
-using DaftAppleGames.VehicleFrameworkBZ.Assets;
-using DaftAppleGames.VehicleFrameworkBZ.Admin;
+using VehicleFramework.Assets;
+using VehicleFramework.Admin;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.VehicleBuilding
+namespace VehicleFramework.VehicleBuilding
 {
     internal static class VehicleNautilusInterface
     {

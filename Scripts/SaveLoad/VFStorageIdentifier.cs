@@ -4,11 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
-using DaftAppleGames.VehicleFrameworkBZ.VehicleChildComponents;
+using VehicleFramework.Interfaces;
+using VehicleFramework.VehicleChildComponents;
 using storageData = System.Collections.Generic.List<System.Tuple<System.String, float, System.String>>;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.SaveLoad
+namespace VehicleFramework.SaveLoad
 {
     internal class VFStorageIdentifier : MonoBehaviour, ISaveLoadListener
     {

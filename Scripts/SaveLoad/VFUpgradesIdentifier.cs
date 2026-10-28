@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using DaftAppleGames.VehicleFrameworkBZ.Interfaces;
+using VehicleFramework.Interfaces;
 using techTypeString = System.String;
 using upgradesData = System.Collections.Generic.Dictionary<System.String, System.String>;
 using Newtonsoft.Json.Linq;
 
-namespace DaftAppleGames.VehicleFrameworkBZ.SaveLoad
+namespace VehicleFramework.SaveLoad
 {
     internal class VFUpgradesIdentifier : MonoBehaviour, ISaveLoadListener
     {

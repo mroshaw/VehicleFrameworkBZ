@@ -4,7 +4,7 @@ using UnityEngine;
 // PURPOSE: ensures building ghosts truly attach to Submarines, and in a non-problematic way
 // VALUE: High.
 
-namespace DaftAppleGames.VehicleFrameworkBZ.Patches
+namespace VehicleFramework.Patches
 {
     [HarmonyPatch(typeof(BuilderTool))]
     public class BuilderToolPatcher
