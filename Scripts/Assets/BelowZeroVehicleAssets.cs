@@ -60,8 +60,10 @@ namespace VehicleFramework.Assets
                 LightSounds = GetRequiredComponent<SeaTruckLights>(Seatruck, "");
                 WaterClipTemplate = GetRequiredComponent<WaterClipProxy>(Seatruck, "WaterClipProxy");
                 UpgradeModel = GetRequiredComponent<SkinnedMeshRenderer>(Seatruck, "model/seatruck_anim/engine_console_key_02_geo");
-                Renderer glass = GetRequiredComponent<Renderer>(Seatruck, "model/seatruck_anim/Seatruck_cabin_interior_glass_geo");
-                GlassMaterial = CreateGlassMaterial(glass.sharedMaterial);
+                // The interior-glass mesh carries the damage overlay. Clean interior glass
+                // is the second material on the exterior-glass mesh.
+                Renderer glass = GetRequiredComponent<Renderer>(Seatruck, "model/seatruck_anim/Seatruck_cabin_exterior_glass_geo");
+                GlassMaterial = CreateGlassMaterial(glass.sharedMaterials[1]);
                 SmallImpactSound = AudioUtils.GetFmodAsset("event:/sub/common/fishsplat");
                 MediumImpactSound = AudioUtils.GetFmodAsset("event:/sub/seamoth/impact_solid_medium");
                 FastImpactSound = AudioUtils.GetFmodAsset("event:/sub/seamoth/impact_solid_hard");
