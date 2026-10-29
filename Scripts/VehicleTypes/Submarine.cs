@@ -133,7 +133,7 @@ namespace VehicleFramework.VehicleTypes
             // BZ compatibility: Restore the BZ standing pose when leaving the chair.
             Admin.SessionManager.StartCoroutine(StandUpFromChair());
             Player.main.SetScubaMaskActive(false);
-            Player.main.armsController.ikToggleTime = 0.5f;
+            //Player.main.armsController.ikToggleTime = 0.5f;
             Player.main.armsController.SetWorldIKTarget(null, null);
             if (!IsDocked && IsPlayerControlling())
             {

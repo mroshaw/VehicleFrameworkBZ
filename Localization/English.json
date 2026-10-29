@@ -34,6 +34,8 @@
     "VFFahrenheitTooltip" : "Replace Celsius measurements in VF vehicles with their Fahrenheit equivalents.",
     "VFDebugLogLabel": "Debug Logs",
     "VFDebugLogTooltip": "Enable extra logging statements for debugging purposes.",
+    "VFCompatCheckToggleLabel": "Enable Compatibility Checks",
+    "VFCompatCheckToggleTooltip": "This mod can check for known incompatibilities with a few other mods and report the results to the main menu.",
 
     // MODULES / UPGRADES
     "VFMVModules": "VF Vehicle Upgrades",
@@ -76,6 +78,7 @@
     "VFEmptyHover": "No function",
     "VFPowerHover": "Toggle Power",
     "VFDefaultColorHover": "Revert to Default Colors",
+	"VFMainExterior": "Main Exterior Color",
     "VFPrimaryAccent": "Accent Color 1",
     "VFSecondaryAccent": "Accent Color 2",
 	
@@ -145,9 +148,5 @@
     "VFSubtitleMaximumDepthReached": "Warning! Maximum depth reached! Hull damage imminent!",
     "VFSubtitlePassingSafeDepth": "Warning! Maximum depth is close!",
     "VFSubtitleLeviathanDetected": "Leviathan detected!",
-    "VFSubtitleUhOh": "Uh oh!",
-
-    // Additional entries preserved from the duplicate localization folder
-    "VFMainExterior": "Main Exterior Color"
+    "VFSubtitleUhOh": "Uh oh!"
 }
-

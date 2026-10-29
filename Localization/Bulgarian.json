@@ -6,8 +6,6 @@
   "VFStartPiloting": "Започване на управление",
   "VFNameLabel": "Етикет за име",
 
-  "OptionVFHeadlightsButton": "Превключване на фаровете",
-  "OptionDesc_VFHeadlightsButton": "Натиснете този бутон, за да превключите фаровете по време на управление.",
   "VFHeadLightsHover": "Превключване на фаровете",
   "VFFloodLightsHover": "Превключване на прожекторите",
   "VFNavLightsHover": "Превключване на навигационните светлини",
@@ -16,12 +14,6 @@
   "VFInteriorLightsHover": "Превключване на вътрешното осветление",
 
   "VFCameraHint": "Управление на камерата:",
-  "OptionVFPrevCameraButton": "Предишна камера",
-  "OptionDesc_VFPrevCameraButton": "Превключете към предишната камера на превозното средство.",
-  "OptionVFNextCameraButton": "Следваща камера",
-  "OptionDesc_VFNextCameraButton": "Превключете към следващата камера на превозното средство.",
-  "OptionVFExitCameraButton": "Изход от камерата",
-  "OptionDesc_VFExitCameraButton": "Изход от изгледа на камерата.",
 
   "VFConfigManagerLabel": "Вижте мениджъра на конфигурации за повече опции",
   "VFConfigManagerTooltip": "Изтеглете мода за мениджър на конфигурации за допълнителни настройки!",
@@ -49,8 +41,6 @@
 
   "VFAutoPilotHover": "Отваряне на автопилот (Очаквайте скоро)",
 
-  "OptionVFMagBootsButton": "Превключване на магнитни ботуши",
-  "OptionDesc_VFMagBootsButton": "Превключване на магнитните ботуши.",
 
   "VFDroneStationCheatLabel": "Отключване на станцията за дронове",
   "VFDroneStationCheatTooltip": "Натиснете, за да отключите станцията за дронове в текущата игра.",
@@ -80,9 +70,9 @@
   "VFDroneHint9": "Изключване на дрона",
   "VFDroneHint10": "Връщане към станцията за дронове",
 
-  "VFDroneStationHint1": "Не са открити",
+  "VFDroneStationHint1": "Не е открит дрон",
   "VFDroneStationHint2": "Състояние",
-  "VFDroneStationHint3": "Детайли на заявката",
+  "VFDroneStationHint3": "Заявка за подробности",
   "VFDroneStationHint4": "Свързване",
   "VFDroneStationHint5": "Следващ дрон",
   "VFDroneStationHint6": "Предишен дрон",
@@ -118,23 +108,27 @@
   "VFSubtitleWelcomeAboardAllSystemsOnline": "Добре дошли на борда, капитане. Всички системи са онлайн.",
   "VFSubtitleMaximumDepthReached": "Предупреждение! Достигната е максималната дълбочина! Ще настъпи повреда на корпуса!",
   "VFSubtitlePassingSafeDepth": "Предупреждение! Максималната дълбочина е близо!",
-  "VFSubtitleLeviathanDetected": "Обнаружен Левиатан!",
+  "VFSubtitleLeviathanDetected": "Засечен е левиатан!",
   "VFSubtitleUhOh": "Опа!",
-
-    // Additional entries preserved from the duplicate localization folder
-    "VFHeadlightsButtonLabel": "Превключване на фаровете",
-    "VFHeadlightsButtonTooltip": "Натиснете този бутон, за да превключите фаровете по време на управление.",
-    "VFLeftClickHeadlightsLabel": "Превключване на фаровете (ляв бутон)",
-    "VFLeftClickHeadlightsTooltip": "Позволява активиране на фаровете с ляв клик или ляв тригер.",
-    "VFRightClickHeadlightsLabel": "Превключване на фаровете (десен бутон)",
-    "VFRightClickHeadlightsTooltip": "Позволява активиране на фаровете с десен клик или десен тригер.",
-    "VFPrevCameraLabel": "Предишна камера",
-    "VFPrevCameraTooltip": "Превключете към предишната камера на превозното средство.",
-    "VFNextCameraLabel": "Следваща камера",
-    "VFNextCameraTooltip": "Превключете към следващата камера на превозното средство.",
-    "VFExitCameraLabel": "Изход от камерата",
-    "VFExitCameraTooltip": "Изход от изгледа на камерата.",
-    "VFMagBootsButtonLabel": "Превключване на магнитни ботуши",
-    "VFMagBootsButtonTooltip": "Превключване на магнитните ботуши."
+    "OptionVFHeadlightsButton": "Превключване на фаровете",
+    "OptionDesc_VFHeadlightsButton": "Натиснете този бутон, за да превключите фаровете по време на управление.",
+    "OptionVFPrevCameraButton": "Предишна камера",
+    "OptionDesc_VFPrevCameraButton": "Превключете към предишната камера на превозното средство.",
+    "OptionVFNextCameraButton": "Следваща камера",
+    "OptionDesc_VFNextCameraButton": "Превключете към следващата камера на превозното средство.",
+    "OptionVFExitCameraButton": "Изход от камерата",
+    "OptionDesc_VFExitCameraButton": "Изход от изгледа на камерата.",
+    "VFFahrenheit": "Използвай градуси по Фаренхайт",
+    "VFFahrenheitTooltip": "Заменя измерванията в Целзий във VF превозните средства със съответните стойности във Фаренхайт.",
+    "VFCompatCheckToggleLabel": "Включи проверките за съвместимост",
+    "VFCompatCheckToggleTooltip": "Този мод може да проверява за известни несъвместимости с няколко други мода и да докладва резултатите в главното меню.",
+    "OptionVFMagBootsButton": "Превключване на магнитни ботуши",
+    "OptionDesc_VFMagBootsButton": "Превключване на магнитните ботуши.",
+    "VFMainExterior": "Основен външен цвят",
+    "VFFabricatorDisplayName": "VF Фабрикатор",
+    "VFFabricatorDesc": "Този фабрикатор може да изработва подобрения за Seamoth, Prawn, Cyclops и всички превозни средства от Vehicle Framework.",
+    "VFDroneStationDisplayName": "Станция за дронове",
+    "VFDroneStationDesc": "Този терминал може да се използва за дистанционно управление на дронове.",
+    "VFDroneStationEncy": "Станцията за дронове позволява дистанционно свързване с близки дронове и управлението им. Тя подобрява радиотехнологията, за да предпазва потребителите от далечни заплахи.\n - Обхват на връзката: ~600 метра\n - Предназначена за: отсеци и подводници - Може автоматично да връща дронове към станцията\n",
+    "VFDroneStationUnlockText": "Необходим е дрон"
 }
-
