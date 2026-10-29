@@ -107,6 +107,7 @@ namespace VehicleFramework.VehicleTypes
         {
             base.BeginPiloting();
             isPilotSeated = true;
+            // BZ compatibility: BZ drives the seated camera from the animated player pose; trigger the existing chair animation.
             // BZ drives the camera from the animated player pose.
             Admin.SessionManager.StartCoroutine(SitDownInChair());
             Player.main.armsController.ikToggleTime = 0;
@@ -129,6 +130,7 @@ namespace VehicleFramework.VehicleTypes
             }
             base.StopPiloting();
             isPilotSeated = false;
+            // BZ compatibility: Restore the BZ standing pose when leaving the chair.
             Admin.SessionManager.StartCoroutine(StandUpFromChair());
             Player.main.SetScubaMaskActive(false);
             Player.main.armsController.ikToggleTime = 0.5f;
@@ -181,6 +183,7 @@ namespace VehicleFramework.VehicleTypes
                     Player.main.isUnderwaterForSwimming.Update(false);
                     Player.main.playerController.SetMotorMode(Player.MotorMode.Walk);
                     Player.main.motorMode = Player.MotorMode.Walk;
+                // BZ compatibility: BZ Player has no playerMotorModeChanged event; retain the native controller and motor-mode updates.
                 }
             }
         }
@@ -239,6 +242,7 @@ namespace VehicleFramework.VehicleTypes
             TaskResult<GameObject> result = new();
             yield return Admin.SessionManager.StartCoroutine(CraftData.InstantiateFromPrefabAsync(TechType.Fabricator, result, false));
             fabricator = result.Get();
+            // BZ compatibility: BZ places the fabricator SkyApplier below the prefab root.
             fabricator.GetComponentInChildren<SkyApplier>(true).enabled = true;
             fabricator.transform.SetParent(transform);
             fabricator.transform.localPosition = location.localPosition;

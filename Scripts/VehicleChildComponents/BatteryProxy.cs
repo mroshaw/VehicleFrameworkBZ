@@ -1,21 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
+using VehicleFramework.VehicleBuilding;
 using VehicleFramework.Assets;
 
 namespace VehicleFramework.VehicleChildComponents
 {
     public class BatteryProxy : MonoBehaviour
     {
-        public Transform? proxy;
-        public EnergyMixin? mixin;
+        public Transform? proxy = null;
+        public EnergyMixin? mixin = null;
 
-        internal static void Create(VehicleBuilding.VehicleBattery battery, EnergyMixin energyMixin)
+        internal static void Create(VehicleBattery vb, EnergyMixin energyMixin)
         {
-            BatteryProxy component = battery.BatterySlot.EnsureComponent<BatteryProxy>();
-            component.proxy = battery.BatteryProxy;
-            component.mixin = energyMixin;
+            var model = vb.BatterySlot.gameObject.EnsureComponent<VehicleChildComponents.BatteryProxy>();
+            model.proxy = vb.BatteryProxy;
+            model.mixin = energyMixin;
         }
 
+        // BZ compatibility: BZ replaces the Seamoth donor with Prawn; defer Awake initialization and create owned models in SN proxy units.
         /// <summary>
         /// Begins initializing the proxy visuals after the creator assigns its references.
         /// </summary>

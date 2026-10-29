@@ -105,6 +105,7 @@ namespace VehicleFramework.VehicleRootComponents
                 return;
             }
             int currentIndex = cameras.Keys.ToList().IndexOf(state);
+            // BZ compatibility: BZ Nautilus lacks custom GameInput buttons; poll the configured camera keys through the shared input guard.
             if (MainPatcher.GetKeyDown(MainPatcher.Instance.NextCameraKey))
             {
                 currentIndex++;

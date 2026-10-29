@@ -15,7 +15,8 @@ namespace VehicleFramework.UpgradeTypes
         public virtual float EnergyCost => 0;
         public virtual void OnSelected(SelectableChargeableActionParams param)
         {
-            Logger.DebugLog("Selecting-Charging " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
+            // BZ compatibility: BZ Vehicle lacks the inherited SN subName field; retain subName.name for framework vehicles and use vehicleName for native BZ vehicles.
+            Logger.DebugLog("Selecting-Charging " + ClassId + " on ModVehicle: " + (param.vehicle is ModVehicle mv ? mv.subName.name : param.vehicle.vehicleName) + " in slotID: " + param.slotID.ToString());
         }
     }
 }

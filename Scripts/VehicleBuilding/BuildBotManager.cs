@@ -9,6 +9,7 @@ namespace VehicleFramework.VehicleBuilding
     //SetupBuildBotPaths is invoked by Player.Start
     public static class BuildBotManager
     {
+        // BZ compatibility: BZ construction materials are loaded with the Prawn donor, not through the SN Resources path.
         private static Material constructingGhostMaterial;
         private static Color originalConstructingGhostColor;
 
@@ -35,6 +36,7 @@ namespace VehicleFramework.VehicleBuilding
         }
         public static IEnumerator SetupVFXConstructing(GameObject go)
         {
+            // BZ compatibility: BZ has no supported Seamoth donor; copy construction effects from the native Prawn.
             yield return BelowZeroVehicleAssets.EnsureLoaded();
             if (BelowZeroVehicleAssets.Prawn == null)
             {
@@ -48,6 +50,7 @@ namespace VehicleFramework.VehicleBuilding
             ModVehicle mv = go.GetComponent<ModVehicle>();
             vfxc.timeToConstruct = mv == null ? 10f : mv.TimeToConstruct;
 
+            // BZ compatibility: Cache the BZ donor ghost material so color changes and reset affect the actual construction material.
             if (constructingGhostMaterial == null)
             {
                 constructingGhostMaterial = seamothVFXC.ghostMaterial;
@@ -66,6 +69,7 @@ namespace VehicleFramework.VehicleBuilding
             vfxc.surfaceSplashVelocity = rocketPlatformVfx.surfaceSplashVelocity;
 
             vfxc.heightOffset = seamothVFXC.heightOffset;
+            // BZ compatibility: BZ VFXConstructing adds local pose offsets; keep effects aligned with the authored custom hull.
             vfxc.localOffset = Vector3.zero;
             vfxc.localRotation = Vector3.zero;
             vfxc.constructSound = seamothVFXC.constructSound;
@@ -262,6 +266,7 @@ namespace VehicleFramework.VehicleBuilding
         }
         public static void ResetGhostMaterial()
         {
+            // BZ compatibility: Reset the cached BZ donor material only after asynchronous donor loading has completed.
             if (constructingGhostMaterial != null)
             {
                 constructingGhostMaterial.color = originalConstructingGhostColor;

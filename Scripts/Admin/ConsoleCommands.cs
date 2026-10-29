@@ -11,6 +11,7 @@ namespace VehicleFramework.Admin
 		internal static bool isUndockConsoleCommand = false; // hacky
 		public void Awake()
         {
+            // BZ compatibility: the installed BZ assembly only exposes component-based registration; the exported DevConsole source is newer.
             DevConsole.RegisterConsoleCommand(this, "vfhelp", false, false);
 			DevConsole.RegisterConsoleCommand(this, "givevfupgrades", false, false);
 			DevConsole.RegisterConsoleCommand(this, "givevfseamothupgrades", false, false);
@@ -96,9 +97,10 @@ namespace VehicleFramework.Admin
 		{
             static void MaybeUndock(VehicleDockingBay dock)
 			{
+				// BZ compatibility: BZ bays expose a Dockable instead of the SN dockedVehicle field.
 				if (dock.GetDockedObject() != null && dock.GetDockedObject().vehicle != null)
 				{
-					Logger.PDANote($"{Language.main.Get("VFUndockHint1")} {dock.GetDockedObject().gameObject.name}");
+					Logger.PDANote($"{Language.main.Get("VFUndockHint1")} {dock.GetDockedObject().vehicle.GetName()}");
 					isUndockConsoleCommand = true;
 					dock.GetDockedObject().vehicle.Undock();
 					isUndockConsoleCommand = false;

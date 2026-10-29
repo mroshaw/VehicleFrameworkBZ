@@ -33,11 +33,12 @@ namespace VehicleFramework.UpgradeTypes
         public virtual List<Ingredient> Recipe => new() { new Ingredient(TechType.Titanium, 1) };
         public virtual void OnAdded(AddActionParams param)
         {
-            Logger.DebugLog("Adding " + ClassId + " to ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
+            // BZ compatibility: BZ Vehicle lacks the inherited SN subName field; retain subName.name for framework vehicles and use vehicleName for native BZ vehicles.
+            Logger.DebugLog("Adding " + ClassId + " to ModVehicle: " + (param.vehicle is ModVehicle mv ? mv.subName.name : param.vehicle.vehicleName) + " in slotID: " + param.slotID.ToString());
         }
         public virtual void OnRemoved(AddActionParams param)
         {
-            Logger.DebugLog("Removing " + ClassId + " to ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
+            Logger.DebugLog("Removing " + ClassId + " to ModVehicle: " + (param.vehicle is ModVehicle mv ? mv.subName.name : param.vehicle.vehicleName) + " in slotID: " + param.slotID.ToString());
         }
         public virtual void OnCyclops(AddActionParams param)
         {

@@ -80,6 +80,9 @@ namespace VehicleFramework.VehicleBuilding
             GameObject seamothHUDElementsRoot = uGUI.main.transform.Find("ScreenCanvas/HUD/Content/Exosuit").gameObject;
             GameObject mvHUDElementsRoot = GameObject.Instantiate(seamothHUDElementsRoot, uGUI.main.transform.Find("ScreenCanvas/HUD/Content"));
             mvHUDElementsRoot.name = "ModVehicle";
+            // The donor HUD also contains Prawn-only thrust indicators.
+            mvHUDElementsRoot.transform.Find("ThrustBar").gameObject.SetActive(false);
+            mvHUDElementsRoot.transform.Find("ThrustBarBorder").gameObject.SetActive(false);
             Vector3 offset = mvHUDElementsRoot.transform.localPosition;
             mvHUDElementsRoot.transform.localPosition = Vector3.zero;
 
@@ -104,6 +107,9 @@ namespace VehicleFramework.VehicleBuilding
             GameObject seamothHUDElementsRoot = uGUI.main.transform.Find("ScreenCanvas/HUD/Content/Exosuit").gameObject;
             GameObject mvHUDElementsRoot = GameObject.Instantiate(seamothHUDElementsRoot, uGUI.main.transform.Find("ScreenCanvas/HUD/Content"));
             mvHUDElementsRoot.name = "ModVehicleStorage";
+            // The donor HUD also contains Prawn-only thrust indicators.
+            mvHUDElementsRoot.transform.Find("ThrustBar").gameObject.SetActive(false);
+            mvHUDElementsRoot.transform.Find("ThrustBarBorder").gameObject.SetActive(false);
             Vector3 offset = mvHUDElementsRoot.transform.localPosition;
             mvHUDElementsRoot.transform.localPosition = Vector3.zero;
 

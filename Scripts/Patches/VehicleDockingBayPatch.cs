@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿// BZ compatibility: BZ bays use Dockable/IDockingBay, including their own interpolation and cockpit cinematics.
+using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
 using VehicleFramework.MiscComponents;
@@ -38,6 +39,7 @@ namespace VehicleFramework.Patches
             if (bounds == null) return false;
             return bounds.IsVehicleSmallEnough(bay, mv);
         }
+        // BZ compatibility: BZ admission, docking pose and player exit require Dockable hooks; reject the unsupported Seatruck Dock expansion.
 
         [HarmonyPrefix]
         [HarmonyPatch("IDockingBay.AllowedToDock")]
@@ -98,6 +100,7 @@ namespace VehicleFramework.Patches
         [HarmonyPatch(nameof(VehicleDockingBay.Start))]
         public static void VehicleDockingBayStartPostfix(VehicleDockingBay __instance)
         {
+            // BZ compatibility: Track BZ bays for Dockable undocking and retain the original framework moonpool size limits.
             if (!dockingBays.Contains(__instance))
             {
                 dockingBays.Add(__instance);

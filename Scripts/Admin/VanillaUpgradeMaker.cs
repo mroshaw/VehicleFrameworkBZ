@@ -10,6 +10,7 @@ namespace VehicleFramework.Admin
         internal static Nautilus.Assets.CustomPrefab CreateModuleVanilla(ModVehicleUpgrade upgrade, bool isPdaSetup, Nautilus.Assets.PrefabInfo info)
         {
             Nautilus.Assets.CustomPrefab prefab = new(info);
+            // BZ compatibility: BZ module shells come from the native Seatruck perimeter-defense upgrade.
             var clone = new Nautilus.Assets.PrefabTemplates.CloneTemplate(info, TechType.SeaTruckUpgradePerimeterDefense);
             prefab.SetGameObject(clone);
             if (!isPdaSetup)
@@ -241,6 +242,7 @@ namespace VehicleFramework.Admin
         }
         internal static void CreatePassiveModuleCyclops(ModVehicleUpgrade upgrade, ref UpgradeTechTypes utt, bool isPdaSetup)
         {
+            // BZ compatibility: BZ has no Cyclops upgrade category; keep the entry point without registering an unusable variant.
             Logger.Warn("Cyclops upgrade variants are not available in Below Zero.");
         }
         #endregion

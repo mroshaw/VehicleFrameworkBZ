@@ -6,6 +6,7 @@ using Nautilus.Utility;
 
 namespace VehicleFramework.Assets
 {
+    // BZ compatibility: replace unavailable live Seamoth donors with cached, game-owned Prawn/Seatruck prefab assets.
     internal static class BelowZeroVehicleAssets
     {
         private static CoroutineTask<GameObject>? prawnRequest;

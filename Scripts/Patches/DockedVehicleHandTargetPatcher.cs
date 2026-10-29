@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Linq;
+using HarmonyLib;
 using VehicleFramework.Extensions;
 using UnityEngine;
 using VehicleFramework.VehicleTypes;
@@ -12,33 +13,46 @@ namespace VehicleFramework.Patches
         [HarmonyPatch(nameof(DockedVehicleHandTarget.OnHandHover))]
         public static void OnHandHoverPostfix(DockedVehicleHandTarget __instance)
         {
+            // BZ compatibility: bays expose a Dockable instead of GetDockedVehicle; retain the original framework hover text.
             Dockable dockable = __instance.dockingBay.GetDockedObject();
-            ModVehicle vehicle = dockable != null ? dockable.vehicle as ModVehicle : null;
-            if (vehicle == null)
+            ModVehicle? mv = dockable != null ? dockable.vehicle as ModVehicle : null;
+            if (mv != null)
             {
-                return;
+                string text = mv.HullName;
+                if(mv is Submarine sub && sub.Hatches.Count > 0)
+                {
+                    text = sub.Hatches.First().Hatch.GetComponent<VehicleChildComponents.VehicleHatch>().EnterHint;
+                }
+                float energyActual = 0;
+                float energyMax = 0;
+                foreach (EnergyMixin battery in mv.energyInterface.sources)
+                {
+                    energyActual += battery.charge;
+                    energyMax += battery.capacity;
+                }
+                float energyFraction = energyActual / energyMax;
+                if (energyFraction == 1)
+                {
+                    string format2 = Language.main.GetFormat<float>("VehicleStatusChargedFormat", mv.liveMixin.GetHealthFraction());
+                    HandReticle.main.SetText(HandReticle.TextType.Hand, text, true, ((mv as Drone) == null) ? GameInput.Button.LeftHand : GameInput.Button.None);
+                    HandReticle.main.SetText(HandReticle.TextType.HandSubscript, format2, false, GameInput.Button.None);
+                }
+                else
+                {
+                    string format = Language.main.GetFormat<float, float>("VehicleStatusFormat", mv.liveMixin.GetHealthFraction(), energyFraction);
+                    HandReticle.main.SetText(HandReticle.TextType.Hand, text, true, ((mv as Drone) == null) ? GameInput.Button.LeftHand : GameInput.Button.None);
+                    HandReticle.main.SetText(HandReticle.TextType.HandSubscript, format, false, GameInput.Button.None);
+                }
+                HandReticle.main.SetIcon(((mv as Drone) == null) ? HandReticle.IconType.Hand : HandReticle.IconType.Default, 1f);
             }
-            float energy = dockable.GetEnergyScalar();
-            string status = energy < 1f
-                ? Language.main.GetFormat("VehicleStatusFormat", vehicle.liveMixin.GetHealthFraction(), energy)
-                : Language.main.GetFormat("VehicleStatusChargedFormat", vehicle.liveMixin.GetHealthFraction());
-            CrushDamage crushDamage = vehicle.GetComponent<CrushDamage>();
-            if (crushDamage != null && Ocean.GetDepthOf(Player.main.gameObject) > crushDamage.crushDepth)
-            {
-                status = Language.main.Get("DockedVehicleDepthWarning");
-            }
-            bool isDrone = vehicle is Drone;
-            HandReticle.main.SetText(HandReticle.TextType.Hand, vehicle.HullName, false,
-                isDrone ? GameInput.Button.None : GameInput.Button.LeftHand);
-            HandReticle.main.SetText(HandReticle.TextType.HandSubscript, status, false, GameInput.Button.None);
-            HandReticle.main.SetIcon(isDrone ? HandReticle.IconType.Default : HandReticle.IconType.Hand);
         }
+
 
         [HarmonyPrefix]
         [HarmonyPatch(nameof(DockedVehicleHandTarget.OnHandClick))]
         public static bool OnHandClickPrefix(DockedVehicleHandTarget __instance)
         {
-            Dockable dockable = __instance.dockingBay.GetDockedObject();
+                Dockable dockable = __instance.dockingBay.GetDockedObject();
             ModVehicle vehicle = dockable != null ? dockable.vehicle as ModVehicle : null;
             if (vehicle == null)
             {

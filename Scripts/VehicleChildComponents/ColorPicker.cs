@@ -103,6 +103,7 @@ namespace VehicleFramework.VehicleChildComponents
 
             GameObject colorPicker = ActualEditScreen.transform.Find("Active/ColorPicker").gameObject;
             colorPicker.GetComponentInChildren<uGUI_ColorPicker>().onColorChange.RemoveAllListeners();
+            // BZ compatibility: The Unity engine assemblies used by BZ are not publicized; disable persistent callbacks through the supported event API.
             DisablePersistentListeners(colorPicker.GetComponentInChildren<uGUI_ColorPicker>().onColorChange);
             colorPicker.GetComponentInChildren<uGUI_ColorPicker>().onColorChange.AddListener(new(OnColorChange));
             ActualEditScreen.transform.Find("Active/Button").GetComponent<Button>().onClick.RemoveAllListeners();
@@ -115,6 +116,7 @@ namespace VehicleFramework.VehicleChildComponents
             EnsureColorPickerEnabled();
             yield break;
         }
+        // BZ compatibility: Keep the cloned serialized UnityEvent object and its remapped targets while disabling donor callbacks.
         private static void DisablePersistentListeners(UnityEventBase unityEvent)
         {
             // Disable the cloned vanilla callbacks while retaining the serialized event object.

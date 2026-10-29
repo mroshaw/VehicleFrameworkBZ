@@ -88,6 +88,7 @@ namespace VehicleFramework.Patches
                 __result = false;
                 return false;
             }
+            // BZ compatibility: BZ replaces RequiresPower with the TechnologyRequiresPower game option.
             if (!GameModeManager.GetOption<bool>(GameOption.TechnologyRequiresPower))
             {
                 modified = 0f;

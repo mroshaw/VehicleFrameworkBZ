@@ -27,7 +27,7 @@ namespace VehicleFramework.Patches
                 __instance.activeController = __instance.groundController;
                 __instance.desiredControllerHeight = __instance.standheight - __instance.cameraOffset;
                 __instance.activeController.SetControllerHeight(__instance.currentControllerHeight, __instance.cameraOffset);
-                // Respect locked piloting and knockback when resizing the player controller.
+                // BZ compatibility: BZ drives seated camera poses through its controller; preserve its native enabled/knockback guard during resizing.
                 __instance.activeController.SetEnabled(__instance.enabled && !__instance.knockback);
                 return false;
             }

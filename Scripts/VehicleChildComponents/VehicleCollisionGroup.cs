@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace VehicleFramework.VehicleChildComponents
 {
+    // BZ compatibility: bridge Vehicle's single collision object to the serialized framework collision-model array.
     internal sealed class VehicleCollisionGroup : MonoBehaviour
     {
         [SerializeField] private GameObject[] models = System.Array.Empty<GameObject>();

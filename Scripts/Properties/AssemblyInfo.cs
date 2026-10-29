@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("e7b01366-4fe5-472b-a299-52f37e95ad79")]
 
+// BZ compatibility: ThunderKit does not apply the SN SDK project assembly defaults; explicitly preserve the consumer assembly identity.
 
 // Preserve the assembly identity expected by existing vehicle plugins.
 [assembly: AssemblyVersion("1.0.0.0")]

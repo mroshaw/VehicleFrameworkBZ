@@ -12,6 +12,7 @@ namespace VehicleFramework.Patches
         [HarmonyPatch(nameof(KnownTech.UnlockAll))]
         public static void KnownTechUnlockAllHarmonyPostfix()
         {
+            // BZ compatibility: BZ PDAEncyclopedia.Add requires the separate notification argument.
             Admin.VehicleManager.vehicleTypes.ForEach(x => PDAEncyclopedia.Add(x.name, false, false));
         }
     }

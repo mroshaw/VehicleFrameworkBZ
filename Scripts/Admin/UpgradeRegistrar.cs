@@ -116,6 +116,7 @@ namespace VehicleFramework.Admin
                 .WithTechType(upgrade.ClassId, upgrade.DisplayName, upgrade.Description, unlockAtStart: upgrade.UnlockAtStart)
                 .WithIcon(upgrade.Icon);
             Nautilus.Assets.CustomPrefab module_CustomPrefab = new(module_info);
+            // BZ compatibility: BZ has no supported Seamoth module donor; clone the native Seatruck module shell.
             Nautilus.Assets.PrefabTemplates.PrefabTemplate moduleTemplate = new Nautilus.Assets.PrefabTemplates.CloneTemplate(module_info, TechType.SeaTruckUpgradePerimeterDefense)
             {
                 ModifyPrefab = prefab => prefab.GetComponentsInChildren<Renderer>().ForEach(r => r.materials.ForEach(m => m.color = upgrade.Color))

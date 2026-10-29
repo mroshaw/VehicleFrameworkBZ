@@ -68,6 +68,7 @@ namespace VehicleFramework.VehicleChildComponents
 			cont.height = vs.Height;
 			cont.width = vs.Width;
 
+			// BZ compatibility: BZ Prawn storage supplies native sounds; the SN Seamoth storage component is unavailable.
 			if (BelowZeroVehicleAssets.Prawn == null)
 			{
 				throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null when trying to create innate storage! This should never happen!");

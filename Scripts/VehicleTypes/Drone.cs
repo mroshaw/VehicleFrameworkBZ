@@ -136,6 +136,7 @@ namespace VehicleFramework.VehicleTypes
             Player.main.currentMountedVehicle = null;
             SetupTemporaryParent();
             Player.main.EnterLockedMode(temporaryParent.transform, false); // must precede SetCurrentSub, so that the player is never "Underwater" (Player.UpdateIsUnderwater)
+            // BZ compatibility: BZ SetCurrentSub has no second argument.
             Player.main.SetCurrentSub(null);
             PlayerEntry();
             uGUI.main.quickSlots.SetTarget(this);
@@ -156,6 +157,7 @@ namespace VehicleFramework.VehicleTypes
             Player.main.SetScubaMaskActive(false);
             Player.main.mode = previousMode;
             Player.main.currentMountedVehicle = lastVehicle;
+            // BZ compatibility: BZ SetCurrentSub has no second argument.
             Player.main.SetCurrentSub(lastSubRoot);
             lastVehicle = null;
             lastSubRoot = null;

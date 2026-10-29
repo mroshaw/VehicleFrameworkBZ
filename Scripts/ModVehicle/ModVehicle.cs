@@ -35,7 +35,7 @@ namespace VehicleFramework
         #endregion
 
         #region vehicle_overrides
-        // BZ removed these inherited SN fields. Keep their original serialization and access contracts.
+        // BZ compatibility: BZ removed SN inherited fields and virtual Undock; retain vehicle-facing contracts and bypass the native cockpit cinematic.
         public SubName subName;
         public VFXConstructing vfxConstructing;
         protected bool constructionFallOverride;
@@ -217,6 +217,7 @@ namespace VehicleFramework
             depth = Mathf.FloorToInt(GetComponent<CrushDamage>().GetDepth());
             crushDepth = Mathf.FloorToInt(GetComponent<CrushDamage>().crushDepth);
         }
+        // BZ compatibility: BZ Vehicle lacks SubConstructionComplete; maintain the construction completion callback and fall state locally.
         public virtual void SubConstructionComplete()
         {
             constructionFallOverride = true;
@@ -317,6 +318,7 @@ namespace VehicleFramework
             NotifyStatus(PlayerStatus.OnPilotBegin);
             if (gameObject.GetComponentInChildren<MVCameraController>() != null)
             {
+                // BZ compatibility: BZ shortcuts use KeyCode rather than registered GameInput buttons, so display their configured names.
                 string NextButton = MainPatcher.Instance.NextCameraKey.ToString();
                 string PrevButton = MainPatcher.Instance.PreviousCameraKey.ToString();
                 string ExitButton = MainPatcher.Instance.ExitCameraKey.ToString();
@@ -346,6 +348,7 @@ namespace VehicleFramework
                 if ((this as Drone) == null)
                 {
                     Player.main.lastValidSub = GetComponent<SubRoot>();
+                    // BZ compatibility: BZ SetCurrentSub has no second argument.
                     Player.main.SetCurrentSub(GetComponent<SubRoot>());
                     NotifyStatus(PlayerStatus.OnPlayerEntry);
                 }
@@ -409,6 +412,7 @@ namespace VehicleFramework
         public virtual bool GetIsUnderwater()
         {
             bool isBeneathSurface = !worldForces.IsAboveWater();
+            // BZ compatibility: BZ replaces precursorOutOfWater with forceWalkMotorMode.
             return isBeneathSurface && !forceWalkMotorMode;
         }
         public virtual void OnCraftEnd(TechType techType)
@@ -515,6 +519,7 @@ namespace VehicleFramework
             // AnimateMoonPoolArms is called in VehicleDockingBay.LateUpdate when a ModVehicle is docked in a moonpool.
             // This line sets the arms of the moonpool to do exactly as they do for the seamoth
             // There is also "exosuit_docked"
+            // BZ compatibility: BZ VehicleDockingBay exposes docked_param instead of the SN vehicle/docked parameter fields.
             SafeAnimator.SetBool(moonpool.animator, "seamoth_docked", moonpool.docked_param);
         }
         public virtual void DestroyMV()
@@ -895,6 +900,7 @@ namespace VehicleFramework
                 StabilizeRoll();
             }
             prevVelocity = useRigidbody.velocity;
+            // BZ compatibility: BZ construction completion is tracked by the framework because Vehicle no longer supplies the SN construction lifecycle.
             bool shouldSetKinematic = teleporting || !constructionFallOverride && !GetPilotingMode() && (!GameStateWatcher.IsWorldSettled || docked || !IsConstructed);
             UWE.Utils.SetIsKinematicAndUpdateInterpolation(useRigidbody, shouldSetKinematic, true);
         }
@@ -1251,6 +1257,7 @@ namespace VehicleFramework
         {
             ModVehicle? mv = Player.main.GetModVehicle();
             UWE.Utils.EnterPhysicsSyncSection();
+            // BZ compatibility: BZ SetCurrentSub has no second argument.
             Player.main.SetCurrentSub(null);
             Player.main.playerController.SetEnabled(false);
             IEnumerator waitForTeleport()
@@ -1268,6 +1275,7 @@ namespace VehicleFramework
                     yield break;
                 }
                 Player.main.SetPosition(destination);
+                // BZ compatibility: BZ SetCurrentSub has no second argument.
                 Player.main.SetCurrentSub(mv?.GetComponent<SubRoot>());
                 Player.main.playerController.SetEnabled(true);
                 yield return null;

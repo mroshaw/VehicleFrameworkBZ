@@ -90,6 +90,7 @@ namespace VehicleFramework.Patches
             int slotIDToTest = isJank ? slotID - 2 : slotID;
             bool GetQuickSlotKeyDown(int inputSlotID)
             {
+                // BZ compatibility: BZ quickslot input is exposed by Player rather than the SN uGUI_QuickSlots button array.
                 return Player.main != null && Player.main.GetQuickSlotKeyDown(inputSlotID);
             }
             if (!GetQuickSlotKeyDown(slotIDToTest) && !GameInput.GetButtonDown(GameInput.Button.LeftHand))

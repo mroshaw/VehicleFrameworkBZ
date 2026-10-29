@@ -44,7 +44,7 @@ namespace VehicleFramework.MiscComponents
             return armDeclaration?.GetInteractableRoot(gameObject, Vehicle, target);
         }
             
-        // BZ vanilla arms also leave this effect hook empty.
+        // BZ compatibility: BZ adds SetArmEffects to IExosuitArm; its native arms also leave this hook empty.
         void IExosuitArm.SetArmEffects(Exosuit.Arm arm)
         {
         }

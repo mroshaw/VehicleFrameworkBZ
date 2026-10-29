@@ -13,6 +13,7 @@ namespace VehicleFramework.Extensions
 {
     public static class ExtensionMethods
     {
+        // BZ compatibility: BZ Vehicle lacks GetName; preserve custom hull names while supporting native vehicle names.
         /// <summary>
         /// Gets a display name for native and framework vehicles in Below Zero.
         /// </summary>
@@ -47,6 +48,7 @@ namespace VehicleFramework.Extensions
         {
             return FreezeTimePatcher.Register(source);
         }
+        // BZ compatibility: BZ docking state belongs to Dockable/IDockingBay; the SN bay fields and Cyclops collision path are unavailable.
         /// <summary>
         /// Releases a vehicle through Below Zero's dockable state transitions.
         /// </summary>

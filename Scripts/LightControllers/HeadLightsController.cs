@@ -46,6 +46,7 @@ namespace VehicleFramework.LightControllers
 
         protected virtual void Update()
         {
+            // BZ compatibility: BZ Nautilus lacks custom GameInput buttons; poll the configured key through the shared input guard.
             bool isHeadlightsButtonPressed = MainPatcher.GetKeyDown(MainPatcher.Instance.HeadlightsKey);
             if (MV.IsPlayerControlling() && isHeadlightsButtonPressed && !Player.main.GetPDA().isInUse)
             {

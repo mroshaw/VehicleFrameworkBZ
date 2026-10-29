@@ -15,6 +15,7 @@ namespace VehicleFramework.Patches
 		public static bool HasEnoughPowerPrefix(GhostCrafter __instance, ref bool __result)
 		{
 			ModVehicle mv = __instance.GetComponentInParent<ModVehicle>();
+			// BZ compatibility: BZ replaces RequiresPower with the TechnologyRequiresPower game option.
 			if (mv == null || !GameModeManager.GetOption<bool>(GameOption.TechnologyRequiresPower))
 			{
 				return true;
@@ -36,6 +37,7 @@ namespace VehicleFramework.Patches
 		[HarmonyPatch(nameof(CrafterLogic.ConsumeEnergy))]
 		public static bool ConsumeEnergyPrefix(ref bool __result, PowerRelay powerRelay)
 		{
+			// BZ compatibility: BZ replaces RequiresPower with the TechnologyRequiresPower game option.
 			if (!GameModeManager.GetOption<bool>(GameOption.TechnologyRequiresPower))
 			{
 				// If this is Creative or something, don't even bother

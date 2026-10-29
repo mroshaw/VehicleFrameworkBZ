@@ -38,25 +38,29 @@ namespace VehicleFramework.UpgradeTypes
         public abstract IEnumerator GetArmPrefab(IOut<GameObject> arm);
         public virtual bool OnArmDown(ArmActionParams param, out float cooldown) // return true OnUseSuccess (false if you refuse to do the action)
         {
-            Logger.DebugLog("Selecting arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
+            // BZ compatibility: BZ Vehicle lacks the inherited SN subName field; retain subName.name for framework vehicles and use vehicleName for native BZ vehicles.
+            Logger.DebugLog("Selecting arm: " + ClassId + " on ModVehicle: " + (param.vehicle is ModVehicle mv ? mv.subName.name : param.vehicle.vehicleName) + " in slotID: " + param.slotID.ToString());
             cooldown = 0;
             return true;
         }
         public virtual bool OnArmHeld(ArmActionParams param, out float cooldown) // return true OnHoldSuccess (false if you don't have "hold" logic)
         {
-            Logger.DebugLog("Holding arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
+            // BZ compatibility: BZ Vehicle lacks the inherited SN subName field; retain subName.name for framework vehicles and use vehicleName for native BZ vehicles.
+            Logger.DebugLog("Holding arm: " + ClassId + " on ModVehicle: " + (param.vehicle is ModVehicle mv ? mv.subName.name : param.vehicle.vehicleName) + " in slotID: " + param.slotID.ToString());
             cooldown = 0;
             return true;
         }
         public virtual bool OnArmUp(ArmActionParams param, out float cooldown) // return true OnReleaseSuccess (basically always)
         {
-            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
+            // BZ compatibility: BZ Vehicle lacks the inherited SN subName field; retain subName.name for framework vehicles and use vehicleName for native BZ vehicles.
+            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + (param.vehicle is ModVehicle mv ? mv.subName.name : param.vehicle.vehicleName) + " in slotID: " + param.slotID.ToString());
             cooldown = 0;
             return true;
         }
         public virtual bool OnArmAltUse(ArmActionParams param)
         {
-            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + param.vehicle.vehicleName + " in slotID: " + param.slotID.ToString());
+            // BZ compatibility: BZ Vehicle lacks the inherited SN subName field; retain subName.name for framework vehicles and use vehicleName for native BZ vehicles.
+            Logger.DebugLog("Releasing arm: " + ClassId + " on ModVehicle: " + (param.vehicle is ModVehicle mv ? mv.subName.name : param.vehicle.vehicleName) + " in slotID: " + param.slotID.ToString());
             return false;
         }
 

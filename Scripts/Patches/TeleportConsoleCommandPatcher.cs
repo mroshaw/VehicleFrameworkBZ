@@ -99,4 +99,5 @@ namespace VehicleFramework.Patches
             return TeleportUtils.GetDroneInUse();
         }
     }
+// BZ compatibility: BZ has no EscapePod randomstart command, so the SN EscapePod patch is omitted.
 }

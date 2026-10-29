@@ -14,6 +14,7 @@ namespace VehicleFramework
         {
             ErrorMessage.AddMessage(Language.main.Get("VFConfigManagerPrintInfo"));
         }
+        // BZ compatibility: BZ Nautilus has no SN GameInputHandler; expose the same shortcuts through its keybind settings.
 
         [Keybind(LabelLanguageId = "OptionVFNextCameraButton")]
         public KeyCode NextCameraKey { get; set; } = KeyCode.F;

@@ -2,6 +2,7 @@ using HarmonyLib;
 
 namespace VehicleFramework.Patches
 {
+    // BZ compatibility: Dockable owns undocking completion; forward it to the existing framework lifecycle.
     [HarmonyPatch(typeof(Dockable))]
     internal static class DockablePatcher
     {

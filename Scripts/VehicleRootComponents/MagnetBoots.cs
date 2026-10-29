@@ -198,6 +198,7 @@ namespace VehicleFramework.VehicleRootComponents
         public bool CheckControls()
         {
             return IsPlayerControlling()
+                // BZ compatibility: BZ Nautilus lacks custom GameInput buttons; poll the configured key through the shared input guard.
                 && MainPatcher.GetKeyDown(MainPatcher.Instance.MagnetBootsKey);
         }
         public MagnetStruct CheckPlacement()

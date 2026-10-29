@@ -62,21 +62,8 @@ public static class VehicleRegistrar
         if (RegistrySemaphore)
         {
             VerboseLog(LogType.Log, verbose, $"Enqueueing the {mv.gameObject.name} for Registration.");
-            bool completed = false;
-            RegistrationQueue.Enqueue(() => Admin.SessionManager.StartCoroutine(CompleteQueuedRegistration()));
-            yield return new WaitUntil(() => completed);
-
-            IEnumerator CompleteQueuedRegistration()
-            {
-                try
-                {
-                    yield return Admin.SessionManager.StartCoroutine(InternalRegisterVehicle(mv, verbose));
-                }
-                finally
-                {
-                    completed = true;
-                }
-            }
+            RegistrationQueue.Enqueue(() => Admin.SessionManager.StartCoroutine(InternalRegisterVehicle(mv, verbose)));
+            yield return new WaitUntil(() => VehicleManager.vehicleTypes.Select(x=>x.mv).Contains(mv));
         }
         else
         {
@@ -86,29 +73,16 @@ public static class VehicleRegistrar
     private static IEnumerator InternalRegisterVehicle(ModVehicle mv, bool verbose)
     {
         RegistrySemaphore = true;
-        try
+        VerboseLog(LogType.Log, verbose, $"The {mv.gameObject.name} is beginning Registration.");
+        PingType registeredPingType = VFPingManager.RegisterPingType(mv.name, verbose);
+        yield return Admin.SessionManager.StartCoroutine(VehicleBuilder.Prefabricate(mv, registeredPingType, verbose));
+        RegistrySemaphore = false;
+        Logger.Log($"Finished {mv.gameObject.name} registration.");
+        VehiclesRegistered++;
+        Assets.BuildableDroneStation.TryRegister(mv);
+        if(RegistrationQueue.Count > 0)
         {
-            VerboseLog(LogType.Log, verbose, $"The {mv.gameObject.name} is beginning Registration.");
-            PingType registeredPingType = VFPingManager.RegisterPingType(mv.name, verbose);
-            yield return Admin.SessionManager.StartCoroutine(VehicleBuilder.Prefabricate(mv, registeredPingType, verbose));
-            if (VehicleManager.vehicleTypes.Any(entry => entry.mv == mv))
-            {
-                Logger.Log($"Finished {mv.gameObject.name} registration.");
-                VehiclesRegistered++;
-                Assets.BuildableDroneStation.TryRegister(mv);
-            }
-            else
-            {
-                Logger.Error($"Failed {mv.gameObject.name} registration. See earlier errors.");
-            }
-        }
-        finally
-        {
-            RegistrySemaphore = false;
-            if (RegistrationQueue.Count > 0)
-            {
-                RegistrationQueue.Dequeue().Invoke();
-            }
+            RegistrationQueue.Dequeue().Invoke();
         }
     }
     public static bool ValidateAll(ModVehicle? mv, bool verbose)

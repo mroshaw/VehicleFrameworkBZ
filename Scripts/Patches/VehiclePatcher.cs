@@ -18,6 +18,7 @@ namespace VehicleFramework.Patches
          * This collection of patches generally ensures our ModVehicles behave like normal Vehicles.
          * Each will be commented if necessary
          */
+        // BZ compatibility: BZ Vehicle.Undock is nonvirtual and enters the native cockpit; dispatch framework vehicles to their virtual compatibility path.
 
         [HarmonyPrefix]
         [HarmonyPatch(nameof(Vehicle.Undock))]
@@ -179,6 +180,7 @@ namespace VehicleFramework.Patches
             return false;
         }
 
+        // BZ compatibility: BZ reattachment is handled by Dockable; Vehicle has no SN ReAttach callback.
 
 
         [HarmonyPostfix]
@@ -188,6 +190,7 @@ namespace VehicleFramework.Patches
             Admin.GameObjectManager<Vehicle>.Register(__instance);
         }
 
+    // BZ compatibility: BZ Dockable.UpdateEnergyRecharge handles charging through its assigned EnergyInterface; the SN Vehicle hook is absent.
 
     }
 }

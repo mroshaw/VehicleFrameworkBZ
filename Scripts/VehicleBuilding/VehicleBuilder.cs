@@ -39,6 +39,7 @@ namespace VehicleFramework.VehicleBuilding
         internal static IEnumerator Prefabricate(ModVehicle mv, PingType pingType, bool verbose)
         {
             VehicleRegistrar.VerboseLog(VehicleRegistrar.LogType.Log, verbose, "Prefabricating the " + mv.gameObject.name);
+            // BZ compatibility: Load BZ Prawn/Seatruck donors instead of the unsupported SN Seamoth.
             yield return BelowZeroVehicleAssets.EnsureLoaded();
             if(!Instrument(mv, pingType))
             {
@@ -102,6 +103,7 @@ namespace VehicleFramework.VehicleBuilding
                     {
                         vs.Container.SetActive(false);
 
+                        // BZ compatibility: BZ Prawn storage supplies native open/close sounds in place of SeamothStorageInput.
                         if (BelowZeroVehicleAssets.Prawn == null)
                         {
                             throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
@@ -219,6 +221,7 @@ namespace VehicleFramework.VehicleBuilding
         }
         internal static void SetupEnergyInterface(ModVehicle mv)
         {
+            // BZ compatibility: BZ Prawn supplies battery settings; charging belongs to Dockable rather than a Seamoth sound emitter.
             if (BelowZeroVehicleAssets.Prawn == null)
             {
                 throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
@@ -231,16 +234,13 @@ namespace VehicleFramework.VehicleBuilding
                 // Configure energy mixin for this battery slot
                 var energyMixin = mv.gameObject.AddComponent<ForeverBattery>();
                 energyMixin.storageRoot = mv.StorageRootObject.GetComponent<ChildObjectIdentifier>();
+                // BZ compatibility: Keep BZ donor collections and models game-owned; BatteryProxy creates vehicle-owned visuals asynchronously.
                 energyMixin.defaultBattery = batteryTemplate.defaultBattery;
                 energyMixin.compatibleBatteries = new List<TechType>(batteryTemplate.compatibleBatteries);
                 energyMixin.soundPowerUp = batteryTemplate.soundPowerUp;
                 energyMixin.soundPowerDown = batteryTemplate.soundPowerDown;
                 energyMixin.soundBatteryAdd = batteryTemplate.soundBatteryAdd;
                 energyMixin.soundBatteryRemove = batteryTemplate.soundBatteryRemove;
-                if (energyMixin.controlledObjects is null)
-                {
-                    energyMixin.controlledObjects = Array.Empty<GameObject>();
-                }
                 energyMixin.batteryModels = Array.Empty<EnergyMixin.BatteryModels>();
                 energyMixin.controlledObjects = Array.Empty<GameObject>();
                 energyMixins.Add(energyMixin);
@@ -253,6 +253,7 @@ namespace VehicleFramework.VehicleBuilding
                 // Configure energy mixin for this battery slot
                 var energyMixin = vb.BatterySlot.EnsureComponent<EnergyMixin>();
                 energyMixin.storageRoot = mv.StorageRootObject.GetComponent<ChildObjectIdentifier>();
+                // BZ compatibility: Keep BZ donor collections and models game-owned; initialize controlled objects before native battery callbacks.
                 energyMixin.defaultBattery = batteryTemplate.defaultBattery;
                 energyMixin.compatibleBatteries = new List<TechType>(batteryTemplate.compatibleBatteries);
                 energyMixin.soundPowerUp = batteryTemplate.soundPowerUp;
@@ -277,6 +278,7 @@ namespace VehicleFramework.VehicleBuilding
         }
         internal static void SetupLightSounds(ModVehicle mv)
         {
+            // BZ compatibility: BZ headlight sounds are supplied by SeaTruckLights instead of Seamoth emitters.
             if (mv.LightsOnSound == null)
             {
                 mv.LightsOnSound = mv.gameObject.AddComponent<FMOD_CustomEmitter>();
@@ -294,11 +296,11 @@ namespace VehicleFramework.VehicleBuilding
             {
                 return;
             }
+            // BZ compatibility: BZ Prawn supplies light quality; bind the copied quality component to the custom light.
             if (BelowZeroVehicleAssets.Prawn == null)
             {
                 throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
             }
-            GameObject prawnHeadLight = BelowZeroVehicleAssets.Prawn.transform.Find("lights_parent/light_left").gameObject;
             foreach (VehicleFloodLight pc in lights)
             {
 
@@ -321,8 +323,7 @@ namespace VehicleFramework.VehicleBuilding
         }
         internal static void SetupVolumetricLights(ModVehicle mv)
         {
-            // BZ's stock Prawn/Seatruck headlights do not have the SN cone effect.
-            // Preserve explicitly authored effects without instantiating a legacy Seamoth.
+            // BZ compatibility: BZ donors do not contain the SN volumetric cone mesh; retain any authored effects.
             mv.volumetricLights.Clear();
             foreach (VFXVolumetricLight light in mv.GetComponentsInChildren<VFXVolumetricLight>(true))
             {
@@ -342,6 +343,7 @@ namespace VehicleFramework.VehicleBuilding
             // NEWNEW
             // What's going to happen when a vdehicle dies now?
             //lmData.explodeOnDestroy = true;
+            // BZ compatibility: BZ LiveMixinData has no invincibleInCreative member; native BZ damage rules handle game modes.
             lmData.weldable = true;
             lmData.minDamageForSound = 20f;
             /*
@@ -393,6 +395,7 @@ namespace VehicleFramework.VehicleBuilding
                     mv.VFEngine ??= mv.gameObject.AddComponent<CricketEngine>();
                     break;
             }
+            // BZ compatibility: use Prawn physics/splash assets; restore the SN Seamoth drag settings below.
             if (BelowZeroVehicleAssets.Prawn == null)
             {
                 throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
@@ -412,6 +415,7 @@ namespace VehicleFramework.VehicleBuilding
             mv.worldForces.underwaterGravity = 0f;
             mv.worldForces.aboveWaterGravity = 9.8f;
             mv.worldForces.waterDepth = 0f;
+            // BZ compatibility: Prawn uses handleDrag=false/underwaterDrag=2; the SN Seamoth donor uses true/1.
             mv.worldForces.handleDrag = true;
             mv.worldForces.underwaterDrag = 1f;
         }
@@ -427,6 +431,7 @@ namespace VehicleFramework.VehicleBuilding
         {
             var ce = mv.gameObject.AddComponent<FMOD_CustomEmitter>();
             ce.restartOnPlay = true;
+            // BZ compatibility: BZ Prawn supplies the native crush-damage sound.
             if (BelowZeroVehicleAssets.Prawn == null)
             {
                 throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
@@ -461,6 +466,7 @@ namespace VehicleFramework.VehicleBuilding
                 return;
             }
             // Enable water clipping for proper interaction with the surface of the ocean
+            // BZ compatibility: BZ Seatruck supplies the water-clip material/layer; keep the framework box shape.
             if (BelowZeroVehicleAssets.Prawn == null)
             {
                 throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
@@ -482,12 +488,12 @@ namespace VehicleFramework.VehicleBuilding
             subname.pingInstance = mv.GetComponent<PingInstance>();
             subname.colorsInitialized = 0;
             subname.hullName = mv.StorageRootObject.AddComponent<TMPro.TextMeshProUGUI>(); // DO NOT push a TMPro.TextMeshProUGUI on the root vehicle object!!!
-
             mv.subName = subname;
             mv.SetName(mv.vehicleDefaultName);
         }
         internal static void SetupCollisionSound(ModVehicle mv)
         {
+            // BZ compatibility: BZ has no live Seamoth collision-sound component; reuse available native FMOD events.
             CollisionSound sound = mv.gameObject.EnsureComponent<CollisionSound>();
             sound.hitSoundSmall = BelowZeroVehicleAssets.SmallImpactSound;
             sound.hitSoundSlow = BelowZeroVehicleAssets.Prawn.GetComponent<SoundOnDamage>().sound;
@@ -509,6 +515,7 @@ namespace VehicleFramework.VehicleBuilding
             // TODO: this might not work, might need to put it in a VehicleStatusListener
             var sod = mv.gameObject.EnsureComponent<SoundOnDamage>();
             sod.damageType = DamageType.Normal;
+            // BZ compatibility: BZ Prawn supplies the native damage sound.
             if (BelowZeroVehicleAssets.Prawn == null)
             {
                 throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
@@ -540,10 +547,7 @@ namespace VehicleFramework.VehicleBuilding
 
             // add temperaturedamage
             var tempdamg = mv.gameObject.EnsureComponent<TemperatureDamage>();
-            if (BelowZeroVehicleAssets.Prawn == null)
-            {
-                throw Admin.SessionManager.Fatal("BelowZeroVehicleAssets.Prawn is null! Did you forget to call BelowZeroVehicleAssets.EnsureLoaded()?");
-            }
+            // BZ compatibility: TemperatureDamage has no lavaDatabase field; no donor lookup is needed.
             tempdamg.liveMixin = mv.liveMixin;
             tempdamg.baseDamagePerSecond = 2.0f; // 10 times what the seamoth takes, since the Atrama 
             // the following configurations are the same values the seamoth takes
@@ -648,6 +652,7 @@ namespace VehicleFramework.VehicleBuilding
             SetupLightSounds(mv);
             SetupLiveMixin(mv);
             SetupRigidbody(mv);
+            // BZ compatibility: BZ Vehicle/Dockable require initialized docking arrays and explicit vehicle, rigidbody and energy links.
             if (mv.disableOnDock is null)
             {
                 mv.disableOnDock = System.Array.Empty<GameObject>();
@@ -657,6 +662,8 @@ namespace VehicleFramework.VehicleBuilding
                 mv.disableDockedColliders = System.Array.Empty<Collider>();
             }
             Dockable dockable = mv.gameObject.EnsureComponent<Dockable>();
+            // BZ Vehicle.OnPilotModeBegin uses this reference to notify and release the docking bay.
+            mv.dockable = dockable;
             dockable.vehicle = mv;
             dockable.rb = mv.useRigidbody;
             dockable.energyInterface = mv.energyInterface;
@@ -672,6 +679,7 @@ namespace VehicleFramework.VehicleBuilding
             SetupDamageComponents(mv);
             SetupLavaLarvaAttachPoints(mv);
             SetupDenyBuildingTags(mv);
+            // BZ compatibility: BZ Vehicle accepts one collision-model object; the serialized group preserves the framework array contract and clone remapping.
             GameObject collisionGroup = new GameObject("VehicleCollisionGroup");
             collisionGroup.transform.SetParent(mv.transform, false);
             collisionGroup.AddComponent<VehicleCollisionGroup>().Configure(mv.CollisionModel);
@@ -703,16 +711,15 @@ namespace VehicleFramework.VehicleBuilding
         }
         internal static void ApplyGlassMaterial(ModVehicle mv)
         {
-            if (mv.CanopyWindows == null || mv.CanopyWindows.Count == 0)
+            if(mv.CanopyWindows == null || mv.CanopyWindows.Count == 0)
             {
                 return;
             }
-            foreach (Renderer renderer in mv.GetComponentsInChildren<Renderer>(true))
+            // Add the [marmoset] shader to all renderers
+            foreach (Renderer renderer in mv.gameObject.GetComponentsInChildren<Renderer>(true).Where(x => mv.CanopyWindows.Contains(x.gameObject)))
             {
-                if (mv.CanopyWindows.Contains(renderer.gameObject))
-                {
-                    renderer.sharedMaterial = BelowZeroVehicleAssets.GlassMaterial;
-                }
+                // BZ compatibility: use framework-owned Seatruck glass because the SN Seamoth material is unavailable.
+                renderer.material = BelowZeroVehicleAssets.GlassMaterial;
             }
         }
         internal static void ApplyShaders(ModVehicle mv, Shader shader)

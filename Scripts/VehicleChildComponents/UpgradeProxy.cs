@@ -1,5 +1,9 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using VehicleFramework.Assets;
 
@@ -7,9 +11,10 @@ namespace VehicleFramework.VehicleChildComponents
 {
     public class UpgradeProxy : MonoBehaviour
     {
-        public List<Transform> proxies = new List<Transform>();
-        public List<VehicleUpgradeConsoleInput.Slot> slots = new List<VehicleUpgradeConsoleInput.Slot>();
+        public List<Transform> proxies = new();
+        public List<VehicleUpgradeConsoleInput.Slot> slots = new();
 
+        // BZ compatibility: BZ Seatruck keys use a skinned donor renderer; copy its rest mesh into owned proxy visuals after references are assigned.
         /// <summary>
         /// Begins initializing the proxy visuals after the creator assigns its references.
         /// </summary>

@@ -153,6 +153,7 @@ namespace VehicleFramework.Patches
 			}
 			return true;
 		}
+		// BZ compatibility: BZ SubRoot has no GetTemperature method to patch; the other framework overrides remain.
 
 		[HarmonyPrefix]
 		[HarmonyPatch(nameof(SubRoot.UpdateThermalReactorCharge))]

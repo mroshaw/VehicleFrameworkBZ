@@ -1,4 +1,5 @@
-﻿using UWE;
+﻿// BZ compatibility: BZ resolves TaskResult through UWE rather than the SN namespace imports.
+using UWE;
 using System.Collections;
 using System.Linq;
 using HarmonyLib;
