@@ -117,6 +117,13 @@ namespace VehicleFramework.Patches
         public static bool UpdateMotorModePrefix(Player __instance)
         {
             VehicleTypes.Submarine? mv = __instance.GetVehicle() as VehicleTypes.Submarine;
+            if (mv != null && mv.IsPlayerControlling() && __instance.mode == Player.Mode.LockedPiloting)
+            {
+                // BZ accepts the submarine assignment during locked entry, unlike SN's sub-change cooldown.
+                // Its native motor update then selects Walk, allowing mouse look instead of the vehicle camera.
+                __instance.SetMotorMode(Player.MotorMode.Vehicle);
+                return false;
+            }
             if (mv != null && !mv.IsPlayerControlling())
             {
                 // ensure: if we're in a modvehicle and we're not piloting, then we're walking.
